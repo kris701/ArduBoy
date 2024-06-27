@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ArduBoy.Compiler.Models.Script.Declarations;
 
 namespace ArduBoy.Compiler.Models.Script
 {
-    public class ArduBoyScriptDefinition
+    public class ArduBoyScriptDefinition : BaseNode
     {
-        public List<INode> Nodes { get; set; }
-        public ArduBoyScriptDefinition() 
+        public NameDecl? Name { get; set; }
+        public StaticsDecl? Statics { get; set; }
+        public List<FuncDecl> Funcs { get; set; }
+
+        public ArduBoyScriptDefinition()
         {
-            Nodes = new List<INode>();        
+            Funcs = new List<FuncDecl>();
         }
     }
 }

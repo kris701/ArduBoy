@@ -2,11 +2,6 @@
 using ArduBoy.Compiler.Models.Script;
 using ArduBoy.Compiler.Models.Script.Declarations;
 using ArduBoy.Compiler.Models.Script.Expressions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArduBoy.Compiler.Parsers.Visitors
 {
@@ -15,59 +10,53 @@ namespace ArduBoy.Compiler.Parsers.Visitors
         public IDecl VisitDecl(ASTNode node)
         {
             IDecl? returnNode;
-            if ((returnNode = TryVisitIfDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitDefineDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitGotoLabelDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitGotoDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitStaticsDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitNameDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitFuncDeclaration(node)) != null) return returnNode;
             if ((returnNode = TryVisitWaitDeclaration(node)) != null) return returnNode;
 
             throw new Exception($"Could not parse content of node: '{node}'");
         }
 
-        public IDecl? TryVisitIfDeclaration(ASTNode node)
-        {
-            if (IsOfValidNodeType(node.Content, "if"))
-            {
-                var inner = node.Content.Substring(node.Content.IndexOf(' ')).Trim();
-                var exp = TryVisitComparisonExp(new ASTNode(inner)) as ComparisonExp;
-                var branch = new List<INode>();
-                foreach (var child in node.Children)
-                    branch.Add(VisitDecl(child));
 
-                return new IfNode(exp, branch);
-            }
-            return null;
-        }
-
-        public IDecl? TryVisitDefineDeclaration(ASTNode node)
+        public IDecl? TryVisitStaticsDeclaration(ASTNode node)
         {
-            if (IsOfValidNodeType(node.Content, "define") &&
-                DoesContentContainNLooseChildren(node, "define", 2))
+            if (IsOfValidNodeType(node.Content, ":statics") &&
+                DoesNodeHaveSpecificChildCount(node, ":statics", 1))
             {
                 var split = node.Content.Split(' ');
-                var newDefine = new StaticDefineNode(split[1], TryVisitValueExp(new ASTNode(split[2])) as ValueExpression);
+                var statics = new List<StaticsExp>();
+                foreach (var child in node.Children[0].Children)
+                    statics.Add(TryVisitStaticsExp(child) as StaticsExp);
+                var newDefine = new StaticsDecl(statics);
 
                 return newDefine;
             }
             return null;
         }
 
-        public IDecl? TryVisitGotoLabelDeclaration(ASTNode node)
+        public IDecl? TryVisitNameDeclaration(ASTNode node)
         {
-            if (node.Content.StartsWith(':'))
+            if (IsOfValidNodeType(node.Content, ":name"))
             {
-                var newLabel = new GotoLabelNode(node.Content.Substring(1));
+                var newLabel = new NameDecl(RemoveNodeTypeAndEscapeChars(node.Content, ":name"));
                 return newLabel;
             }
             return null;
         }
 
-        public IDecl? TryVisitGotoDeclaration(ASTNode node)
+        public IDecl? TryVisitFuncDeclaration(ASTNode node)
         {
-            if (IsOfValidNodeType(node.Content, "goto") &&
-                DoesContentContainNLooseChildren(node, "goto", 1))
+            if (IsOfValidNodeType(node.Content, ":func") &&
+                DoesContentContainNLooseChildren(node, ":func", 1))
             {
-                var newLabel = new GotoNode(node.Content.Split(' ')[1]);
+                var exp = new List<INode>();
+                foreach (var child in node.Children[0].Children)
+                    if (child.Content != "")
+                        exp.Add(VisitExp(child));
+                var newLabel = new FuncDecl(
+                    RemoveNodeTypeAndEscapeChars(node.Content, ":func"),
+                    exp);
                 return newLabel;
             }
             return null;
@@ -75,8 +64,8 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 
         public IDecl? TryVisitWaitDeclaration(ASTNode node)
         {
-            if (IsOfValidNodeType(node.Content, "wait") &&
-                DoesContentContainNLooseChildren(node, "wait", 1))
+            if (IsOfValidNodeType(node.Content, ":wait") &&
+                DoesContentContainNLooseChildren(node, ":wait", 1))
             {
                 var newLabel = new WaitNode(int.Parse(node.Content.Split(' ')[1]));
                 return newLabel;

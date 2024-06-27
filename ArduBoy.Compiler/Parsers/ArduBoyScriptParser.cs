@@ -1,11 +1,7 @@
 ﻿using ArduBoy.Compiler.Models.AST;
 using ArduBoy.Compiler.Models.Script;
+using ArduBoy.Compiler.Models.Script.Declarations;
 using ArduBoy.Compiler.Parsers.Visitors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArduBoy.Compiler.Parsers
 {
@@ -16,7 +12,15 @@ namespace ArduBoy.Compiler.Parsers
             var newDef = new ArduBoyScriptDefinition();
             var visitor = new ParserVisitor();
             foreach (var child in node.Children)
-                newDef.Nodes.Add(visitor.VisitDecl(child));
+            {
+                var visited = visitor.VisitDecl(child);
+                switch (visited)
+                {
+                    case NameDecl d: newDef.Name = d; break;
+                    case StaticsDecl d: newDef.Statics = d; break;
+                    case FuncDecl d: newDef.Funcs.Add(d); break;
+                }
+            }
             return newDef;
         }
     }

@@ -1,9 +1,5 @@
 ﻿using ArduBoy.Compiler.Models.Script;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ArduBoy.Compiler.CodeGenerators.Visitors
 {
@@ -12,8 +8,9 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
         public string Visit(ArduBoyScriptDefinition node)
         {
             var sb = new StringBuilder();
-            foreach (var child in node.Nodes)
-                AppendIfNotEmpty(sb,Visit((dynamic)child));
+            foreach (var func in node.Funcs)
+                if (func.Content.Count > 0)
+                    sb.AppendLine(Visit(func));
             return sb.ToString();
         }
 

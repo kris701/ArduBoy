@@ -1,10 +1,4 @@
-﻿using ArduBoy.Compiler.Models.Script;
-using ArduBoy.Compiler.Models.Script.Expressions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ArduBoy.Compiler.Models.Script.Expressions;
 
 namespace ArduBoy.Compiler.CodeGenerators.Visitors
 {
@@ -24,7 +18,12 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
                 default: throw new Exception("Invalid comparison!");
             }
 
-            return $"{node.Left} {typeCode} {node.Right}";
+            return $"{node.Left} {node.Type} {node.Right}";
+        }
+
+        public string Visit(CallExp node)
+        {
+            return $":call {node.Name}";
         }
     }
 }

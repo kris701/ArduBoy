@@ -1,0 +1,29 @@
+(
+	(:name Test)
+	(:statics 
+		(
+			(:static test 15)
+		)
+	)
+
+	(:func Setup
+		(
+		)
+	)
+
+	(:func Loop
+		(
+			(:if (1 == test) (
+				(:wait 2000)
+				(:call other)
+			))
+			(:wait 1000)
+		)
+	)
+
+	(:func other
+		(
+			(:wait 10000)
+		)
+	)
+)

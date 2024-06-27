@@ -2,7 +2,6 @@
 using ArduBoy.Compiler.CodeGenerators;
 using ArduBoy.Compiler.Contextualisers;
 using ArduBoy.Compiler.Parsers;
-using System.Text;
 
 namespace ArduBoy.Compiler
 {
