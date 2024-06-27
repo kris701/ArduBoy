@@ -13,8 +13,15 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
         {
             var sb = new StringBuilder();
             foreach (var child in node.Nodes)
-                sb.AppendLine(Visit((dynamic)child));
+                AppendIfNotEmpty(sb,Visit((dynamic)child));
             return sb.ToString();
+        }
+
+        internal void AppendIfNotEmpty(StringBuilder sb, string value)
+        {
+            if (value == "")
+                return;
+            sb.AppendLine(value);
         }
     }
 }

@@ -20,6 +20,11 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
             return $"{OperatorCodes.GotoCode}{node.To}";
         }
 
+        public string Visit(WaitNode node)
+        {
+            return $"{OperatorCodes.WaitCode}{node.WaitTime}";
+        }
+
         public string Visit(StaticDefineNode node)
         {
             return "";
@@ -31,7 +36,7 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
             var sb = new StringBuilder();
             sb.AppendLine($"{OperatorCodes.IfCode} {node.Branch.Count} {Visit(node.Expression)}");
             foreach(var child in node.Branch)
-                sb.AppendLine(Visit((dynamic)child));
+                AppendIfNotEmpty(sb, Visit((dynamic)child));
             return sb.ToString();
         }
     }

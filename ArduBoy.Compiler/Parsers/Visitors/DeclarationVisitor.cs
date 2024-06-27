@@ -19,6 +19,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             if ((returnNode = TryVisitDefineDeclaration(node)) != null) return returnNode;
             if ((returnNode = TryVisitGotoLabelDeclaration(node)) != null) return returnNode;
             if ((returnNode = TryVisitGotoDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitWaitDeclaration(node)) != null) return returnNode;
 
             throw new Exception($"Could not parse content of node: '{node}'");
         }
@@ -67,6 +68,17 @@ namespace ArduBoy.Compiler.Parsers.Visitors
                 DoesContentContainNLooseChildren(node, "goto", 1))
             {
                 var newLabel = new GotoNode(node.Content.Split(' ')[1]);
+                return newLabel;
+            }
+            return null;
+        }
+
+        public IDecl? TryVisitWaitDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, "wait") &&
+                DoesContentContainNLooseChildren(node, "wait", 1))
+            {
+                var newLabel = new WaitNode(int.Parse(node.Content.Split(' ')[1]));
                 return newLabel;
             }
             return null;

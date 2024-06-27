@@ -12,7 +12,14 @@ namespace ArduBoy.Compiler.ASTGenerators
     {
         public ASTNode Generate(string text)
         {
-            text = $"{{START{Environment.NewLine}{text}}}";
+            text = text.Trim();
+            //if (!text.StartsWith('{'))
+            //    text.Insert(0, "{");
+            //if (!text.EndsWith('}'))
+            //    text.Append('}');
+            //text = text.Replace(Environment.NewLine, "}{");
+            //text = text.Replace("\t", "{");
+            text = $"{{START {text}}}";
             var node = GenerateRec(text);
             return node;
         }

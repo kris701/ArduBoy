@@ -10,12 +10,7 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
 {
     public partial class GeneratorVisitors
     {
-        public string Visit(ValueExpression node)
-        {
-            if (node.Value != null)
-                return node.Value;
-            return Visit(node.Reference);
-        }
+        public string Visit(ValueExpression node) => node.Value;
 
         public string Visit(ComparisonExp node)
         {

@@ -8,9 +8,12 @@ namespace ArduBoy.Compiler.CLI
         {
             var compiler = new ArduBoyCompiler();
             var text = 
-                "{DEFINE test 23}" + Environment.NewLine +
+                "{DEFINE true 1}" + Environment.NewLine +
                 "{:label}" + Environment.NewLine +
-                "{IF 1 == test {GOTO end}}" + Environment.NewLine +
+                "{IF INPUT(UP) == true " + Environment.NewLine +
+                "   {GOTO end}" + Environment.NewLine +
+                "   {GOTO end}}" + Environment.NewLine +
+                "{WAIT 1000}" + Environment.NewLine +
                 "{GOTO label}" + Environment.NewLine +
                 "{:end}";
 
