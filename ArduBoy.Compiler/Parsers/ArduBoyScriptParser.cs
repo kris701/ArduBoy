@@ -16,7 +16,7 @@ namespace ArduBoy.Compiler.Parsers
             var newDef = new ArduBoyScriptDefinition();
             var visitor = new ParserVisitor();
             foreach (var child in node.Children)
-                newDef.Nodes.Add(visitor.VisitDecl(child, null));
+                newDef.Nodes.Add(visitor.VisitDecl(child));
             return newDef;
         }
     }

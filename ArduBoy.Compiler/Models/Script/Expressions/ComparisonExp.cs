@@ -8,15 +8,20 @@ namespace ArduBoy.Compiler.Models.Script.Expressions
 {
     public class ComparisonExp : BaseNode, IExp
     {
-        public string Left { get; set; }
-        public string Right { get; set; }
+        public ValueExpression Left { get; set; }
+        public ValueExpression Right { get; set; }
         public string Type { get; set; }
 
-        public ComparisonExp(INode parent, string left, string right, string type) : base(parent)
+        public ComparisonExp(ValueExpression left, ValueExpression right, string type)
         {
             Left = left;
             Right = right;
             Type = type;
+        }
+
+        public override string ToString()
+        {
+            return $"{Left} {Type} {Right}";
         }
     }
 }

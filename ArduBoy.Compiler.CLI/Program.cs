@@ -10,7 +10,7 @@ namespace ArduBoy.Compiler.CLI
             var text = 
                 "{DEFINE test 23}" + Environment.NewLine +
                 "{:label}" + Environment.NewLine +
-                "{IF 1 == test {GOTO :end}}" + Environment.NewLine +
+                "{IF 1 == test {GOTO end}}" + Environment.NewLine +
                 "{GOTO label}" + Environment.NewLine +
                 "{:end}";
 

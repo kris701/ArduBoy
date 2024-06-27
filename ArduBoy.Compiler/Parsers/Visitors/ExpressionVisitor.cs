@@ -11,22 +11,23 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 {
     public partial class ParserVisitor
     {
-        public IExp VisitExp(ASTNode node, INode? parent)
+        public IExp VisitExp(ASTNode node)
         {
             IExp? returnNode;
-            if ((returnNode = TryVisitComparisonExp(node, parent)) != null) return returnNode;
+            if ((returnNode = TryVisitComparisonExp(node)) != null) return returnNode;
+            if ((returnNode = TryVisitValueExp(node)) != null) return returnNode;
 
             throw new Exception($"Could not parse content of node: '{node}'");
         }
 
-        public IExp? TryVisitComparisonExp(ASTNode node, INode? parent)
+        public IExp? TryVisitComparisonExp(ASTNode node)
         {
             if (DoesContentContainNLooseChildren(node, "", 3))
             {
                 var split = node.Content.Split(' ');
-                var left = split[0];
+                var left = TryVisitValueExp(new ASTNode(split[0])) as ValueExpression;
                 var comparere = split[1];
-                var right = split[2];
+                var right = TryVisitValueExp(new ASTNode(split[2])) as ValueExpression;
 
                 switch (comparere)
                 {
@@ -38,7 +39,16 @@ namespace ArduBoy.Compiler.Parsers.Visitors
                     default: throw new Exception($"Invalid comparison method: '{comparere}'");
                 }
 
-                return new ComparisonExp(parent, left, right, comparere);
+                return new ComparisonExp(left, right, comparere);
+            }
+            return null;
+        }
+
+        public IExp? TryVisitValueExp(ASTNode node)
+        {
+            if (node.Content != "")
+            {
+                return new ValueExpression(node.Content);
             }
             return null;
         }

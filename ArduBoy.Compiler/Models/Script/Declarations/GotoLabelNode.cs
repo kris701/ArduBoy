@@ -10,9 +10,14 @@ namespace ArduBoy.Compiler.Models.Script.Declarations
     {
         public string Label { get; set; }
 
-        public GotoLabelNode(INode parent, string label) : base(parent)
+        public GotoLabelNode(string label)
         {
             Label = label;
+        }
+
+        public override string ToString()
+        {
+            return $":{Label}";
         }
     }
 }

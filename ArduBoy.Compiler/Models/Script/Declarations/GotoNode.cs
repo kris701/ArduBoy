@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ArduBoy.Compiler.Models.Script.Declarations
 {
@@ -10,9 +11,14 @@ namespace ArduBoy.Compiler.Models.Script.Declarations
     {
         public string To { get; set; }
 
-        public GotoNode(INode parent, string to) : base(parent)
+        public GotoNode(string to)
         {
             To = to;
+        }
+
+        public override string ToString()
+        {
+            return $"GOTO {To}";
         }
     }
 }
