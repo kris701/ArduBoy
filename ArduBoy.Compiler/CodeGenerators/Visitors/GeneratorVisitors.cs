@@ -9,8 +9,7 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
         {
             var sb = new StringBuilder();
             foreach (var func in node.Funcs)
-                if (func.Content.Count > 0)
-                    sb.AppendLine(Visit(func));
+                sb.AppendLine(Visit(func));
             return sb.ToString();
         }
 
