@@ -6,7 +6,15 @@ namespace ArduBoy.Compiler.CLI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var compiler = new ArduBoyCompiler();
+            var text = 
+                "{DEFINE test 23}" + Environment.NewLine +
+                "{:label}" + Environment.NewLine +
+                "{IF 1 == test {GOTO :end}}" + Environment.NewLine +
+                "{GOTO label}" + Environment.NewLine +
+                "{:end}";
+
+            Console.WriteLine(compiler.Compile(text));
         }
     }
 }
