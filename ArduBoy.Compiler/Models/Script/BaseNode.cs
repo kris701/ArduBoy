@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace ArduBoy.Compiler.Models.Script
 {
-    public class BaseNode : INode
+    public abstract class BaseNode : INode
     {
         internal List<PropertyInfo> _metaInfo = new List<PropertyInfo>();
         private void CacheMetaInfo()

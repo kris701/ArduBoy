@@ -1,10 +1,10 @@
-﻿namespace ArduBoy.Compiler.Models.Script.Declarations
+﻿namespace ArduBoy.Compiler.Models.Script.Expressions
 {
-    public class WaitNode : BaseNode, IDecl
+    public class WaitExp : BaseNode, IExp
     {
         public int WaitTime { get; set; }
 
-        public WaitNode(int waitTime)
+        public WaitExp(int waitTime)
         {
             WaitTime = waitTime;
         }

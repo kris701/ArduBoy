@@ -10,12 +10,44 @@ namespace ArduBoy.Compiler.Parsers.Visitors
         {
             IExp? returnNode;
             if ((returnNode = TryVisitIfDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitComparisonExp(node)) != null) return returnNode;
             if ((returnNode = TryVisitStaticsExp(node)) != null) return returnNode;
             if ((returnNode = TryVisitCallExp(node)) != null) return returnNode;
+            if ((returnNode = TryVisitWaitDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitSetDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitAudioExpression(node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawLineDeclaration(node)) != null) return returnNode;
+
+            if ((returnNode = TryVisitComparisonExp(node)) != null) return returnNode;
             if ((returnNode = TryVisitValueExp(node)) != null) return returnNode;
 
             throw new Exception($"Could not parse content of node: '{node}'");
+        }
+
+        public IExp? TryVisitAudioExpression(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":audio") &&
+                DoesContentContainNLooseChildren(node, ":audio", 1))
+            {
+                var newLabel = new AudioExp(int.Parse(RemoveNodeTypeAndEscapeChars(node.Content, ":audio")));
+                return newLabel;
+            }
+            return null;
+        }
+
+        public IExp? TryVisitDrawLineDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":draw-line") &&
+                DoesContentContainNLooseChildren(node, ":draw-line", 5))
+            {
+                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-line").Split(' ');
+                var x1 = int.Parse(split[0]);
+                var y1 = int.Parse(split[1]);
+                var x2 = int.Parse(split[2]);
+                var y2 = int.Parse(split[3]);
+                var color = BaseDraw.GetColorFromString(split[4]);
+                return new DrawLineExp(x1, y1, x2, y2, color);
+            }
+            return null;
         }
 
         public IExp? TryVisitIfDeclaration(ASTNode node)
@@ -24,7 +56,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
                 DoesNodeHaveSpecificChildCount(node, ":if", 2))
             {
                 var exp = TryVisitComparisonExp(node.Children[0]) as ComparisonExp;
-                var branch = new List<INode>();
+                var branch = new List<IExp>();
                 foreach (var child in node.Children[1].Children)
                     branch.Add(VisitExp(child));
 
@@ -77,6 +109,31 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             {
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":static").Split(' ');
                 return new StaticsExp(split[0], new ValueExpression(split[1]));
+            }
+            return null;
+        }
+
+        public IExp? TryVisitWaitDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":wait") &&
+                DoesContentContainNLooseChildren(node, ":wait", 1))
+            {
+                var newLabel = new WaitExp(int.Parse(node.Content.Split(' ')[1]));
+                return newLabel;
+            }
+            return null;
+        }
+
+        public IExp? TryVisitSetDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":set") &&
+                DoesContentContainNLooseChildren(node, ":set", 2))
+            {
+                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":set").Split(' ');
+                var newLabel = new SetExp(
+                    split[0],
+                    TryVisitValueExp(new ASTNode(split[1])) as ValueExpression);
+                return newLabel;
             }
             return null;
         }

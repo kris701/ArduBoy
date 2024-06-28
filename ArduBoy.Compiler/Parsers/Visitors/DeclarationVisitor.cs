@@ -13,11 +13,9 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             if ((returnNode = TryVisitStaticsDeclaration(node)) != null) return returnNode;
             if ((returnNode = TryVisitNameDeclaration(node)) != null) return returnNode;
             if ((returnNode = TryVisitFuncDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitWaitDeclaration(node)) != null) return returnNode;
-
+            
             throw new Exception($"Could not parse content of node: '{node}'");
         }
-
 
         public IDecl? TryVisitStaticsDeclaration(ASTNode node)
         {
@@ -62,15 +60,5 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             return null;
         }
 
-        public IDecl? TryVisitWaitDeclaration(ASTNode node)
-        {
-            if (IsOfValidNodeType(node.Content, ":wait") &&
-                DoesContentContainNLooseChildren(node, ":wait", 1))
-            {
-                var newLabel = new WaitNode(int.Parse(node.Content.Split(' ')[1]));
-                return newLabel;
-            }
-            return null;
-        }
     }
 }

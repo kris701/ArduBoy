@@ -1,17 +1,29 @@
 ﻿namespace ArduBoy.Compiler.CodeGenerators
 {
-    public class OperatorCodes
+    public static class OperatorCodes
     {
-        public static byte GotoLabelCode = 0x0;
-        public static byte GotoCode = 0x1;
+        private static Dictionary<string, byte> _opCodes = new Dictionary<string, byte>()
+        {
+            { ":", 0x0 },
+            { ":call", 0x1 },
+            { ":if", 0x2 },
+            { ":wait", 0x3 },
+            { ":set", 0x4 },
+            { ":audio", 0x5 },
+            { ":draw-line", 0x6 },
 
-        public static byte IfCode = 0x2;
+            { "==", 0x90 },
+            { "<", 0x91 },
+            { ">", 0x92 },
+            { "!=", 0x93 },
+        };
 
-        public static byte EQCode = 0x3;
-        public static byte LTCode = 0x4;
-        public static byte GTCode = 0x5;
-        public static byte NEQCode = 0x6;
-
-        public static byte WaitCode = 0x7;
+        public static string GetByteCode(string id)
+        {
+#if DEBUG
+            return id;
+#endif
+            return $"{_opCodes[id.ToLower()]}";
+        }
     }
 }

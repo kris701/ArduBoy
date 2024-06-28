@@ -3,9 +3,9 @@
     public class IfNode : BaseNode, IExp
     {
         public ComparisonExp Expression { get; set; }
-        public List<INode> Content { get; set; }
+        public List<IExp> Content { get; set; }
 
-        public IfNode(ComparisonExp expression, List<INode> branch)
+        public IfNode(ComparisonExp expression, List<IExp> branch)
         {
             Expression = expression;
             Content = branch;

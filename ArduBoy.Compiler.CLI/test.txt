@@ -8,6 +8,9 @@
 
 	(:func Setup
 		(
+			(:set abc 2)
+			(:audio 500)
+			(:draw-line 0 0 128 128 RED)
 		)
 	)
 
@@ -16,6 +19,7 @@
 			(:if (1 == test) (
 				(:wait 2000)
 				(:call other)
+				(:set abc 1)
 			))
 			(:wait 1000)
 		)
