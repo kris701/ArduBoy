@@ -8,6 +8,8 @@ namespace ArduBoy.Compiler.ASTGenerators
         public ASTNode Generate(string text)
         {
             text = text.Trim();
+            text = TextPreprocessing.ReplaceCommentsWithWhiteSpace(text);
+            text = TextPreprocessing.ReplaceSpecialCharacters(text);
             var node = GenerateRec(text);
             return node;
         }

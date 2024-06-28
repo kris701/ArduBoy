@@ -11,6 +11,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
         {
             IDecl? returnNode;
             if ((returnNode = TryVisitStaticsDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitIncludesDeclaration(node)) != null) return returnNode;
             if ((returnNode = TryVisitNameDeclaration(node)) != null) return returnNode;
             if ((returnNode = TryVisitFuncDeclaration(node)) != null) return returnNode;
             
@@ -27,6 +28,22 @@ namespace ArduBoy.Compiler.Parsers.Visitors
                 foreach (var child in node.Children[0].Children)
                     statics.Add(TryVisitStaticsExp(child) as StaticsExp);
                 var newDefine = new StaticsDecl(statics);
+
+                return newDefine;
+            }
+            return null;
+        }
+
+        public IDecl? TryVisitIncludesDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":includes") &&
+                DoesNodeHaveSpecificChildCount(node, ":includes", 1))
+            {
+                var split = node.Content.Split(' ');
+                var includes = new List<IncludeExp>();
+                foreach (var child in node.Children[0].Children)
+                    includes.Add(TryVisitIncludeExp(child) as IncludeExp);
+                var newDefine = new IncludesDecl(includes);
 
                 return newDefine;
             }

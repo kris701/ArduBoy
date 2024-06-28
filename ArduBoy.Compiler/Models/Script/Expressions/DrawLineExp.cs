@@ -9,12 +9,12 @@ namespace ArduBoy.Compiler.Models.Script.Expressions
 {
     public class DrawLineExp : BaseDraw
     {
-        public int X1 { get; set; }
-        public int Y1 { get; set; }
-        public int X2 { get; set; }
-        public int Y2 { get; set; }
+        public ValueExpression X1 { get; set; }
+        public ValueExpression Y1 { get; set; }
+        public ValueExpression X2 { get; set; }
+        public ValueExpression Y2 { get; set; }
 
-        public DrawLineExp(int x1, int y1, int x2, int y2, DrawColor color) : base(color)
+        public DrawLineExp(ValueExpression x1, ValueExpression y1, ValueExpression x2, ValueExpression y2, ValueExpression color) : base(color)
         {
             X1 = x1;
             Y1 = y1;

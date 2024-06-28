@@ -8,23 +8,11 @@ namespace ArduBoy.Compiler.Models.Script.Expressions
 {
     public abstract class BaseDraw : BaseNode, IExp
     {
-        public enum DrawColor { Green, Blue, Red }
-        public DrawColor Color { get; set; }
+        public ValueExpression Color { get; set; }
 
-        protected BaseDraw(DrawColor color)
+        protected BaseDraw(ValueExpression color)
         {
             Color = color;
-        }
-
-        public static DrawColor GetColorFromString(string from)
-        {
-            switch (from.ToLower())
-            {
-                case "green": return DrawColor.Green;
-                case "blue": return DrawColor.Blue;
-                case "red": return DrawColor.Red;
-            }
-            throw new Exception($"Unknown color: {from}");
         }
     }
 }

@@ -11,6 +11,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             IExp? returnNode;
             if ((returnNode = TryVisitIfDeclaration(node)) != null) return returnNode;
             if ((returnNode = TryVisitStaticsExp(node)) != null) return returnNode;
+            if ((returnNode = TryVisitIncludeExp(node)) != null) return returnNode;
             if ((returnNode = TryVisitCallExp(node)) != null) return returnNode;
             if ((returnNode = TryVisitWaitDeclaration(node)) != null) return returnNode;
             if ((returnNode = TryVisitSetDeclaration(node)) != null) return returnNode;
@@ -40,11 +41,11 @@ namespace ArduBoy.Compiler.Parsers.Visitors
                 DoesContentContainNLooseChildren(node, ":draw-line", 5))
             {
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-line").Split(' ');
-                var x1 = int.Parse(split[0]);
-                var y1 = int.Parse(split[1]);
-                var x2 = int.Parse(split[2]);
-                var y2 = int.Parse(split[3]);
-                var color = BaseDraw.GetColorFromString(split[4]);
+                var x1 = TryVisitValueExp(new ASTNode(split[0])) as ValueExpression;
+                var y1 = TryVisitValueExp(new ASTNode(split[1])) as ValueExpression;
+                var x2 = TryVisitValueExp(new ASTNode(split[2])) as ValueExpression;
+                var y2 = TryVisitValueExp(new ASTNode(split[3])) as ValueExpression;
+                var color = TryVisitValueExp(new ASTNode(split[4])) as ValueExpression;
                 return new DrawLineExp(x1, y1, x2, y2, color);
             }
             return null;
@@ -109,6 +110,15 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             {
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":static").Split(' ');
                 return new StaticsExp(split[0], new ValueExpression(split[1]));
+            }
+            return null;
+        }
+
+        public IExp? TryVisitIncludeExp(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":include"))
+            {
+                return new IncludeExp(RemoveNodeTypeAndEscapeChars(node.Content, ":include"));
             }
             return null;
         }

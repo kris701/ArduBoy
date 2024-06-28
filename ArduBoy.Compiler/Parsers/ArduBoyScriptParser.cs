@@ -18,6 +18,7 @@ namespace ArduBoy.Compiler.Parsers
                 {
                     case NameDecl d: newDef.Name = d; break;
                     case StaticsDecl d: newDef.Statics = d; break;
+                    case IncludesDecl d: newDef.Includes = d; break;
                     case FuncDecl d: newDef.Funcs.Add(d); break;
                 }
             }

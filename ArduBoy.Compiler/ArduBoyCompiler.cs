@@ -11,7 +11,7 @@ namespace ArduBoy.Compiler
         {
             var astGenerator = new ArduBoyScriptASTGenerator();
             var parser = new ArduBoyScriptParser();
-            var contextualiser = new ArduBoyContextualiser();
+            var contextualiser = new ArduBoyScriptContextualiser();
             var codeGenerator = new ArduBoyCodeGenerator();
 
             var ast = astGenerator.Generate(from);

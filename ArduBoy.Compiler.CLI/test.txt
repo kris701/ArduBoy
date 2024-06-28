@@ -1,5 +1,10 @@
 (
 	(:name Test)
+	(:includes
+		(
+			(:include core)
+		)
+	)
 	(:statics 
 		(
 			(:static test 15)
@@ -16,7 +21,7 @@
 
 	(:func Loop
 		(
-			(:if (1 == test) (
+			(:if (INPUT_UP == true) (
 				(:wait 2000)
 				(:call other)
 				(:set abc 1)

@@ -13,7 +13,7 @@
 
         public override string ToString()
         {
-            return $"({Name} {Value})";
+            return $"(:static {Name} {Value})";
         }
     }
 }

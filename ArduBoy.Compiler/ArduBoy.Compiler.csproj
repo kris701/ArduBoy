@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="CoreIncludes\core.abs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="CoreIncludes\core.abs" />
+  </ItemGroup>
+
 </Project>

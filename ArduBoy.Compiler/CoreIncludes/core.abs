@@ -1,0 +1,15 @@
+﻿(
+	(:name Core)
+	(:statics 
+		(
+			// Trues and falses
+			(:static true 1)
+			(:static false 0)
+
+			// Color defaults
+			(:static RED a)
+			(:static GREEN b)
+			(:static BLUE c)
+		)
+	)
+)

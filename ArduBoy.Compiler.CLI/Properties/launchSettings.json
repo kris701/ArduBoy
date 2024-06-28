@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ArduBoy.Compiler.CLI": {
+      "commandName": "Project",
+      "commandLineArgs": "-s test.txt -c"
+    }
+  }
+}
