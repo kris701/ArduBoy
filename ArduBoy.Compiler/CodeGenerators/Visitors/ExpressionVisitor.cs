@@ -7,7 +7,7 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
     {
         public string Visit(ValueExpression node) => node.Value;
 
-        public string Visit(ComparisonExp node) => $"{node.Left} {OperatorCodes.GetByteCode(node.Type)} {node.Right}";
+        public string Visit(ComparisonExp node) => $"{Visit((dynamic)node.Left)} {OperatorCodes.GetByteCode(node.Type)} {Visit((dynamic)node.Right)}";
 
         public string Visit(CallExp node)
         {
@@ -46,6 +46,11 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
         public string Visit(DrawLineExp node)
         {
             return $"{OperatorCodes.GetByteCode(":draw-line")} {node.X1} {node.Y1} {node.X2} {node.Y2} {node.Color}";
+        }
+
+        public string Visit(GotoExp node)
+        {
+            return $"{OperatorCodes.GetByteCode(":goto")} {node.Target}";
         }
     }
 }

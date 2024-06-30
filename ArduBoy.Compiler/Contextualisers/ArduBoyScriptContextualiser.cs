@@ -11,6 +11,7 @@ namespace ArduBoy.Compiler.Contextualisers
     {
         public ArduBoyScriptDefinition Contextualise(ArduBoyScriptDefinition from)
         {
+            InsertBasicGotos(from);
             InsertIncludes(from);
             ConvertVariablesToIndexes(from);
             ConvertFuncNamesToIndexes(from);
@@ -90,6 +91,17 @@ namespace ArduBoy.Compiler.Contextualisers
             foreach(var call in calls)
                 if (setMap.ContainsKey(call.Name))
                     call.Name = setMap[call.Name];
+            var gotos = from.FindTypes<GotoExp>();
+            foreach (var @goto in gotos)
+                if (setMap.ContainsKey(@goto.Target))
+                    @goto.Target = setMap[@goto.Target];
+        }
+
+        private void InsertBasicGotos(ArduBoyScriptDefinition from)
+        {
+            var loop = from.Funcs.Single(x => x.Name.ToLower() == "loop");
+            loop.Content.Add(new GotoExp(loop.Name));
+            from.Funcs.Single(x => x.Name.ToLower() == "setup").Content.Add(new GotoExp(loop.Name));
         }
     }
 }
