@@ -1,6 +1,6 @@
 ﻿using ArduBoy.Compiler.ASTGenerators;
 using ArduBoy.Compiler.CodeGenerators;
-using ArduBoy.Compiler.Contextualisers;
+using ArduBoy.Compiler.Compilers;
 using ArduBoy.Compiler.Parsers;
 using CommandLine;
 using CommandLine.Text;
@@ -40,14 +40,15 @@ namespace ArduBoy.Compiler.CLI
             var parsed = parser.Parse(ast);
             WriteLineColor("Done!", ConsoleColor.Green);
 
-            WriteColor("Contextualising...", ConsoleColor.Blue);
-            IContextualiser contextualiser = new ArduBoyScriptContextualiser();
-            var contextualised = contextualiser.Contextualise(parsed);
-            WriteLineColor("Done!", ConsoleColor.Green);
+            WriteLineColor("Compiling...", ConsoleColor.Blue);
+            ICompiler compiler = new ArduBoyScriptCompiler();
+            compiler.DoLog += (t) => WriteLineColor($"\t{t}", ConsoleColor.DarkGray);
+            var compiled = compiler.Compile(parsed);
+            WriteLineColor("Compilation complete!", ConsoleColor.Green);
 
             WriteColor("Outputting binary...", ConsoleColor.Blue);
             ICodeGenerator codeGenerator = new ArduBoyCodeGenerator();
-            var code = codeGenerator.Generate(contextualised);
+            var code = codeGenerator.Generate(compiled);
             var targetFile = Path.Combine(opts.OutPath, "bin.cabs");
             if (File.Exists(targetFile))
                 File.Delete(targetFile);

@@ -1,6 +1,5 @@
 ﻿using ArduBoy.Compiler.CodeGenerators.Visitors;
 using ArduBoy.Compiler.Models.Script;
-using System.Linq;
 
 namespace ArduBoy.Compiler.CodeGenerators
 {
@@ -21,7 +20,7 @@ namespace ArduBoy.Compiler.CodeGenerators
         private string IndexCallLines(string text)
         {
             var lines = text.Split(Environment.NewLine);
-            for(int i = 0; i < lines.Length; i++)
+            for (int i = 0; i < lines.Length; i++)
             {
                 if (lines[i].StartsWith($"{OperatorCodes.GetByteCode(":call")} "))
                 {

@@ -14,7 +14,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             if ((returnNode = TryVisitIncludesDeclaration(node)) != null) return returnNode;
             if ((returnNode = TryVisitNameDeclaration(node)) != null) return returnNode;
             if ((returnNode = TryVisitFuncDeclaration(node)) != null) return returnNode;
-            
+
             throw new Exception($"Could not parse content of node: '{node}'");
         }
 

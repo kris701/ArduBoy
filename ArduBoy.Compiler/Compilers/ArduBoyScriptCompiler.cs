@@ -5,17 +5,44 @@ using ArduBoy.Compiler.Models.Script.Expressions;
 using ArduBoy.Compiler.Parsers;
 using System.Reflection;
 
-namespace ArduBoy.Compiler.Contextualisers
+namespace ArduBoy.Compiler.Compilers
 {
-    public class ArduBoyScriptContextualiser : IContextualiser
+    public class ArduBoyScriptCompiler : ICompiler
     {
-        public ArduBoyScriptDefinition Contextualise(ArduBoyScriptDefinition from)
+        public event LogEventHandler? DoLog;
+
+        public ArduBoyScriptDefinition Compile(ArduBoyScriptDefinition from)
         {
+            DoLog?.Invoke("Checking if script is valid...");
+            CheckIfScriptAreValid(from);
+
+            DoLog?.Invoke("Inserting primary function gotos...");
             InsertBasicGotos(from);
+            DoLog?.Invoke("Merging includes...");
             InsertIncludes(from);
+            DoLog?.Invoke("Converting variables names to indexes...");
             ConvertVariablesToIndexes(from);
+            DoLog?.Invoke("Converting function names to indexes...");
             ConvertFuncNamesToIndexes(from);
             return from;
+        }
+
+        private void CheckIfScriptAreValid(ArduBoyScriptDefinition from)
+        {
+            if (!from.Funcs.Any(x => x.Name.ToLower() == "setup"))
+                throw new Exception("No setup function given!");
+            if (!from.Funcs.Any(x => x.Name.ToLower() == "loop"))
+                throw new Exception("No loop function given!");
+            if (from.Includes != null)
+            {
+                foreach (var include in from.Includes.Includes)
+                {
+                    var assembly = Assembly.GetExecutingAssembly();
+                    var resourceName = $"ArduBoy.Compiler.CoreIncludes.{include.Name}.abs";
+                    if (assembly.GetManifestResourceStream(resourceName) == null)
+                        throw new Exception($"Unknown include: {include.Name}");
+                }
+            }
         }
 
         private void InsertIncludes(ArduBoyScriptDefinition from)
@@ -25,23 +52,28 @@ namespace ArduBoy.Compiler.Contextualisers
                 if (from.Statics == null)
                     from.Statics = new StaticsDecl(new List<StaticsExp>());
 
-                var assembly = Assembly.GetExecutingAssembly();
                 foreach (var include in from.Includes.Includes)
                 {
-                    var resourceName = $"ArduBoy.Compiler.CoreIncludes.{include.Name}.abs";
-                    using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-                    using (StreamReader reader = new StreamReader(stream))
-                    {
-                        var astGenerator = new ArduBoyScriptASTGenerator();
-                        var parser = new ArduBoyScriptParser();
-                        var ast = astGenerator.Generate(reader.ReadToEnd());
-                        var parsed = parser.Parse(ast);
+                    var astGenerator = new ArduBoyScriptASTGenerator();
+                    var parser = new ArduBoyScriptParser();
+                    var ast = astGenerator.Generate(ReadEmbeddedFile(include.Name));
+                    var parsed = parser.Parse(ast);
 
-                        if (parsed.Statics != null)
-                            from.Statics.Statics.AddRange(parsed.Statics.Statics);
-                        from.Funcs.AddRange(parsed.Funcs);
-                    }
+                    if (parsed.Statics != null)
+                        from.Statics.Statics.AddRange(parsed.Statics.Statics);
+                    from.Funcs.AddRange(parsed.Funcs);
                 }
+            }
+        }
+
+        private string ReadEmbeddedFile(string target)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = $"ArduBoy.Compiler.CoreIncludes.{target}.abs";
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
             }
         }
 
@@ -88,7 +120,7 @@ namespace ArduBoy.Compiler.Contextualisers
             }
 
             var calls = from.FindTypes<CallExp>();
-            foreach(var call in calls)
+            foreach (var call in calls)
                 if (setMap.ContainsKey(call.Name))
                     call.Name = setMap[call.Name];
             var gotos = from.FindTypes<GotoExp>();

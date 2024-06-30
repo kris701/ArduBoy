@@ -2,7 +2,7 @@
 {
     public static class OperatorCodes
     {
-        private static Dictionary<string, byte> _opCodes = new Dictionary<string, byte>()
+        private static readonly Dictionary<string, byte> _opCodes = new Dictionary<string, byte>()
         {
             { ":", 0x0 },
             { ":call", 0x1 },
