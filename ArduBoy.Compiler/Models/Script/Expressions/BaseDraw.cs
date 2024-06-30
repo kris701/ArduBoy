@@ -8,9 +8,9 @@ namespace ArduBoy.Compiler.Models.Script.Expressions
 {
     public abstract class BaseDraw : BaseNode, IExp
     {
-        public ValueExpression Color { get; set; }
+        public IExp Color { get; set; }
 
-        protected BaseDraw(ValueExpression color)
+        protected BaseDraw(IExp color)
         {
             Color = color;
         }

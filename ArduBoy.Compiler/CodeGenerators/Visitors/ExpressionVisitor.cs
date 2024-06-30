@@ -38,6 +38,11 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
             return $"{OperatorCodes.GetByteCode(":audio")} {node.Value}";
         }
 
+        public string Visit(VariableExp node)
+        {
+            return $"%{node.Name}%";
+        }
+
         public string Visit(DrawLineExp node)
         {
             return $"{OperatorCodes.GetByteCode(":draw-line")} {node.X1} {node.Y1} {node.X2} {node.Y2} {node.Color}";

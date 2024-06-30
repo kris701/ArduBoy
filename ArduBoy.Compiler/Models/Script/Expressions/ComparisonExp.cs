@@ -2,11 +2,11 @@
 {
     public class ComparisonExp : BaseNode, IExp
     {
-        public ValueExpression Left { get; set; }
-        public ValueExpression Right { get; set; }
+        public IExp Left { get; set; }
+        public IExp Right { get; set; }
         public string Type { get; set; }
 
-        public ComparisonExp(ValueExpression left, ValueExpression right, string type)
+        public ComparisonExp(IExp left, IExp right, string type)
         {
             Left = left;
             Right = right;

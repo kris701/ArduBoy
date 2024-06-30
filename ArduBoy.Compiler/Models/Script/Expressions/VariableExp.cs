@@ -6,20 +6,18 @@ using System.Threading.Tasks;
 
 namespace ArduBoy.Compiler.Models.Script.Expressions
 {
-    public class SetExp : BaseNode, IExp
+    public class VariableExp : BaseNode, IExp
     {
         public string Name { get; set; }
-        public IExp Value { get; set; }
 
-        public SetExp(string name, IExp value)
+        public VariableExp(string name)
         {
             Name = name;
-            Value = value;
         }
 
         public override string ToString()
         {
-            return $"(:set {Name} {Value})";
+            return $"%{Name}%";
         }
     }
 }

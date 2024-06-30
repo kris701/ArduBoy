@@ -18,6 +18,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             if ((returnNode = TryVisitAudioExpression(node)) != null) return returnNode;
             if ((returnNode = TryVisitDrawLineDeclaration(node)) != null) return returnNode;
 
+            if ((returnNode = TryVisitVariableExp(node)) != null) return returnNode;
             if ((returnNode = TryVisitComparisonExp(node)) != null) return returnNode;
             if ((returnNode = TryVisitValueExp(node)) != null) return returnNode;
 
@@ -41,11 +42,11 @@ namespace ArduBoy.Compiler.Parsers.Visitors
                 DoesContentContainNLooseChildren(node, ":draw-line", 5))
             {
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-line").Split(' ');
-                var x1 = TryVisitValueExp(new ASTNode(split[0])) as ValueExpression;
-                var y1 = TryVisitValueExp(new ASTNode(split[1])) as ValueExpression;
-                var x2 = TryVisitValueExp(new ASTNode(split[2])) as ValueExpression;
-                var y2 = TryVisitValueExp(new ASTNode(split[3])) as ValueExpression;
-                var color = TryVisitValueExp(new ASTNode(split[4])) as ValueExpression;
+                var x1 = VisitExp(new ASTNode(split[0]));
+                var y1 = VisitExp(new ASTNode(split[1]));
+                var x2 = VisitExp(new ASTNode(split[2]));
+                var y2 = VisitExp(new ASTNode(split[3]));
+                var color = VisitExp(new ASTNode(split[4]));
                 return new DrawLineExp(x1, y1, x2, y2, color);
             }
             return null;
@@ -71,9 +72,9 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             if (DoesContentContainNLooseChildren(node, "", 3))
             {
                 var split = node.Content.Split(' ');
-                var left = TryVisitValueExp(new ASTNode(split[0])) as ValueExpression;
+                var left = VisitExp(new ASTNode(split[0]));
                 var comparere = split[1];
-                var right = TryVisitValueExp(new ASTNode(split[2])) as ValueExpression;
+                var right = VisitExp(new ASTNode(split[2]));
 
                 switch (comparere)
                 {
@@ -94,6 +95,13 @@ namespace ArduBoy.Compiler.Parsers.Visitors
         {
             if (node.Content != "")
                 return new ValueExpression(node.Content);
+            return null;
+        }
+
+        public IExp? TryVisitVariableExp(ASTNode node)
+        {
+            if (node.Content.StartsWith('%') && node.Content.EndsWith('%'))
+                return new VariableExp(node.Content.Substring(1, node.Content.Length - 2));
             return null;
         }
 
@@ -142,7 +150,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":set").Split(' ');
                 var newLabel = new SetExp(
                     split[0],
-                    TryVisitValueExp(new ASTNode(split[1])) as ValueExpression);
+                    VisitExp(new ASTNode(split[1])));
                 return newLabel;
             }
             return null;

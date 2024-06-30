@@ -14,7 +14,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
                 var nextCharacter = content[nodeType.Length];
                 if (nextCharacter == ' ')
                     return true;
-                if (nextCharacter == '{')
+                if (nextCharacter == '(')
                     return true;
                 if (nextCharacter == '\n')
                     return true;

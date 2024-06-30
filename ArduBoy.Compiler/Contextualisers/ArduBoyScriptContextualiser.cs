@@ -12,24 +12,9 @@ namespace ArduBoy.Compiler.Contextualisers
         public ArduBoyScriptDefinition Contextualise(ArduBoyScriptDefinition from)
         {
             InsertIncludes(from);
-            InsertDefines(from);
+            ConvertVariablesToIndexes(from);
+            ConvertFuncNamesToIndexes(from);
             return from;
-        }
-
-        private void InsertDefines(ArduBoyScriptDefinition from)
-        {
-            if (from.Statics != null)
-            {
-                var defineDict = new Dictionary<string, ValueExpression>();
-
-                foreach (var child in from.Statics.Statics)
-                    defineDict.Add(child.Name, child.Value);
-
-                var all = from.FindTypes<ValueExpression>();
-                foreach (var child in all)
-                    if (child.Reference == null && defineDict.Any(x => x.Key == child.Value))
-                        child.Reference = defineDict.Single(x => x.Key == child.Value).Value;
-            }
         }
 
         private void InsertIncludes(ArduBoyScriptDefinition from)
@@ -57,6 +42,54 @@ namespace ArduBoy.Compiler.Contextualisers
                     }
                 }
             }
+        }
+
+        private void ConvertVariablesToIndexes(ArduBoyScriptDefinition from)
+        {
+            var setMap = new Dictionary<string, string>();
+            var sets = from.FindTypes<SetExp>();
+            var counter = 0;
+            foreach (var set in sets)
+            {
+                if (!setMap.ContainsKey(set.Name))
+                    setMap.Add(set.Name, $"{counter++}");
+                set.Name = setMap[set.Name];
+            }
+            var statics = from.FindTypes<StaticsExp>();
+            foreach (var item in statics)
+            {
+                if (!setMap.ContainsKey(item.Name))
+                {
+                    if (item.Value.Value.StartsWith('_'))
+                        setMap.Add(item.Name, item.Value.Value);
+                    else
+                        setMap.Add(item.Name, $"{counter++}");
+                }
+                item.Name = setMap[item.Name];
+            }
+
+            var all = from.FindTypes<VariableExp>();
+            foreach (var child in all)
+                if (setMap.ContainsKey(child.Name))
+                    child.Name = setMap[child.Name];
+        }
+
+        private void ConvertFuncNamesToIndexes(ArduBoyScriptDefinition from)
+        {
+            var setMap = new Dictionary<string, string>();
+            var sets = from.FindTypes<FuncDecl>();
+            var counter = 0;
+            foreach (var set in sets)
+            {
+                if (!setMap.ContainsKey(set.Name))
+                    setMap.Add(set.Name, $"{counter++}");
+                set.Name = setMap[set.Name];
+            }
+
+            var calls = from.FindTypes<CallExp>();
+            foreach(var call in calls)
+                if (setMap.ContainsKey(call.Name))
+                    call.Name = setMap[call.Name];
         }
     }
 }
