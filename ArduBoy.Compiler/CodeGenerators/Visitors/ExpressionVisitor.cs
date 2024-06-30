@@ -40,7 +40,7 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
 
         public string Visit(VariableExp node)
         {
-            return $"%{node.Name}%";
+            return $"%{node.Name}";
         }
 
         public string Visit(DrawLineExp node)
