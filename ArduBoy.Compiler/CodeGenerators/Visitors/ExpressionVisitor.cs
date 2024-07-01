@@ -60,6 +60,8 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
 
         public string Visit(VariableExp node)
         {
+            if (node.IsStatic)
+                return node.Name;
             return $"%{node.Name}";
         }
 

@@ -105,7 +105,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
         public IExp? TryVisitVariableExp(ASTNode node)
         {
             if (node.Content.StartsWith('%') && node.Content.EndsWith('%'))
-                return new VariableExp(node.Content.Substring(1, node.Content.Length - 2));
+                return new VariableExp(node.Content.Substring(1, node.Content.Length - 2), false);
             return null;
         }
 

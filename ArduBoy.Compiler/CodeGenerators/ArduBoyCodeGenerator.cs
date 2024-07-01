@@ -12,16 +12,14 @@ namespace ArduBoy.Compiler.CodeGenerators
             while (retStr.Contains($"{Environment.NewLine}{Environment.NewLine}"))
                 retStr = retStr.Replace($"{Environment.NewLine}{Environment.NewLine}", Environment.NewLine);
 
-            retStr = IndexCallLines(retStr);
+            retStr = ConvertLineIndexesToCharacterIndexes(retStr);
 
             return retStr;
         }
 
-        private string IndexCallLines(string text)
+        private string ConvertLineIndexesToCharacterIndexes(string text)
         {
             var targets = new Dictionary<int, int>();
-
-
             var lines = text.Split(Environment.NewLine);
             for (int i = 0; i < lines.Length; i++)
             {
@@ -99,18 +97,6 @@ namespace ArduBoy.Compiler.CodeGenerators
             }
 
             return string.Join('\n', lines);
-        }
-
-        private int GetLineByCharacter(string[] lines, int offset, int character)
-        {
-            var count = 1;
-            for (int i = offset; i < lines.Length; i++)
-            {
-                count += lines[i].Length + 1;
-                if (count > character)
-                    return i;
-            }
-            return count;
         }
 
         private int GetCharacterByLine(string[] lines, int line)

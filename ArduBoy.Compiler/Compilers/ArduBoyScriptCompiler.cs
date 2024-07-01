@@ -88,21 +88,17 @@ namespace ArduBoy.Compiler.Compilers
             }
             var statics = from.FindTypes<StaticsExp>();
             foreach (var item in statics)
-            {
                 if (!setMap.ContainsKey(item.Name))
-                {
-                    if (item.Value.Value.StartsWith('_'))
-                        setMap.Add(item.Name, item.Value.Value);
-                    else
-                        setMap.Add(item.Name, $"{counter++}");
-                }
-                item.Name = setMap[item.Name];
-            }
+                    setMap.Add(item.Name, item.Value.Value);
 
             var all = from.FindTypes<INamedNode>();
             foreach (var child in all)
+            {
                 if (setMap.ContainsKey(child.Name))
                     child.Name = setMap[child.Name];
+                if (child is VariableExp exp && !exp.Name.StartsWith('_') && statics.Any(x => x.Name == exp.Name))
+                    exp.IsStatic = true;
+            }
         }
 
         private void InsertBasicGotos(ArduBoyScriptDefinition from)
