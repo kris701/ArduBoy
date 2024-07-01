@@ -2,9 +2,9 @@
 {
     public class AudioExp : BaseNode, IExp
     {
-        public int Value { get; set; }
+        public IExp Value { get; set; }
 
-        public AudioExp(int value)
+        public AudioExp(IExp value)
         {
             Value = value;
         }

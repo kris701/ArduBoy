@@ -88,8 +88,8 @@ namespace ArduBoy.Compiler.Compilers
             }
             var statics = from.FindTypes<StaticsExp>();
             foreach (var item in statics)
-                if (!setMap.ContainsKey(item.Name))
-                    setMap.Add(item.Name, item.Value.Value);
+                if (!setMap.ContainsKey(item.Name) && item.Value is ValueExpression val)
+                    setMap.Add(item.Name, val.Value);
 
             var all = from.FindTypes<INamedNode>();
             foreach (var child in all)

@@ -3,9 +3,9 @@
     public class StaticsExp : BaseNode, IExp
     {
         public string Name { get; set; }
-        public ValueExpression Value { get; set; }
+        public IExp Value { get; set; }
 
-        public StaticsExp(string name, ValueExpression value)
+        public StaticsExp(string name, IExp value)
         {
             Name = name;
             Value = value;

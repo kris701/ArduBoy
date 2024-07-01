@@ -1,6 +1,7 @@
 ﻿using ArduBoy.Compiler.Models.AST;
 using ArduBoy.Compiler.Models.Script;
 using ArduBoy.Compiler.Models.Script.Expressions;
+using ArduBoy.Compiler.Models.Script.Expressions.Arithmetic;
 using ArduBoy.Compiler.Models.Script.Expressions.Drawing;
 
 namespace ArduBoy.Compiler.Parsers.Visitors
@@ -43,7 +44,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             if (IsOfValidNodeType(node.Content, ":audio") &&
                 DoesContentContainNLooseChildren(node, ":audio", 1))
             {
-                var newLabel = new AudioExp(int.Parse(RemoveNodeTypeAndEscapeChars(node.Content, ":audio")));
+                var newLabel = new AudioExp(VisitExp(new ASTNode(RemoveNodeTypeAndEscapeChars(node.Content, ":audio"))));
                 return newLabel;
             }
             return null;
@@ -271,7 +272,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             if (IsOfValidNodeType(node.Content, ":wait") &&
                 DoesContentContainNLooseChildren(node, ":wait", 1))
             {
-                var newLabel = new WaitExp(int.Parse(node.Content.Split(' ')[1]));
+                var newLabel = new WaitExp(VisitExp(new ASTNode(RemoveNodeTypeAndEscapeChars(node.Content, ":wait"))));
                 return newLabel;
             }
             return null;

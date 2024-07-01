@@ -1,4 +1,5 @@
 ﻿using ArduBoy.Compiler.Models.Script.Expressions;
+using ArduBoy.Compiler.Models.Script.Expressions.Arithmetic;
 using ArduBoy.Compiler.Models.Script.Expressions.Drawing;
 using System.Text;
 
