@@ -25,7 +25,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             {
                 var split = node.Content.Split(' ');
                 var statics = new List<StaticsExp>();
-                foreach (var child in node.Children[0].Children)
+                foreach (var child in GetEmptyNode(node))
                     statics.Add(TryVisitStaticsExp(child) as StaticsExp);
                 var newDefine = new StaticsDecl(statics);
 
@@ -41,8 +41,9 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             {
                 var split = node.Content.Split(' ');
                 var includes = new List<IncludeExp>();
-                foreach (var child in node.Children[0].Children)
+                foreach (var child in GetEmptyNode(node))
                     includes.Add(TryVisitIncludeExp(child) as IncludeExp);
+
                 var newDefine = new IncludesDecl(includes);
 
                 return newDefine;
@@ -53,10 +54,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
         public IDecl? TryVisitNameDeclaration(ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":name"))
-            {
-                var newLabel = new NameDecl(RemoveNodeTypeAndEscapeChars(node.Content, ":name"));
-                return newLabel;
-            }
+                return new NameDecl(RemoveNodeTypeAndEscapeChars(node.Content, ":name"));
             return null;
         }
 
@@ -66,7 +64,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
                 DoesContentContainNLooseChildren(node, ":func", 1))
             {
                 var exp = new List<INode>();
-                foreach (var child in node.Children[0].Children)
+                foreach (var child in GetEmptyNode(node))
                     if (child.Content != "")
                         exp.Add(VisitExp(child));
                 var newLabel = new FuncDecl(
@@ -76,6 +74,5 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             }
             return null;
         }
-
     }
 }

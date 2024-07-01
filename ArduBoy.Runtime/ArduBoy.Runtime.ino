@@ -129,18 +129,18 @@ void DoIf(String* str) {
     int left = GetValue(leftStr);
     int right = GetValue(rightStr);
 
-    bool evaluated = false;
+    bool result = false;
     switch (op)
     {
-    case 0x90: evaluated = left == right; break;
-    case 0x91: evaluated = left > right; break;
-    case 0x92: evaluated = left < right; break;
-    case 0x93: evaluated = left != right; break;
+    case 0x90: result = left == right; break;
+    case 0x91: result = left > right; break;
+    case 0x92: result = left < right; break;
+    case 0x93: result = left != right; break;
     default:
         break;
     }
 
-    if (!evaluated)
+    if (!result)
         gameFile.seek(gameFile.position() + skip);
 }
 

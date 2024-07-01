@@ -81,14 +81,14 @@ namespace ArduBoy.Compiler.Parsers.Visitors
                 DoesContentContainNLooseChildren(node, ":draw-triangle", 7))
             {
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-triangle").Split(' ');
-                var w = VisitExp(new ASTNode(split[0]));
+                var x1 = VisitExp(new ASTNode(split[0]));
                 var y1 = VisitExp(new ASTNode(split[1]));
-                var y2 = VisitExp(new ASTNode(split[2]));
-                var x1 = VisitExp(new ASTNode(split[3]));
-                var z = VisitExp(new ASTNode(split[4]));
-                var x2 = VisitExp(new ASTNode(split[5]));
+                var x2 = VisitExp(new ASTNode(split[2]));
+                var y2 = VisitExp(new ASTNode(split[3]));
+                var x3 = VisitExp(new ASTNode(split[4]));
+                var y3 = VisitExp(new ASTNode(split[5]));
                 var color = VisitExp(new ASTNode(split[6]));
-                return new DrawTriangleExp(w, y1, y2, x1, z, x2, color);
+                return new DrawTriangleExp(x1, y1, x2, y2, x3, y3, color);
             }
             return null;
         }
@@ -99,14 +99,14 @@ namespace ArduBoy.Compiler.Parsers.Visitors
                 DoesContentContainNLooseChildren(node, ":draw-fill-triangle", 7))
             {
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill-triangle").Split(' ');
-                var w = VisitExp(new ASTNode(split[0]));
+                var x1 = VisitExp(new ASTNode(split[0]));
                 var y1 = VisitExp(new ASTNode(split[1]));
-                var y2 = VisitExp(new ASTNode(split[2]));
-                var x1 = VisitExp(new ASTNode(split[3]));
-                var z = VisitExp(new ASTNode(split[4]));
-                var x2 = VisitExp(new ASTNode(split[5]));
+                var x2 = VisitExp(new ASTNode(split[2]));
+                var y2 = VisitExp(new ASTNode(split[3]));
+                var x3 = VisitExp(new ASTNode(split[4]));
+                var y3 = VisitExp(new ASTNode(split[5]));
                 var color = VisitExp(new ASTNode(split[6]));
-                return new DrawFillTriangleExp(w, y1, y2, x1, z, x2, color);
+                return new DrawFillTriangleExp(x1, y1, x2, y2, x3, y3, color);
             }
             return null;
         }
@@ -195,7 +195,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             {
                 var exp = TryVisitComparisonExp(node.Children[0]) as ComparisonExp;
                 var branch = new List<IExp>();
-                foreach (var child in node.Children[1].Children)
+                foreach (var child in GetEmptyNode(node, 1))
                     branch.Add(VisitExp(child));
 
                 return new IfNode(exp, branch);
@@ -209,20 +209,20 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             {
                 var split = node.Content.Split(' ');
                 var left = VisitExp(new ASTNode(split[0]));
-                var comparere = split[1];
+                var op = split[1];
                 var right = VisitExp(new ASTNode(split[2]));
 
-                switch (comparere)
+                switch (op)
                 {
                     case "==":
                     case "<":
                     case ">":
                     case "!=":
                         break;
-                    default: throw new Exception($"Invalid comparison method: '{comparere}'");
+                    default: throw new Exception($"Invalid comparison method: '{op}'");
                 }
 
-                return new ComparisonExp(left, right, comparere);
+                return new ComparisonExp(left, right, op);
             }
             return null;
         }
@@ -253,7 +253,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             if (IsOfValidNodeType(node.Content, ":static"))
             {
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":static").Split(' ');
-                return new StaticsExp(split[0], new ValueExpression(split[1]));
+                return new StaticsExp(split[0], new ValueExpression(string.Join(' ', split[1..])));
             }
             return null;
         }
@@ -261,9 +261,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
         public IExp? TryVisitIncludeExp(ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":include"))
-            {
                 return new IncludeExp(RemoveNodeTypeAndEscapeChars(node.Content, ":include"));
-            }
             return null;
         }
 

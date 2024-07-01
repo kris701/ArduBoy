@@ -1,13 +1,10 @@
 (
 	(:name Test)
-	(:includes
-		(
-			(:include core)
-		)
-	)
+	(:includes (:include core))
 	(:statics 
 		(
 			(:static test 15)
+			(:static textf some text)
 		)
 	)
 
@@ -16,7 +13,7 @@
 			(:set abc 2)
 			(:audio 500)
 			(:draw-line 0 0 128 128 %RED%)
-			(:draw-text 10 10 %RED% some random text)
+			(:draw-text 10 10 10 %RED% %textf%)
 		)
 	)
 
@@ -34,9 +31,7 @@
 
 	(:func other
 		(
-			(:if (%abc% == 1) (
-				(:set abc 0)
-			))
+			(:if (%abc% == 1) (:set abc 0))
 		)
 	)
 )

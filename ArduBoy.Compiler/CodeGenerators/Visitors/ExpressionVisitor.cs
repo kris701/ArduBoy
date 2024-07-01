@@ -9,7 +9,7 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
     {
         public string Visit(ValueExpression node) => node.Value;
 
-        public string Visit(ComparisonExp node) => $"{Visit((dynamic)node.Left)} {OperatorCodes.GetByteCode(node.Type)} {Visit((dynamic)node.Right)}";
+        public string Visit(ComparisonExp node) => $"{Visit((dynamic)node.Left)} {OperatorCodes.GetByteCode(node.Operator)} {Visit((dynamic)node.Right)}";
 
         public string Visit(CallExp node)
         {

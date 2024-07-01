@@ -83,5 +83,12 @@ namespace ArduBoy.Compiler.Parsers.Visitors
         }
 
         internal string PurgeEscapeChars(string str) => str.Replace("\r", " ").Replace("\n", " ").Replace("\t", " ");
+
+        internal List<ASTNode> GetEmptyNode(ASTNode from, int offset = 0)
+        {
+            if (from.Children[offset].Content == "")
+                return from.Children[offset].Children;
+            return from.Children.Skip(offset).ToList();
+        }
     }
 }

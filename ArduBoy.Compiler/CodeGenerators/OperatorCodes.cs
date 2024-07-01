@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace ArduBoy.Compiler.CodeGenerators
+﻿namespace ArduBoy.Compiler.CodeGenerators
 {
     public static class OperatorCodes
     {
