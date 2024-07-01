@@ -14,7 +14,7 @@ namespace ArduBoy.Compiler.Models.Script.Expressions.Drawing
 
         public override string ToString()
         {
-            return $"(:draw-fill-triangle {W} {Y1} {Y2} {X1} {Z} {X2} {Color})";
+            return $"(:draw-fill-triangle {X1} {Y1} {X2} {Y2} {X3} {Y3} {Color})";
         }
     }
 }

@@ -1,36 +1,38 @@
-﻿namespace ArduBoy.Compiler.CodeGenerators
+﻿using System.Runtime.Serialization;
+
+namespace ArduBoy.Compiler.CodeGenerators
 {
     public static class OperatorCodes
     {
-        private static readonly Dictionary<string, byte> _opCodes = new Dictionary<string, byte>()
+        private static readonly Dictionary<string, int> _opCodes = new Dictionary<string, int>()
         {
-            { ":", 0x0 },
-            { "-", 0x0 },
-            { ":call", 0x1 },
-            { ":if", 0x2 },
-            { ":wait", 0x3 },
-            { ":set", 0x4 },
-            { ":audio", 0x5 },
-            { ":draw-line", 0x6 },
-            { ":goto", 0x7 },
-            { ":add", 0x8 },
-            { ":sub", 0x9 },
-            { ":mult", 0x10 },
-            { ":div", 0x11 },
+            { ":", 0 },
+            { "-", 1 },
+            { ":call", 2 },
+            { ":if", 2 },
+            { ":wait", 3 },
+            { ":set", 4 },
+            { ":audio", 5 },
+            { ":draw-line", 6 },
+            { ":goto", 7 },
+            { ":add", 8 },
+            { ":sub", 9 },
+            { ":mult", 10 },
+            { ":div", 11 },
 
-            { ":draw-circle", 0x12 },
-            { ":draw-fill-circle", 0x13 },
-            { ":draw-triangle", 0x14 },
-            { ":draw-fill-triangle", 0x15 },
-            { ":draw-rect", 0x16 },
-            { ":draw-fill-rect", 0x17 },
-            { ":draw-text", 0x18 },
-            { ":draw-fill", 0x19 },
+            { ":draw-circle", 12 },
+            { ":draw-fill-circle", 13 },
+            { ":draw-triangle", 14 },
+            { ":draw-fill-triangle", 15 },
+            { ":draw-rect", 16 },
+            { ":draw-fill-rect", 17 },
+            { ":draw-text", 18 },
+            { ":draw-fill", 19 },
 
-            { "==", 0x90 },
-            { "<", 0x91 },
-            { ">", 0x92 },
-            { "!=", 0x93 },
+            { "==", 20 },
+            { "<", 21 },
+            { ">", 22 },
+            { "!=", 23 },
         };
 
         public static string GetByteCode(string id)
@@ -38,7 +40,7 @@
 #if DEBUG
             return id;
 #endif
-            return $"{_opCodes[id.ToLower()]}";
+            return $"{Convert.ToChar(_opCodes[id.ToLower()] + 33)}";
         }
     }
 }

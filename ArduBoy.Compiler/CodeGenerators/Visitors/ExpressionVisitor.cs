@@ -83,12 +83,12 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
 
         public string Visit(DrawTriangleExp node)
         {
-            return $"{OperatorCodes.GetByteCode(":draw-triangle")} {Visit((dynamic)node.W)} {Visit((dynamic)node.Y1)} {Visit((dynamic)node.Y2)} {Visit((dynamic)node.X1)} {Visit((dynamic)node.X2)} {Visit((dynamic)node.Z)} {Visit((dynamic)node.Color)}";
+            return $"{OperatorCodes.GetByteCode(":draw-triangle")} {Visit((dynamic)node.X1)} {Visit((dynamic)node.Y1)} {Visit((dynamic)node.X2)} {Visit((dynamic)node.Y2)} {Visit((dynamic)node.X3)} {Visit((dynamic)node.Y3)} {Visit((dynamic)node.Color)}";
         }
 
         public string Visit(DrawFillTriangleExp node)
         {
-            return $"{OperatorCodes.GetByteCode(":draw-fill-triangle")} {Visit((dynamic)node.W)} {Visit((dynamic)node.Y1)} {Visit((dynamic)node.Y2)} {Visit((dynamic)node.X1)} {Visit((dynamic)node.X2)} {Visit((dynamic)node.Z)} {Visit((dynamic)node.Color)}";
+            return $"{OperatorCodes.GetByteCode(":draw-fill-triangle")} {Visit((dynamic)node.X1)} {Visit((dynamic)node.Y1)} {Visit((dynamic)node.X2)} {Visit((dynamic)node.Y2)} {Visit((dynamic)node.X3)} {Visit((dynamic)node.Y3)} {Visit((dynamic)node.Color)}";
         }
 
         public string Visit(DrawRectangleExp node)

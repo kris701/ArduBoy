@@ -22,27 +22,28 @@
 #define INPUT_SELECT            6
 #define INPUT_START             7
 
-#define OP_FUNC_END             0
-#define OP_CALL                 1
-#define OP_IF                   2
-#define OP_WAIT                 3
-#define OP_SET                  4
-#define OP_AUDIO                5
-#define OP_DRAW_LINE            6
-#define OP_GOTO                 7
-#define OP_ADD                  8
-#define OP_SUB                  9
-#define OP_MULT                 10
-#define OP_DIV                  11
+#define BYTE_OFFSET             33
+#define OP_FUNC_END             0 + BYTE_OFFSET
+#define OP_CALL                 1 + BYTE_OFFSET
+#define OP_IF                   2 + BYTE_OFFSET
+#define OP_WAIT                 3 + BYTE_OFFSET
+#define OP_SET                  4 + BYTE_OFFSET
+#define OP_AUDIO                5 + BYTE_OFFSET
+#define OP_DRAW_LINE            6 + BYTE_OFFSET
+#define OP_GOTO                 7 + BYTE_OFFSET
+#define OP_ADD                  8 + BYTE_OFFSET
+#define OP_SUB                  9 + BYTE_OFFSET
+#define OP_MULT                 10 + BYTE_OFFSET
+#define OP_DIV                  11 + BYTE_OFFSET
 
-#define OP_DRAW_CIRCLE          12
-#define OP_DRAW_FILL_CIRCLE     13
-#define OP_DRAW_TRIANGLE        14
-#define OP_DRAW_FILL_TRIANGLE   15
-#define OP_DRAW_RECTANGLE       16
-#define OP_DRAW_FILL_RECTANGLE  17
-#define OP_DRAW_TEXT            18
-#define OP_DRAW_FILL            19
+#define OP_DRAW_CIRCLE          12 + BYTE_OFFSET
+#define OP_DRAW_FILL_CIRCLE     13 + BYTE_OFFSET
+#define OP_DRAW_TRIANGLE        14 + BYTE_OFFSET
+#define OP_DRAW_FILL_TRIANGLE   15 + BYTE_OFFSET
+#define OP_DRAW_RECTANGLE       16 + BYTE_OFFSET
+#define OP_DRAW_FILL_RECTANGLE  17 + BYTE_OFFSET
+#define OP_DRAW_TEXT            18 + BYTE_OFFSET
+#define OP_DRAW_FILL            19 + BYTE_OFFSET
 
 Adafruit_SSD1331 display = Adafruit_SSD1331(&SPI, SCREEN_CS, SCREEN_DC, SCREEN_RST);
 File gameFile;
@@ -85,7 +86,7 @@ void loop() {
     while (gameFile.available()) {
         String line = gameFile.readStringUntil('\n');
         SplitString(&line, ' ');
-        int target = line.substring(0, inputBuffer[0]).toInt();
+        int target = line.charAt(0);
         switch (target)
         {
         case OP_CALL: DoCall(&line); break;
