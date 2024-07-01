@@ -1,4 +1,4 @@
-﻿namespace ArduBoy.Compiler.Models.Script.Expressions
+﻿namespace ArduBoy.Compiler.Models.Script.Expressions.Drawing
 {
     public abstract class BaseDraw : BaseNode, IExp
     {

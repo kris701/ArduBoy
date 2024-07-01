@@ -1,4 +1,5 @@
 ﻿using ArduBoy.Compiler.Models.Script.Expressions;
+using ArduBoy.Compiler.Models.Script.Expressions.Drawing;
 using System.Text;
 
 namespace ArduBoy.Compiler.CodeGenerators.Visitors
@@ -68,6 +69,46 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
         public string Visit(DrawLineExp node)
         {
             return $"{OperatorCodes.GetByteCode(":draw-line")} {Visit((dynamic)node.X1)} {Visit((dynamic)node.Y1)} {Visit((dynamic)node.X2)} {Visit((dynamic)node.Y2)} {Visit((dynamic)node.Color)}";
+        }
+
+        public string Visit(DrawCircleExp node)
+        {
+            return $"{OperatorCodes.GetByteCode(":draw-circle")} {Visit((dynamic)node.X)} {Visit((dynamic)node.Y)} {Visit((dynamic)node.Radius)} {Visit((dynamic)node.Color)}";
+        }
+
+        public string Visit(DrawFillCircleExp node)
+        {
+            return $"{OperatorCodes.GetByteCode(":draw-fill-circle")} {Visit((dynamic)node.X)} {Visit((dynamic)node.Y)} {Visit((dynamic)node.Radius)} {Visit((dynamic)node.Color)}";
+        }
+
+        public string Visit(DrawTriangleExp node)
+        {
+            return $"{OperatorCodes.GetByteCode(":draw-triangle")} {Visit((dynamic)node.W)} {Visit((dynamic)node.Y1)} {Visit((dynamic)node.Y2)} {Visit((dynamic)node.X1)} {Visit((dynamic)node.X2)} {Visit((dynamic)node.Z)} {Visit((dynamic)node.Color)}";
+        }
+
+        public string Visit(DrawFillTriangleExp node)
+        {
+            return $"{OperatorCodes.GetByteCode(":draw-fill-triangle")} {Visit((dynamic)node.W)} {Visit((dynamic)node.Y1)} {Visit((dynamic)node.Y2)} {Visit((dynamic)node.X1)} {Visit((dynamic)node.X2)} {Visit((dynamic)node.Z)} {Visit((dynamic)node.Color)}";
+        }
+
+        public string Visit(DrawRectangleExp node)
+        {
+            return $"{OperatorCodes.GetByteCode(":draw-rect")} {Visit((dynamic)node.X)} {Visit((dynamic)node.Y)} {Visit((dynamic)node.Width)} {Visit((dynamic)node.Height)} {Visit((dynamic)node.Color)}";
+        }
+
+        public string Visit(DrawFillRectangleExp node)
+        {
+            return $"{OperatorCodes.GetByteCode(":draw-fill-rect")} {Visit((dynamic)node.X)} {Visit((dynamic)node.Y)} {Visit((dynamic)node.Width)} {Visit((dynamic)node.Height)} {Visit((dynamic)node.Color)}";
+        }
+
+        public string Visit(DrawTextExp node)
+        {
+            return $"{OperatorCodes.GetByteCode(":draw-text")} {Visit((dynamic)node.X)} {Visit((dynamic)node.Y)} {Visit((dynamic)node.Size)} {Visit((dynamic)node.Color)} {Visit((dynamic)node.Text)}";
+        }
+
+        public string Visit(DrawFillExp node)
+        {
+            return $"{OperatorCodes.GetByteCode(":draw-fill")} {Visit((dynamic)node.Color)}";
         }
 
         public string Visit(GotoExp node)

@@ -1,6 +1,7 @@
 ﻿using ArduBoy.Compiler.Models.AST;
 using ArduBoy.Compiler.Models.Script;
 using ArduBoy.Compiler.Models.Script.Expressions;
+using ArduBoy.Compiler.Models.Script.Expressions.Drawing;
 
 namespace ArduBoy.Compiler.Parsers.Visitors
 {
@@ -21,6 +22,14 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             if ((returnNode = TryVisitDivDeclaration(node)) != null) return returnNode;
             if ((returnNode = TryVisitAudioExpression(node)) != null) return returnNode;
             if ((returnNode = TryVisitDrawLineDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawFillDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawTriangleDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawFillTriangleDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawTextDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawCircleDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawFillCircleDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawRectangleDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawFillRectangleDeclaration(node)) != null) return returnNode;
 
             if ((returnNode = TryVisitVariableExp(node)) != null) return returnNode;
             if ((returnNode = TryVisitComparisonExp(node)) != null) return returnNode;
@@ -52,6 +61,128 @@ namespace ArduBoy.Compiler.Parsers.Visitors
                 var y2 = VisitExp(new ASTNode(split[3]));
                 var color = VisitExp(new ASTNode(split[4]));
                 return new DrawLineExp(x1, y1, x2, y2, color);
+            }
+            return null;
+        }
+
+
+        public IExp? TryVisitDrawFillDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":draw-fill") &&
+                DoesContentContainNLooseChildren(node, ":draw-fill", 1))
+                return new DrawFillExp(VisitExp(new ASTNode(RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill"))));
+            return null;
+        }
+
+        public IExp? TryVisitDrawTriangleDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":draw-triangle") &&
+                DoesContentContainNLooseChildren(node, ":draw-triangle", 7))
+            {
+                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-triangle").Split(' ');
+                var w = VisitExp(new ASTNode(split[0]));
+                var y1 = VisitExp(new ASTNode(split[1]));
+                var y2 = VisitExp(new ASTNode(split[2]));
+                var x1 = VisitExp(new ASTNode(split[3]));
+                var z = VisitExp(new ASTNode(split[4]));
+                var x2 = VisitExp(new ASTNode(split[5]));
+                var color = VisitExp(new ASTNode(split[6]));
+                return new DrawTriangleExp(w, y1, y2, x1, z, x2, color);
+            }
+            return null;
+        }
+
+        public IExp? TryVisitDrawFillTriangleDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":draw-fill-triangle") &&
+                DoesContentContainNLooseChildren(node, ":draw-fill-triangle", 7))
+            {
+                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill-triangle").Split(' ');
+                var w = VisitExp(new ASTNode(split[0]));
+                var y1 = VisitExp(new ASTNode(split[1]));
+                var y2 = VisitExp(new ASTNode(split[2]));
+                var x1 = VisitExp(new ASTNode(split[3]));
+                var z = VisitExp(new ASTNode(split[4]));
+                var x2 = VisitExp(new ASTNode(split[5]));
+                var color = VisitExp(new ASTNode(split[6]));
+                return new DrawFillTriangleExp(w, y1, y2, x1, z, x2, color);
+            }
+            return null;
+        }
+
+        public IExp? TryVisitDrawTextDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":draw-text"))
+            {
+                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-text").Split(' ');
+                var x = VisitExp(new ASTNode(split[0]));
+                var y = VisitExp(new ASTNode(split[1]));
+                var size = VisitExp(new ASTNode(split[2]));
+                var color = VisitExp(new ASTNode(split[3]));
+                var text = VisitExp(new ASTNode(string.Join(' ', split[4..])));
+                return new DrawTextExp(x, y, size, text, color);
+            }
+            return null;
+        }
+
+        public IExp? TryVisitDrawCircleDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":draw-circle") &&
+                DoesContentContainNLooseChildren(node, ":draw-circle", 4))
+            {
+                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-circle").Split(' ');
+                var x = VisitExp(new ASTNode(split[0]));
+                var y = VisitExp(new ASTNode(split[1]));
+                var radius = VisitExp(new ASTNode(split[2]));
+                var color = VisitExp(new ASTNode(split[3]));
+                return new DrawCircleExp(x, y, radius, color);
+            }
+            return null;
+        }
+
+        public IExp? TryVisitDrawFillCircleDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":draw-fill-circle") &&
+                DoesContentContainNLooseChildren(node, ":draw-fill-circle", 4))
+            {
+                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill-circle").Split(' ');
+                var x = VisitExp(new ASTNode(split[0]));
+                var y = VisitExp(new ASTNode(split[1]));
+                var radius = VisitExp(new ASTNode(split[2]));
+                var color = VisitExp(new ASTNode(split[3]));
+                return new DrawFillCircleExp(x, y, radius, color);
+            }
+            return null;
+        }
+
+        public IExp? TryVisitDrawRectangleDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":draw-rect") &&
+                DoesContentContainNLooseChildren(node, ":draw-rect", 5))
+            {
+                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-rect").Split(' ');
+                var x = VisitExp(new ASTNode(split[0]));
+                var y = VisitExp(new ASTNode(split[1]));
+                var width = VisitExp(new ASTNode(split[2]));
+                var height = VisitExp(new ASTNode(split[3]));
+                var color = VisitExp(new ASTNode(split[4]));
+                return new DrawRectangleExp(x, y, width, height, color);
+            }
+            return null;
+        }
+
+        public IExp? TryVisitDrawFillRectangleDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":draw-fill-rect") &&
+                DoesContentContainNLooseChildren(node, ":draw-fill-rect", 5))
+            {
+                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill-rect").Split(' ');
+                var x = VisitExp(new ASTNode(split[0]));
+                var y = VisitExp(new ASTNode(split[1]));
+                var width = VisitExp(new ASTNode(split[2]));
+                var height = VisitExp(new ASTNode(split[3]));
+                var color = VisitExp(new ASTNode(split[4]));
+                return new DrawFillRectangleExp(x, y, width, height, color);
             }
             return null;
         }
