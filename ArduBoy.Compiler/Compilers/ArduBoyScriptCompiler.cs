@@ -94,10 +94,10 @@ namespace ArduBoy.Compiler.Compilers
             var all = from.FindTypes<INamedNode>();
             foreach (var child in all)
             {
+                if (child is VariableExp exp && !setMap[child.Name].StartsWith('_') && statics.Any(x => x.Name == exp.Name))
+                    exp.IsStatic = true;
                 if (setMap.ContainsKey(child.Name))
                     child.Name = setMap[child.Name];
-                if (child is VariableExp exp && !exp.Name.StartsWith('_') && statics.Any(x => x.Name == exp.Name))
-                    exp.IsStatic = true;
             }
         }
 
