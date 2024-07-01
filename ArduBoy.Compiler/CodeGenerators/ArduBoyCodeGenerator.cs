@@ -19,6 +19,9 @@ namespace ArduBoy.Compiler.CodeGenerators
 
         private string IndexCallLines(string text)
         {
+            var targets = new Dictionary<int, int>();
+
+
             var lines = text.Split(Environment.NewLine);
             for (int i = 0; i < lines.Length; i++)
             {
@@ -29,7 +32,7 @@ namespace ArduBoy.Compiler.CodeGenerators
                     {
                         if (lines[j].StartsWith($"{OperatorCodes.GetByteCode(":")} {target}"))
                         {
-                            lines[i] = $"{OperatorCodes.GetByteCode(":call")} {j}";
+                            targets.Add(i, j);
                             break;
                         }
                     }
@@ -41,16 +44,85 @@ namespace ArduBoy.Compiler.CodeGenerators
                     {
                         if (lines[j].StartsWith($"{OperatorCodes.GetByteCode(":")} {target}"))
                         {
-                            lines[i] = $"{OperatorCodes.GetByteCode(":goto")} {j}";
+                            targets.Add(i, j);
                             break;
                         }
                     }
+                }
+                else if (lines[i].StartsWith($"{OperatorCodes.GetByteCode(":if")} "))
+                {
+                    var target = int.Parse(lines[i].Split(' ')[1]);
+                    targets.Add(i, i + target);
                 }
             }
             for (int i = 0; i < lines.Length; i++)
                 if (lines[i].StartsWith($"{OperatorCodes.GetByteCode(":")} "))
                     lines[i] = "";
+
+            bool changed = true;
+            while (changed)
+            {
+                changed = false;
+                foreach (var key in targets.Keys)
+                {
+                    var line = lines[key];
+                    if (line.StartsWith($"{OperatorCodes.GetByteCode(":call")} "))
+                    {
+                        var newTarget = GetCharacterByLine(lines, targets[key]);
+                        if (lines[key] != $"{OperatorCodes.GetByteCode(":call")} {newTarget}")
+                        {
+                            changed = true;
+                            lines[key] = $"{OperatorCodes.GetByteCode(":call")} {newTarget}";
+                        }
+                    }
+                    else if (line.StartsWith($"{OperatorCodes.GetByteCode(":goto")} "))
+                    {
+                        var newTarget = GetCharacterByLine(lines, targets[key]);
+                        if (lines[key] != $"{OperatorCodes.GetByteCode(":goto")} {newTarget}")
+                        {
+                            changed = true;
+                            lines[key] = $"{OperatorCodes.GetByteCode(":goto")} {newTarget}";
+                        }
+                    }
+                    else if (line.StartsWith($"{OperatorCodes.GetByteCode(":if")} "))
+                    {
+                        var newTarget = GetCharacterByLine(lines, targets[key]);
+                        if (!lines[key].StartsWith($"{OperatorCodes.GetByteCode(":if")} {newTarget}"))
+                        {
+                            changed = true;
+                            var split = lines[key].Split(' ');
+                            split[1] = $"{newTarget}";
+                            lines[key] = string.Join(' ', split);
+                        }
+                    }
+                }
+            }
+
             return string.Join('\n', lines);
+        }
+
+        private int GetLineByCharacter(string[] lines, int offset, int character)
+        {
+            var count = 1;
+            for (int i = offset; i < lines.Length; i++)
+            {
+                count += lines[i].Length + 1;
+                if (count > character)
+                    return i;
+            }
+            return count;
+        }
+
+        private int GetCharacterByLine(string[] lines, int line)
+        {
+            var count = 1;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                count += lines[i].Length + 1;
+                if (i >= line)
+                    break;
+            }
+            return count;
         }
     }
 }

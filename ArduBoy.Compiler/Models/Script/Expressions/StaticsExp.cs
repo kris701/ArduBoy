@@ -1,6 +1,6 @@
 ﻿namespace ArduBoy.Compiler.Models.Script.Expressions
 {
-    public class StaticsExp : BaseNode, IExp
+    public class StaticsExp : BaseNode, IExp, INamedNode
     {
         public string Name { get; set; }
         public ValueExpression Value { get; set; }

@@ -2,13 +2,13 @@
 {
     public class GotoExp : BaseNode, IExp
     {
-        public string Target { get; set; }
+        public string Name { get; set; }
 
         public GotoExp(string target)
         {
-            Target = target;
+            Name = target;
         }
 
-        public override string ToString() => $"_goto {Target}";
+        public override string ToString() => $"_goto {Name}";
     }
 }

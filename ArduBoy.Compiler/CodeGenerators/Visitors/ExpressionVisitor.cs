@@ -19,7 +19,7 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
             var sb = new StringBuilder();
             sb.AppendLine($"{OperatorCodes.GetByteCode(":if")} {node.Content.Count} {Visit(node.Expression)}");
             foreach (var child in node.Content)
-                AppendIfNotEmpty(sb, Visit((dynamic)child));
+                sb.AppendLine(Visit((dynamic)child));
             return sb.ToString();
         }
 
@@ -31,6 +31,26 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
         public string Visit(SetExp node)
         {
             return $"{OperatorCodes.GetByteCode(":set")} {node.Name} {node.Value}";
+        }
+
+        public string Visit(AddExp node)
+        {
+            return $"{OperatorCodes.GetByteCode(":add")} {node.Name} {node.Value}";
+        }
+
+        public string Visit(SubExp node)
+        {
+            return $"{OperatorCodes.GetByteCode(":sub")} {node.Name} {node.Value}";
+        }
+
+        public string Visit(MultExp node)
+        {
+            return $"{OperatorCodes.GetByteCode(":mult")} {node.Name} {node.Value}";
+        }
+
+        public string Visit(DivExp node)
+        {
+            return $"{OperatorCodes.GetByteCode(":div")} {node.Name} {node.Value}";
         }
 
         public string Visit(AudioExp node)
@@ -45,12 +65,12 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
 
         public string Visit(DrawLineExp node)
         {
-            return $"{OperatorCodes.GetByteCode(":draw-line")} {node.X1} {node.Y1} {node.X2} {node.Y2} {node.Color}";
+            return $"{OperatorCodes.GetByteCode(":draw-line")} {Visit((dynamic)node.X1)} {Visit((dynamic)node.Y1)} {Visit((dynamic)node.X2)} {Visit((dynamic)node.Y2)} {Visit((dynamic)node.Color)}";
         }
 
         public string Visit(GotoExp node)
         {
-            return $"{OperatorCodes.GetByteCode(":goto")} {node.Target}";
+            return $"{OperatorCodes.GetByteCode(":goto")} {node.Name}";
         }
     }
 }

@@ -7,9 +7,9 @@
 			(:static false 0)
 
 			// Color defaults
-			(:static RED a)
-			(:static GREEN b)
-			(:static BLUE c)
+			(:static RED 2)
+			(:static GREEN 3)
+			(:static BLUE 1)
 
 			// Inputs
 			(:static INPUT_UP _0)

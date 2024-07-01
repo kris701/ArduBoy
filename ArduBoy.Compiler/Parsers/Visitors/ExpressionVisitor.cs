@@ -15,6 +15,10 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             if ((returnNode = TryVisitCallExp(node)) != null) return returnNode;
             if ((returnNode = TryVisitWaitDeclaration(node)) != null) return returnNode;
             if ((returnNode = TryVisitSetDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitAddDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitSubDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitMultDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitDivDeclaration(node)) != null) return returnNode;
             if ((returnNode = TryVisitAudioExpression(node)) != null) return returnNode;
             if ((returnNode = TryVisitDrawLineDeclaration(node)) != null) return returnNode;
 
@@ -149,6 +153,62 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             {
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":set").Split(' ');
                 var newLabel = new SetExp(
+                    split[0],
+                    VisitExp(new ASTNode(split[1])));
+                return newLabel;
+            }
+            return null;
+        }
+
+        public IExp? TryVisitAddDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":add") &&
+                DoesContentContainNLooseChildren(node, ":add", 2))
+            {
+                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":add").Split(' ');
+                var newLabel = new AddExp(
+                    split[0],
+                    VisitExp(new ASTNode(split[1])));
+                return newLabel;
+            }
+            return null;
+        }
+
+        public IExp? TryVisitSubDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":sub") &&
+                DoesContentContainNLooseChildren(node, ":sub", 2))
+            {
+                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":sub").Split(' ');
+                var newLabel = new SubExp(
+                    split[0],
+                    VisitExp(new ASTNode(split[1])));
+                return newLabel;
+            }
+            return null;
+        }
+
+        public IExp? TryVisitMultDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":mult") &&
+                DoesContentContainNLooseChildren(node, ":mult", 2))
+            {
+                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":mult").Split(' ');
+                var newLabel = new MultExp(
+                    split[0],
+                    VisitExp(new ASTNode(split[1])));
+                return newLabel;
+            }
+            return null;
+        }
+
+        public IExp? TryVisitDivDeclaration(ASTNode node)
+        {
+            if (IsOfValidNodeType(node.Content, ":div") &&
+                DoesContentContainNLooseChildren(node, ":div", 2))
+            {
+                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":div").Split(' ');
+                var newLabel = new DivExp(
                     split[0],
                     VisitExp(new ASTNode(split[1])));
                 return newLabel;

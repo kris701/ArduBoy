@@ -25,6 +25,7 @@
 				(:wait 2000)
 				(:call other)
 				(:set abc 1)
+				(:add abc 1)
 			))
 			(:wait 1000)
 		)

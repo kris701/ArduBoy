@@ -12,12 +12,5 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
                 sb.AppendLine(Visit(func));
             return sb.ToString();
         }
-
-        internal void AppendIfNotEmpty(StringBuilder sb, string value)
-        {
-            if (value == "")
-                return;
-            sb.AppendLine(value);
-        }
     }
 }

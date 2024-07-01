@@ -12,7 +12,7 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
             sb.AppendLine($"{OperatorCodes.GetByteCode(":")} {node.Name}");
             foreach (var child in node.Content)
                 sb.AppendLine(Visit((dynamic)child));
-            sb.AppendLine(" ");
+            sb.AppendLine("-");
 
             return sb.ToString();
         }

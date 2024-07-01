@@ -1,17 +1,19 @@
 ﻿namespace ArduBoy.Compiler.Models.Script.Expressions
 {
-    public class VariableExp : BaseNode, IExp, INamedNode
+    public class DivExp : BaseNode, IExp, INamedNode
     {
         public string Name { get; set; }
+        public IExp Value { get; set; }
 
-        public VariableExp(string name)
+        public DivExp(string name, IExp value)
         {
             Name = name;
+            Value = value;
         }
 
         public override string ToString()
         {
-            return $"%{Name}%";
+            return $"(:div {Name} {Value})";
         }
     }
 }

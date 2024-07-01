@@ -1,6 +1,6 @@
 ﻿namespace ArduBoy.Compiler.Models.Script.Expressions
 {
-    public class CallExp : BaseNode, IExp
+    public class CallExp : BaseNode, IExp, INamedNode
     {
         public string Name { get; set; }
 
