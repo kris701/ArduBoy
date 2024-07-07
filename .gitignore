@@ -365,3 +365,8 @@ FodyWeavers.xsd
 **/__vm
 *vcxproj.filters
 arduino folders read me.txt
+
+EAGLE/*.b#*
+EAGLE/*.s#*
+EAGLE/*.job
+EAGLE/*.pro
