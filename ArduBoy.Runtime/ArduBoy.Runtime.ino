@@ -7,20 +7,17 @@
 #include <SPI.h>
 #include <SD.h>
 
-#define SDPin                   4
-#define SCREEN_SCLK             13
-#define SCREEN_MOSI             11
-#define SCREEN_CS               10
-#define SCREEN_RST              9
-#define SCREEN_DC               8
-#define INPUT_UP                0
-#define INPUT_DOWN              1
-#define INPUT_LEFT              2
-#define INPUT_RIGHT             3
-#define INPUT_A                 4
-#define INPUT_B                 5
-#define INPUT_SELECT            6
-#define INPUT_START             7
+#define SDPin                   10
+#define SCREEN_CS               3
+#define SCREEN_DC               2
+#define INPUT_UP                8
+#define INPUT_DOWN              7
+#define INPUT_LEFT              A0
+#define INPUT_RIGHT             A1
+#define INPUT_A                 A2
+#define INPUT_B                 A3
+#define INPUT_SELECT            A6
+#define INPUT_START             A7
 
 #define BYTE_OFFSET             33
 #define OP_FUNC_END             0 + BYTE_OFFSET
@@ -45,7 +42,7 @@
 #define OP_DRAW_TEXT            18 + BYTE_OFFSET
 #define OP_DRAW_FILL            19 + BYTE_OFFSET
 
-Adafruit_SSD1331 display = Adafruit_SSD1331(&SPI, SCREEN_CS, SCREEN_DC, SCREEN_RST);
+Adafruit_SSD1331 display = Adafruit_SSD1331(&SPI, SCREEN_CS, SCREEN_DC);
 File gameFile;
 int registers[32];
 int stackPointers[32];
@@ -68,7 +65,7 @@ void setup() {
         while (1) { delay(1000); };
     }
     display.begin();
-    display.fillScreen(colors[0]);
+    display.fillScreen(colors[2]);
 
     pinMode(INPUT_UP, INPUT);
     pinMode(INPUT_DOWN, INPUT);
@@ -83,6 +80,10 @@ void setup() {
 }
 
 void loop() {
+    delay(1000);
+    return;
+
+
     while (gameFile.available()) {
         String line = gameFile.readStringUntil('\n');
         SplitString(&line, ' ');
