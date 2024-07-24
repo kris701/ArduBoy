@@ -7,15 +7,16 @@
 #include <SPI.h>
 #include <SD.h>
 
-#define SDPin                   10
+#define Audio_Pin               9
+#define SD_CS                   10
 #define SCREEN_CS               3
 #define SCREEN_DC               2
-#define INPUT_UP                8
-#define INPUT_DOWN              7
-#define INPUT_LEFT              A0
-#define INPUT_RIGHT             A1
-#define INPUT_A                 A2
-#define INPUT_B                 A3
+#define INPUT_UP                A0
+#define INPUT_DOWN              A1
+#define INPUT_LEFT              A2
+#define INPUT_RIGHT             A3
+#define INPUT_A                 A4
+#define INPUT_B                 A5
 #define INPUT_SELECT            A6
 #define INPUT_START             A7
 
@@ -60,7 +61,7 @@ const int colors[8] PROGMEM = {
 int inputBuffer[32];
 
 void setup() {
-    if (!SD.begin(SDPin)) {
+    if (!SD.begin(SD_CS)) {
         Serial.println(F("initialization failed!"));
         while (1) { delay(1000); };
     }
@@ -76,6 +77,8 @@ void setup() {
     pinMode(INPUT_SELECT, INPUT);
     pinMode(INPUT_START, INPUT);
 
+    pinMode(Audio_Pin, OUTPUT);
+
     if (!SD.exists(F("game.rbs"))) {
         Serial.println(F("Game file not found!"));
         while (1) { delay(1000); };
@@ -85,10 +88,6 @@ void setup() {
 }
 
 void loop() {
-    delay(1000);
-    return;
-
-
     while (gameFile.available()) {
         String line = gameFile.readStringUntil('\n');
         SplitString(&line, ' ');
@@ -223,7 +222,7 @@ void SplitString(String* str, char delimiter) {
 
 void DoAudio(String* str) {
     int value = GetValue(str->substring(2));
-    // Implement later
+    analogWrite(Audio_Pin, value);
 }
 
 void DoDrawLine(String* str) {

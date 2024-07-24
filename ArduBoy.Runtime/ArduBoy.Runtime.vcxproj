@@ -84,8 +84,55 @@
       <FileType>CppCode</FileType>
       <DeploymentContent>true</DeploymentContent>
     </ClCompile>
+    <ClCompile Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\File.cpp" />
+    <ClCompile Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\SD.cpp" />
+    <ClCompile Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\utility\Sd2Card.cpp" />
+    <ClCompile Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\utility\SdFile.cpp" />
+    <ClCompile Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\utility\SdVolume.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\abi.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\CDC.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial0.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial1.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial2.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial3.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\hooks.c" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\IPAddress.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\main.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\new.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\PluggableUSB.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Print.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Stream.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Tone.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\USBCore.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\WInterrupts.c" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring.c" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring_analog.c" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring_digital.c" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring_pulse.c" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring_shift.c" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\WMath.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\WString.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\src\SPI.cpp" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src\utility\twi.c" />
+    <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src\Wire.cpp" />
+    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\Adafruit_BusIO_Register.cpp" />
+    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\Adafruit_I2CDevice.cpp" />
+    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\Adafruit_SPIDevice.cpp" />
+    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\Adafruit_GFX.cpp" />
+    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\Adafruit_GrayOLED.cpp" />
+    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\Adafruit_SPITFT.cpp" />
+    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\glcdfont.c" />
+    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1331_OLED_Driver_Library_for_Arduino\Adafruit_SSD1331.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\library.properties" />
+    <None Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring_pulse.S" />
+    <None Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\library.properties" />
+    <None Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\library.properties" />
+    <None Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\library.properties" />
+    <None Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\library.properties" />
+    <None Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1331_OLED_Driver_Library_for_Arduino\library.properties" />
     <None Include="src\arduino folders read me.txt">
     </None>
   </ItemGroup>
@@ -93,7 +140,59 @@
     <ProjectCapability Include="VisualMicro" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\SD.h" />
+    <ClInclude Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\utility\FatStructs.h" />
+    <ClInclude Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\utility\Sd2Card.h" />
+    <ClInclude Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\utility\Sd2PinMap.h" />
+    <ClInclude Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\utility\SdFat.h" />
+    <ClInclude Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\utility\SdFatmainpage.h" />
+    <ClInclude Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\utility\SdFatUtil.h" />
+    <ClInclude Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\utility\SdInfo.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Arduino.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\binary.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Client.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial_private.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\IPAddress.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\new.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\PluggableUSB.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Print.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Printable.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Server.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Stream.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Udp.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\USBAPI.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\USBCore.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\USBDesc.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\WCharacter.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring_private.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\WString.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\src\SPI.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src\utility\twi.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src\Wire.h" />
+    <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\variants\eightanaloginputs\pins_arduino.h" />
+    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\Adafruit_BusIO_Register.h" />
+    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\Adafruit_I2CDevice.h" />
+    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\Adafruit_I2CRegister.h" />
+    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\Adafruit_SPIDevice.h" />
+    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\Adafruit_GFX.h" />
+    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\Adafruit_GrayOLED.h" />
+    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\Adafruit_SPITFT.h" />
+    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\Adafruit_SPITFT_Macros.h" />
+    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\gfxfont.h" />
+    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1331_OLED_Driver_Library_for_Arduino\Adafruit_SSD1331.h" />
     <ClInclude Include="__vm\.ArduBoy.Runtime.vsarduino.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\extras\codespell-ignore-words-list.txt" />
+    <Text Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\keywords.txt" />
+    <Text Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\README.txt" />
+    <Text Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\keywords.txt" />
+    <Text Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\keywords.txt" />
+    <Text Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\CMakeLists.txt" />
+    <Text Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\CMakeLists.txt" />
+    <Text Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\license.txt" />
+    <Text Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1331_OLED_Driver_Library_for_Arduino\license.txt" />
   </ItemGroup>
   <PropertyGroup>
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
