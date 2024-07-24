@@ -76,6 +76,11 @@ void setup() {
     pinMode(INPUT_SELECT, INPUT);
     pinMode(INPUT_START, INPUT);
 
+    if (!SD.exists(F("game.rbs"))) {
+        Serial.println(F("Game file not found!"));
+        while (1) { delay(1000); };
+    }
+
     gameFile = SD.open(F("game.rbs"), FILE_READ);
 }
 
