@@ -370,3 +370,4 @@ EAGLE/*.b#*
 EAGLE/*.s#*
 EAGLE/*.job
 EAGLE/*.pro
+EAGLE/*.gcode
