@@ -4,9 +4,9 @@
     {
         private static readonly Dictionary<string, int> _opCodes = new Dictionary<string, int>()
         {
-            { ":", 0 },
-            { "-", 1 },
-            { ":call", 2 },
+            { ":", -1 },
+            { "-", 0 },
+            { ":call", 1 },
             { ":if", 2 },
             { ":wait", 3 },
             { ":set", 4 },

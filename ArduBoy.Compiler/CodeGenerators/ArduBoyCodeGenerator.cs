@@ -11,19 +11,20 @@ namespace ArduBoy.Compiler.CodeGenerators
             var retStr = visitor.Visit((dynamic)script);
             while (retStr.Contains($"{Environment.NewLine}{Environment.NewLine}"))
                 retStr = retStr.Replace($"{Environment.NewLine}{Environment.NewLine}", Environment.NewLine);
+            retStr = retStr.Replace(Environment.NewLine, "\n");
 
-            retStr = ConvertLineIndexesToCharacterIndexes(retStr);
+			retStr = ConvertLineIndexesToCharacterIndexes(retStr);
 
             return retStr;
         }
 
         private string ConvertLineIndexesToCharacterIndexes(string text)
         {
-            var targets = new Dictionary<int, int>();
-            var lines = text.Split(Environment.NewLine);
+			var targets = new Dictionary<int, int>();
+            var lines = text.Split('\n');
             for (int i = 0; i < lines.Length; i++)
             {
-                if (lines[i].StartsWith($"{OperatorCodes.GetByteCode(":call")} "))
+				if (lines[i].StartsWith($"{OperatorCodes.GetByteCode(":call")} "))
                 {
                     var target = lines[i].Split(' ')[1];
                     for (int j = 0; j < lines.Length; j++)
