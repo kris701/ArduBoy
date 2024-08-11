@@ -2,8 +2,7 @@
   "profiles": {
     "ArduBoy.Compiler.CLI": {
       "commandName": "Project",
-      "commandLineArgs": "-s test2.txt -c -o G:/"
-      //"commandLineArgs": "-s test2.txt -c"
+      "commandLineArgs": "-s test2.txt -c"
     }
   }
 }

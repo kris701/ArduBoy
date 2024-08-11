@@ -2,7 +2,7 @@
 #include <SPI.h>
 #include <SD.h>
 
-//#define DEBUG
+#define DEBUG
 
 #define Audio_Pin               9
 #define SD_CS                   10
@@ -173,9 +173,9 @@ void SplitString(String* str) {
     inputBuffer[0] = str->indexOf(' ');
     uint8_t offset = inputBuffer[0];
     uint8_t index = 1;
-    while (offset != -1) {
+    while (offset != 255) {
         offset = str->indexOf(' ', offset + 1);
-        if (offset != -1)
+        if (offset != 255)
             inputBuffer[index++] = offset;
     }
 }
@@ -206,7 +206,7 @@ void DoIf(String* str) {
     }
 
     if (!result)
-        gameFile.seek(gameFile.position() + skip);
+        gameFile.seek(skip);
 }
 
 void DoWait(String* str) {
@@ -223,6 +223,7 @@ void DoSet(String* str) {
 void DoAdd(String* str) {
     int index = GetValueAsInt(&str->substring(inputBuffer[0], inputBuffer[1]));
     int value = GetValueAsInt(&str->substring(inputBuffer[1]));
+    Serial.println(registers[index]);
     registers[index] += value;
 }
 
