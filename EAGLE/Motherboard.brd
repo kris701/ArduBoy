@@ -77,102 +77,10 @@
 <wire x1="60.94" y1="0" x2="60.94" y2="51.74" width="0" layer="20"/>
 <wire x1="60.94" y1="51.74" x2="0" y2="51.74" width="0" layer="20"/>
 <wire x1="0" y1="51.74" x2="0" y2="0" width="0" layer="20"/>
-<dimension x1="0" y1="-2.54" x2="60.96" y2="-2.54" x3="30.48" y3="-7.62" textsize="1.778" layer="1"/>
-<dimension x1="-2.54" y1="0" x2="-2.54" y2="52.07" x3="-6.35" y3="26.035" textsize="1.778" layer="1"/>
 <hole x="57.15" y="3.81" drill="0.35"/>
 <hole x="3.81" y="3.81" drill="0.35"/>
 <hole x="3.81" y="34.29" drill="0.35"/>
 <hole x="57.15" y="34.29" drill="0.35"/>
-<dimension x1="3.81" y1="36.83" x2="57.15" y2="36.83" x3="30.48" y3="54.61" textsize="1.778" layer="1" dtype="diameter"/>
-<dimension x1="2.54" y1="34.29" x2="2.54" y2="3.81" x3="-2.54" y3="19.05" textsize="1.778" layer="1" dtype="diameter"/>
-<hole x="0" y="52.07" drill="0.35"/>
-<hole x="2.54" y="52.07" drill="0.35"/>
-<hole x="5.08" y="52.07" drill="0.35"/>
-<hole x="7.62" y="52.07" drill="0.35"/>
-<hole x="10.16" y="52.07" drill="0.35"/>
-<hole x="12.7" y="52.07" drill="0.35"/>
-<hole x="15.24" y="52.07" drill="0.35"/>
-<hole x="17.78" y="52.07" drill="0.35"/>
-<hole x="20.32" y="52.07" drill="0.35"/>
-<hole x="22.86" y="52.07" drill="0.35"/>
-<hole x="25.4" y="52.07" drill="0.35"/>
-<hole x="27.94" y="52.07" drill="0.35"/>
-<hole x="30.48" y="52.07" drill="0.35"/>
-<hole x="33.02" y="52.07" drill="0.35"/>
-<hole x="35.56" y="52.07" drill="0.35"/>
-<hole x="38.1" y="52.07" drill="0.35"/>
-<hole x="40.64" y="52.07" drill="0.35"/>
-<hole x="43.18" y="52.07" drill="0.35"/>
-<hole x="45.72" y="52.07" drill="0.35"/>
-<hole x="48.26" y="52.07" drill="0.35"/>
-<hole x="50.8" y="52.07" drill="0.35"/>
-<hole x="53.34" y="52.07" drill="0.35"/>
-<hole x="55.88" y="52.07" drill="0.35"/>
-<hole x="58.42" y="52.07" drill="0.35"/>
-<hole x="0" y="36.83" drill="0.35"/>
-<hole x="0" y="39.37" drill="0.35"/>
-<hole x="0" y="41.91" drill="0.35"/>
-<hole x="0" y="44.45" drill="0.35"/>
-<hole x="0" y="46.99" drill="0.35"/>
-<hole x="0" y="49.53" drill="0.35"/>
-<hole x="0" y="21.59" drill="0.35"/>
-<hole x="0" y="24.13" drill="0.35"/>
-<hole x="0" y="26.67" drill="0.35"/>
-<hole x="0" y="29.21" drill="0.35"/>
-<hole x="0" y="31.75" drill="0.35"/>
-<hole x="0" y="34.29" drill="0.35"/>
-<hole x="0" y="6.35" drill="0.35"/>
-<hole x="0" y="8.89" drill="0.35"/>
-<hole x="0" y="11.43" drill="0.35"/>
-<hole x="0" y="13.97" drill="0.35"/>
-<hole x="0" y="16.51" drill="0.35"/>
-<hole x="0" y="19.05" drill="0.35"/>
-<hole x="60.96" y="39.37" drill="0.35"/>
-<hole x="60.96" y="41.91" drill="0.35"/>
-<hole x="60.96" y="44.45" drill="0.35"/>
-<hole x="60.96" y="46.99" drill="0.35"/>
-<hole x="60.96" y="49.53" drill="0.35"/>
-<hole x="60.96" y="52.07" drill="0.35"/>
-<hole x="60.96" y="24.13" drill="0.35"/>
-<hole x="60.96" y="26.67" drill="0.35"/>
-<hole x="60.96" y="29.21" drill="0.35"/>
-<hole x="60.96" y="31.75" drill="0.35"/>
-<hole x="60.96" y="34.29" drill="0.35"/>
-<hole x="60.96" y="36.83" drill="0.35"/>
-<hole x="60.96" y="8.89" drill="0.35"/>
-<hole x="60.96" y="11.43" drill="0.35"/>
-<hole x="60.96" y="13.97" drill="0.35"/>
-<hole x="60.96" y="16.51" drill="0.35"/>
-<hole x="60.96" y="19.05" drill="0.35"/>
-<hole x="60.96" y="21.59" drill="0.35"/>
-<hole x="12.7" y="0" drill="0.35"/>
-<hole x="10.16" y="0" drill="0.35"/>
-<hole x="7.62" y="0" drill="0.35"/>
-<hole x="5.08" y="0" drill="0.35"/>
-<hole x="2.54" y="0" drill="0.35"/>
-<hole x="0" y="0" drill="0.35"/>
-<hole x="15.24" y="0" drill="0.35"/>
-<hole x="17.78" y="0" drill="0.35"/>
-<hole x="20.32" y="0" drill="0.35"/>
-<hole x="22.86" y="0" drill="0.35"/>
-<hole x="25.4" y="0" drill="0.35"/>
-<hole x="27.94" y="0" drill="0.35"/>
-<hole x="30.48" y="0" drill="0.35"/>
-<hole x="33.02" y="0" drill="0.35"/>
-<hole x="35.56" y="0" drill="0.35"/>
-<hole x="38.1" y="0" drill="0.35"/>
-<hole x="40.64" y="0" drill="0.35"/>
-<hole x="43.18" y="0" drill="0.35"/>
-<hole x="45.72" y="0" drill="0.35"/>
-<hole x="48.26" y="0" drill="0.35"/>
-<hole x="50.8" y="0" drill="0.35"/>
-<hole x="53.34" y="0" drill="0.35"/>
-<hole x="55.88" y="0" drill="0.35"/>
-<hole x="58.42" y="0" drill="0.35"/>
-<hole x="0" y="3.81" drill="0.35"/>
-<hole x="60.96" y="6.35" drill="0.35"/>
-<hole x="60.96" y="3.81" drill="0.35"/>
-<hole x="60.96" y="0" drill="0.35"/>
 </plain>
 <libraries>
 <library name="ArduinoNanoV30">
@@ -1728,60 +1636,52 @@ grid 2.54 mm, diameter 6 mm</description>
 <class number="0" name="default" width="0" drill="0">
 </class>
 </classes>
-<designrules name="default2">
-<description language="de">&lt;b&gt;EAGLE Design Rules&lt;/b&gt;
-&lt;p&gt;
-Die Standard-Design-Rules sind so gewählt, dass sie für 
-die meisten Anwendungen passen. Sollte ihre Platine 
-besondere Anforderungen haben, treffen Sie die erforderlichen
-Einstellungen hier und speichern die Design Rules unter 
-einem neuen Namen ab.</description>
-<description language="en">&lt;b&gt;EAGLE Design Rules&lt;/b&gt;
-&lt;p&gt;
-The default Design Rules have been set to cover
-a wide range of applications. Your particular design
-may have different requirements, so please make the
-necessary adjustments and save your customized
-design rules under a new name.</description>
+<designrules name="jlcpcb-2layers">
+<description language="en">&lt;b&gt;JLCPCB design rules (2 layers)&lt;/b&gt;
+&lt;ul&gt;
+&lt;li&gt;Board thickness: 1.6mm&lt;/li&gt;
+&lt;li&gt;Copper weight: 1oz (35um)&lt;/li&gt;
+&lt;li&gt;Note: annular ring aren't minimal&lt;/li&gt;
+&lt;/ul&gt;</description>
 <param name="layerSetup" value="(1*16)"/>
 <param name="mtCopper" value="0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm 0.035mm"/>
-<param name="mtIsolate" value="1.5mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm"/>
-<param name="mdWireWire" value="20mil"/>
-<param name="mdWirePad" value="20mil"/>
-<param name="mdWireVia" value="20mil"/>
-<param name="mdPadPad" value="20mil"/>
-<param name="mdPadVia" value="20mil"/>
-<param name="mdViaVia" value="20mil"/>
-<param name="mdSmdPad" value="20mil"/>
-<param name="mdSmdVia" value="20mil"/>
-<param name="mdSmdSmd" value="20mil"/>
+<param name="mtIsolate" value="1.6mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm 0.15mm 0.2mm"/>
+<param name="mdWireWire" value="5mil"/>
+<param name="mdWirePad" value="5mil"/>
+<param name="mdWireVia" value="5mil"/>
+<param name="mdPadPad" value="5mil"/>
+<param name="mdPadVia" value="5mil"/>
+<param name="mdViaVia" value="5mil"/>
+<param name="mdSmdPad" value="5mil"/>
+<param name="mdSmdVia" value="5mil"/>
+<param name="mdSmdSmd" value="5mil"/>
 <param name="mdViaViaSameLayer" value="6mil"/>
 <param name="mnLayersViaInSmd" value="2"/>
-<param name="mdCopperDimension" value="40mil"/>
+<param name="mdCopperDimension" value="0.2mm"/>
 <param name="mdDrill" value="6mil"/>
 <param name="mdSmdStop" value="0mil"/>
-<param name="msWidth" value="25mil"/>
-<param name="msDrill" value="0.35mm"/>
-<param name="msMicroVia" value="9.99mm"/>
+<param name="msWidth" value="5mil"/>
+<param name="msDrill" value="0.3mm"/>
+<param name="msMicroVia" value="0.3mm"/>
 <param name="msBlindViaRatio" value="0.5"/>
-<param name="rvPadTop" value="0.25"/>
-<param name="rvPadInner" value="0.25"/>
-<param name="rvPadBottom" value="0.25"/>
-<param name="rvViaOuter" value="0.25"/>
-<param name="rvViaInner" value="0.25"/>
-<param name="rvMicroViaOuter" value="0.25"/>
-<param name="rvMicroViaInner" value="0.25"/>
+<param name="rvPadTop" value="0.4"/>
+<param name="rvPadInner" value="0"/>
+<param name="rvPadBottom" value="0.4"/>
+<param name="rvViaOuter" value="0"/>
+<param name="rvViaInner" value="0"/>
+<param name="rvMicroViaOuter" value="0"/>
+<param name="rvMicroViaInner" value="0"/>
 <param name="rlMinPadTop" value="10mil"/>
-<param name="rlMaxPadTop" value="20mil"/>
+<param name="rlMaxPadTop" value="80mil"/>
 <param name="rlMinPadInner" value="10mil"/>
 <param name="rlMaxPadInner" value="20mil"/>
 <param name="rlMinPadBottom" value="10mil"/>
-<param name="rlMaxPadBottom" value="20mil"/>
-<param name="rlMinViaOuter" value="8mil"/>
+<param name="rlMaxPadBottom" value="80mil"/>
+<param name="rlMinViaOuter" value="3mil"/>
 <param name="rlMaxViaOuter" value="20mil"/>
 <param name="rlMinViaInner" value="8mil"/>
 <param name="rlMaxViaInner" value="20mil"/>
-<param name="rlMinMicroViaOuter" value="4mil"/>
+<param name="rlMinMicroViaOuter" value="3mil"/>
 <param name="rlMaxMicroViaOuter" value="20mil"/>
 <param name="rlMinMicroViaInner" value="4mil"/>
 <param name="rlMaxMicroViaInner" value="20mil"/>
@@ -1800,7 +1700,7 @@ design rules under a new name.</description>
 <param name="srRoundness" value="0"/>
 <param name="srMinRoundness" value="0mil"/>
 <param name="srMaxRoundness" value="0mil"/>
-<param name="slThermalIsolate" value="20mil"/>
+<param name="slThermalIsolate" value="10mil"/>
 <param name="slThermalsForVias" value="0"/>
 <param name="dpMaxLengthDifference" value="10mm"/>
 <param name="dpGapFactor" value="2.5"/>
@@ -2059,47 +1959,52 @@ design rules under a new name.</description>
 <contactref element="C2" pad="-"/>
 <contactref element="SCREEN" pad="7"/>
 <contactref element="SDCARD" pad="1"/>
+<polygon width="0.635" layer="1">
+<vertex x="0" y="52.07"/>
+<vertex x="60.96" y="52.07"/>
+<vertex x="62.23" y="53.34"/>
+<vertex x="62.23" y="0"/>
+<vertex x="0" y="0"/>
+</polygon>
 </signal>
 <signal name="VCC">
 <contactref element="ARDUINO_NANO1" pad="12"/>
 <contactref element="PWR" pad="1"/>
 <contactref element="AUDIO" pad="1"/>
-<wire x1="39.37" y1="20.32" x2="39.37" y2="22.86" width="0.635" layer="16"/>
-<wire x1="39.37" y1="22.86" x2="43.18" y2="26.67" width="0.635" layer="16"/>
-<wire x1="43.18" y1="26.67" x2="45.7779" y2="26.67" width="0.635" layer="16"/>
-<wire x1="45.7779" y1="26.67" x2="46.70145" y2="27.59355" width="0.635" layer="16"/>
 <contactref element="INPUT" pad="1"/>
-<wire x1="39.37" y1="15.24" x2="44.45" y2="15.24" width="0.635" layer="16"/>
 <contactref element="MISC" pad="2"/>
 <contactref element="EXTENDER" pad="3"/>
-<wire x1="55.88" y1="24.13" x2="50.165" y2="24.13" width="0.635" layer="16"/>
-<wire x1="50.165" y1="24.13" x2="46.70145" y2="27.59355" width="0.635" layer="16"/>
 <contactref element="C1" pad="+"/>
 <contactref element="C2" pad="+"/>
-<wire x1="44.45" y1="15.24" x2="44.45" y2="12.7" width="0.635" layer="16"/>
-<wire x1="57.15" y1="12.7" x2="52.07" y2="12.7" width="0.635" layer="16"/>
-<wire x1="52.07" y1="12.7" x2="44.45" y2="12.7" width="0.635" layer="16"/>
 <contactref element="SCREEN" pad="6"/>
 <contactref element="SDCARD" pad="2"/>
-<wire x1="6.35" y1="43.18" x2="6.35" y2="44.45" width="0.635" layer="16"/>
-<wire x1="6.35" y1="44.45" x2="10.16" y2="48.26" width="0.635" layer="16"/>
-<wire x1="30.48" y1="48.26" x2="34.29" y2="44.45" width="0.635" layer="16"/>
-<wire x1="34.29" y1="44.45" x2="34.29" y2="43.18" width="0.635" layer="16"/>
-<wire x1="10.16" y1="48.26" x2="30.48" y2="48.26" width="0.635" layer="16"/>
-<wire x1="34.29" y1="43.18" x2="34.29" y2="41.91" width="0.635" layer="16"/>
-<wire x1="34.29" y1="41.91" x2="35.56" y2="40.64" width="0.635" layer="16"/>
-<wire x1="43.18" y1="40.64" x2="44.45" y2="41.91" width="0.635" layer="16"/>
-<wire x1="44.45" y1="41.91" x2="44.45" y2="43.18" width="0.635" layer="16"/>
-<wire x1="35.56" y1="40.64" x2="43.18" y2="40.64" width="0.635" layer="16"/>
-<wire x1="44.45" y1="43.18" x2="44.45" y2="44.45" width="0.635" layer="16"/>
-<wire x1="44.45" y1="44.45" x2="45.72" y2="45.72" width="0.635" layer="16"/>
-<wire x1="45.72" y1="45.72" x2="50.8" y2="45.72" width="0.635" layer="16"/>
-<wire x1="50.8" y1="45.72" x2="53.34" y2="43.18" width="0.635" layer="16"/>
-<wire x1="53.34" y1="43.18" x2="53.34" y2="34.2321" width="0.635" layer="16"/>
-<wire x1="53.34" y1="34.2321" x2="46.70145" y2="27.59355" width="0.635" layer="16"/>
-<wire x1="39.37" y1="15.24" x2="39.37" y2="20.32" width="0.635" layer="16"/>
-<wire x1="52.07" y1="6.35" x2="52.07" y2="12.7" width="0.635" layer="16"/>
-<wire x1="52.07" y1="6.35" x2="50.8" y2="5.08" width="0.635" layer="16"/>
+<wire x1="6.35" y1="43.18" x2="6.35" y2="44.45" width="0.635" layer="1"/>
+<wire x1="6.35" y1="44.45" x2="8.89" y2="46.99" width="0.635" layer="1"/>
+<wire x1="43.18" y1="46.99" x2="44.45" y2="45.72" width="0.635" layer="1"/>
+<wire x1="44.45" y1="45.72" x2="44.45" y2="43.18" width="0.635" layer="1"/>
+<wire x1="8.89" y1="46.99" x2="34.29" y2="46.99" width="0.635" layer="1"/>
+<wire x1="34.29" y1="46.99" x2="43.18" y2="46.99" width="0.635" layer="1"/>
+<wire x1="34.29" y1="43.18" x2="34.29" y2="46.99" width="0.635" layer="1"/>
+<wire x1="44.45" y1="43.18" x2="44.45" y2="40.64" width="0.635" layer="1"/>
+<wire x1="44.45" y1="40.64" x2="46.99" y2="38.1" width="0.635" layer="1"/>
+<wire x1="50.13309375" y1="38.1" x2="52.07" y2="36.16309375" width="0.635" layer="1"/>
+<wire x1="52.07" y1="26.67" x2="54.61" y2="24.13" width="0.635" layer="1"/>
+<wire x1="54.61" y1="24.13" x2="55.88" y2="24.13" width="0.635" layer="1"/>
+<wire x1="46.99" y1="38.1" x2="50.13309375" y2="38.1" width="0.635" layer="1"/>
+<wire x1="52.07" y1="36.16309375" x2="52.07" y2="26.67" width="0.635" layer="1"/>
+<wire x1="44.45" y1="15.24" x2="39.37" y2="15.24" width="0.635" layer="1"/>
+<wire x1="39.37" y1="15.24" x2="39.37" y2="20.32" width="0.635" layer="1"/>
+<wire x1="39.37" y1="20.32" x2="39.37" y2="21.59" width="0.635" layer="1"/>
+<wire x1="39.37" y1="21.59" x2="41.91" y2="24.13" width="0.635" layer="1"/>
+<wire x1="41.91" y1="24.13" x2="49.53" y2="24.13" width="0.635" layer="1"/>
+<wire x1="49.53" y1="24.13" x2="52.07" y2="26.67" width="0.635" layer="1"/>
+<wire x1="57.15" y1="12.7" x2="52.07" y2="12.7" width="0.635" layer="1"/>
+<wire x1="52.07" y1="12.7" x2="48.26" y2="12.7" width="0.635" layer="1"/>
+<wire x1="48.26" y1="12.7" x2="45.72" y2="12.7" width="0.635" layer="1"/>
+<wire x1="45.72" y1="12.7" x2="44.45" y2="13.97" width="0.635" layer="1"/>
+<wire x1="44.45" y1="13.97" x2="44.45" y2="15.24" width="0.635" layer="1"/>
+<wire x1="50.8" y1="5.08" x2="50.8" y2="10.16" width="0.635" layer="1"/>
+<wire x1="50.8" y1="10.16" x2="48.26" y2="12.7" width="0.635" layer="1"/>
 </signal>
 <signal name="A6">
 <contactref element="ARDUINO_NANO1" pad="10"/>
@@ -2186,20 +2091,18 @@ design rules under a new name.</description>
 </signal>
 <signal name="D13">
 <contactref element="ARDUINO_NANO1" pad="1"/>
-<wire x1="11.43" y1="20.32" x2="11.43" y2="25.4" width="0.635" layer="16"/>
-<via x="11.43" y="25.4" extent="1-16" drill="0.8"/>
 <contactref element="SCREEN" pad="5"/>
 <contactref element="SDCARD" pad="3"/>
-<via x="6.35" y="30.48" extent="1-16" drill="0.8"/>
-<wire x1="6.35" y1="30.48" x2="6.35" y2="36.83" width="0.635" layer="16"/>
-<wire x1="6.35" y1="36.83" x2="8.89" y2="39.37" width="0.635" layer="16"/>
-<wire x1="8.89" y1="39.37" x2="8.89" y2="43.18" width="0.635" layer="16"/>
 <wire x1="8.89" y1="43.18" x2="8.89" y2="45.339" width="0.635" layer="16"/>
 <wire x1="8.89" y1="45.339" x2="10.668" y2="47.117" width="0.635" layer="16"/>
 <wire x1="29.972" y1="47.117" x2="31.75" y2="45.339" width="0.635" layer="16"/>
 <wire x1="31.75" y1="45.339" x2="31.75" y2="43.18" width="0.635" layer="16"/>
 <wire x1="10.668" y1="47.117" x2="29.972" y2="47.117" width="0.635" layer="16"/>
-<wire x1="11.43" y1="25.4" x2="6.35" y2="30.48" width="0" layer="19" extent="1-1"/>
+<wire x1="8.89" y1="43.18" x2="8.89" y2="41.91" width="0.635" layer="1"/>
+<wire x1="8.89" y1="41.91" x2="6.35" y2="39.37" width="0.635" layer="1"/>
+<wire x1="6.35" y1="39.37" x2="6.35" y2="29.21" width="0.635" layer="1"/>
+<wire x1="6.35" y1="29.21" x2="11.43" y2="24.13" width="0.635" layer="1"/>
+<wire x1="11.43" y1="24.13" x2="11.43" y2="20.32" width="0.635" layer="1"/>
 </signal>
 <signal name="D8">
 <contactref element="ARDUINO_NANO1" pad="26"/>
@@ -2265,23 +2168,16 @@ design rules under a new name.</description>
 <signal name="TX">
 <contactref element="ARDUINO_NANO1" pad="16"/>
 <contactref element="EXTENDER" pad="1"/>
-<via x="48.26" y="33.02" extent="1-16" drill="0.8"/>
-<via x="52.07" y="29.21" extent="1-16" drill="0.8"/>
-<wire x1="55.88" y1="29.21" x2="52.07" y2="29.21" width="0.635" layer="16"/>
-<wire x1="46.99" y1="34.29" x2="46.99" y2="35.56" width="0.635" layer="16"/>
-<wire x1="46.99" y1="34.29" x2="48.26" y2="33.02" width="0.635" layer="16"/>
-<wire x1="48.26" y1="33.02" x2="52.07" y2="29.21" width="0" layer="19" extent="1-1"/>
+<wire x1="55.88" y1="29.21" x2="49.53" y2="29.21" width="0.635" layer="16"/>
+<wire x1="49.53" y1="29.21" x2="46.99" y2="31.75" width="0.635" layer="16"/>
+<wire x1="46.99" y1="31.75" x2="46.99" y2="35.56" width="0.635" layer="16"/>
 </signal>
 <signal name="RX">
 <contactref element="ARDUINO_NANO1" pad="17"/>
 <contactref element="EXTENDER" pad="2"/>
-<via x="50.8" y="27.94" extent="1-16" drill="0.8"/>
-<via x="46.99" y="31.75" extent="1-16" drill="0.8"/>
-<wire x1="55.88" y1="26.67" x2="52.07" y2="26.67" width="0.635" layer="16"/>
-<wire x1="52.07" y1="26.67" x2="50.8" y2="27.94" width="0.635" layer="16"/>
-<wire x1="44.45" y1="35.56" x2="44.45" y2="34.29" width="0.635" layer="16"/>
-<wire x1="44.45" y1="34.29" x2="46.99" y2="31.75" width="0.635" layer="16"/>
-<wire x1="46.99" y1="31.75" x2="50.8" y2="27.94" width="0" layer="19" extent="1-1"/>
+<wire x1="55.88" y1="26.67" x2="50.45355" y2="26.67" width="0.635" layer="16"/>
+<wire x1="50.45355" y1="26.67" x2="44.45" y2="32.67355" width="0.635" layer="16"/>
+<wire x1="44.45" y1="32.67355" x2="44.45" y2="35.56" width="0.635" layer="16"/>
 </signal>
 </signals>
 <mfgpreviewcolors>
@@ -2291,11 +2187,6 @@ design rules under a new name.</description>
 <mfgpreviewcolor name="coppercolor" color="0xFFFFBF00"/>
 <mfgpreviewcolor name="substratecolor" color="0xFF786E46"/>
 </mfgpreviewcolors>
-<errors>
-<approved hash="21,19,23c221c021c023c2"/>
-<approved hash="21,19,992999299b2b9b2b"/>
-<approved hash="21,19,e68ce68ce48ee08e"/>
-</errors>
 </board>
 </drawing>
 <compatibility>

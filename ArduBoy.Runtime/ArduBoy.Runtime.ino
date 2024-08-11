@@ -1,16 +1,14 @@
-#include <gfxfont.h>
-#include <Adafruit_SPITFT_Macros.h>
-#include <Adafruit_SPITFT.h>
-#include <Adafruit_GrayOLED.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1331.h>
+#include <Adafruit_SSD1351.h>
 #include <SPI.h>
 #include <SD.h>
 
 #define Audio_Pin               9
 #define SD_CS                   10
-#define SCREEN_CS               3
-#define SCREEN_DC               2
+#define SCREEN_CS               8
+#define SCREEN_DC               7
+#define SCREEN_RST              6
+#define SCREEN_WIDTH            128
+#define SCREEN_HEIGHT           128
 #define INPUT_UP                A0
 #define INPUT_DOWN              A1
 #define INPUT_LEFT              A2
@@ -43,7 +41,7 @@
 #define OP_DRAW_TEXT            18 + BYTE_OFFSET
 #define OP_DRAW_FILL            19 + BYTE_OFFSET
 
-Adafruit_SSD1331 display = Adafruit_SSD1331(&SPI, SCREEN_CS, SCREEN_DC);
+Adafruit_SSD1351 display = Adafruit_SSD1351(SCREEN_WIDTH, SCREEN_HEIGHT, &SPI, SCREEN_CS, SCREEN_DC, SCREEN_RST);
 File gameFile;
 int registers[32];
 int stackPointers[32];
@@ -61,12 +59,26 @@ const int colors[8] PROGMEM = {
 int inputBuffer[32];
 
 void setup() {
+    display.begin();
+    display.fillScreen(colors[0]);
+    display.setTextSize(2);
+
+    for (int i = 0; i < 60; i += 3) {
+        display.setCursor(25, i);
+        display.fillScreen(colors[0]);
+        display.println(F("ArduBoy"));
+        delay(100);
+    }
+    display.setTextSize(1);
+
+    delay(1000);
+
     if (!SD.begin(SD_CS)) {
-        Serial.println(F("initialization failed!"));
+        display.fillScreen(colors[0]);
+        display.setCursor(5, 60);
+        display.println(F("SD Card not initialized!"));
         while (1) { delay(1000); };
     }
-    display.begin();
-    display.fillScreen(colors[2]);
 
     pinMode(INPUT_UP, INPUT);
     pinMode(INPUT_DOWN, INPUT);
@@ -80,7 +92,9 @@ void setup() {
     pinMode(Audio_Pin, OUTPUT);
 
     if (!SD.exists(F("game.rbs"))) {
-        Serial.println(F("Game file not found!"));
+        display.fillScreen(colors[0]);
+        display.setCursor(5, 60);
+        display.println(F("Game file not found"));
         while (1) { delay(1000); };
     }
 
