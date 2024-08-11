@@ -1,0 +1,33 @@
+(
+	(:name Test)
+	(:includes (:include core))
+
+	(:func Setup
+		(
+			(:set test 0)
+			(:set direction 0)
+		)
+	)
+
+	(:func Loop
+		(
+			(:draw-fill %BLACK%)
+			(:draw-text 40 60 2 %GREEN% value is)
+			(:draw-text 60 60 2 %RED% %direction%)
+
+			(:if (%test% < 0) (
+				(:set direction 0)
+			))
+			(:if (%test% > 10) (
+				(:set direction 1)
+			))
+			(:if (%direction% == 0) (
+				(:add test 1)
+			))
+			(:if (%direction% == 1) (
+				(:sub test 0)
+			))
+			(:wait 1000)
+		)
+	)
+)

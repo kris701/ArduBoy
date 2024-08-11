@@ -2,6 +2,8 @@
 #include <SPI.h>
 #include <SD.h>
 
+//#define DEBUG
+
 #define Audio_Pin               9
 #define SD_CS                   10
 #define SCREEN_CS               8
@@ -41,12 +43,17 @@
 #define OP_DRAW_TEXT            18 + BYTE_OFFSET
 #define OP_DRAW_FILL            19 + BYTE_OFFSET
 
+#define OP_IF_EQU               20 + BYTE_OFFSET
+#define OP_IF_LES               21 + BYTE_OFFSET
+#define OP_IF_LAR               22 + BYTE_OFFSET
+#define OP_IF_NEQ               23 + BYTE_OFFSET
+
 Adafruit_SSD1351 display = Adafruit_SSD1351(SCREEN_WIDTH, SCREEN_HEIGHT, &SPI, SCREEN_CS, SCREEN_DC, SCREEN_RST);
 File gameFile;
 int registers[32];
-int stackPointers[32];
-int currentStackPointer = -1;
-const int colors[8] PROGMEM = {
+uint8_t stackPointers[32];
+uint8_t currentStackPointer = -1;
+const uint16_t  colors[8] = {
     0x0000, // BLACK
     0x001F, // BLUE
     0xF800, // RED
@@ -56,29 +63,27 @@ const int colors[8] PROGMEM = {
     0xFFE0, // YELLOW
     0xFFFF, // WHITE
 };
-int inputBuffer[32];
+uint8_t inputBuffer[32];
 
 void setup() {
+#if defined(DEBUG)
+    Serial.begin(115200);
+#endif
+
     display.begin();
     display.fillScreen(colors[0]);
     display.setTextSize(2);
+    display.setTextColor(colors[7]);
 
-    for (int i = 0; i < 60; i += 3) {
+    for (int i = -20; i < 60; i += 3) {
+        display.fillRect(0, i - 5, SCREEN_WIDTH, 16, colors[0]);
         display.setCursor(25, i);
-        display.fillScreen(colors[0]);
-        display.println(F("ArduBoy"));
-        delay(100);
+        display.print(F("ArduBoy"));
+        delay(25);
     }
     display.setTextSize(1);
 
     delay(1000);
-
-    if (!SD.begin(SD_CS)) {
-        display.fillScreen(colors[0]);
-        display.setCursor(5, 60);
-        display.println(F("SD Card not initialized!"));
-        while (1) { delay(1000); };
-    }
 
     pinMode(INPUT_UP, INPUT);
     pinMode(INPUT_DOWN, INPUT);
@@ -89,22 +94,20 @@ void setup() {
     pinMode(INPUT_SELECT, INPUT);
     pinMode(INPUT_START, INPUT);
 
-    pinMode(Audio_Pin, OUTPUT);
-
-    if (!SD.exists(F("game.rbs"))) {
-        display.fillScreen(colors[0]);
-        display.setCursor(5, 60);
-        display.println(F("Game file not found"));
+    if (!SD.begin(SD_CS) || !SD.exists(F("game.rbs"))) {
         while (1) { delay(1000); };
     }
 
     gameFile = SD.open(F("game.rbs"), FILE_READ);
+    display.fillScreen(colors[0]);
 }
 
 void loop() {
     while (gameFile.available()) {
         String line = gameFile.readStringUntil('\n');
-        SplitString(&line, ' ');
+        if (line == "")
+            continue;
+        SplitString(&line);
         int target = line.charAt(0);
         switch (target)
         {
@@ -125,6 +128,7 @@ void loop() {
         case OP_DRAW_RECTANGLE: DoDrawRectangle(&line, false); break;
         case OP_DRAW_FILL_RECTANGLE: DoDrawRectangle(&line, true); break;
         case OP_DRAW_TEXT: DoDrawText(&line); break;
+        case OP_DRAW_FILL: DoDrawFill(&line); break;
         case OP_GOTO: DoGoto(&line); break;
         case OP_FUNC_END: gameFile.seek(stackPointers[currentStackPointer--]); break;
         default:
@@ -133,80 +137,22 @@ void loop() {
     }
 }
 
-void DoCall(String* str) {
-    int pos = GetValue(str->substring(2));
-    stackPointers[currentStackPointer++] = gameFile.position();
-    gameFile.seek(pos);
+int GetValueAsInt(String* str) {
+    str->trim();
+    if (str->startsWith(F("%_")))
+        return GetReservedValue(str->substring(2).toInt());
+    else if (str->startsWith(F("%")))
+        return registers[str->substring(1).toInt()];
+    return str->toInt();
 }
 
-void DoIf(String* str) {
-    int skip = GetValue(str->substring(inputBuffer[0], inputBuffer[1]));
-    String leftStr = str->substring(inputBuffer[1], inputBuffer[2]);
-    int op = GetValue(str->substring(inputBuffer[2], inputBuffer[3]));
-    String rightStr = str->substring(inputBuffer[3]);
-
-    int left = GetValue(leftStr);
-    int right = GetValue(rightStr);
-
-    bool result = false;
-    switch (op)
-    {
-    case 0x90: result = left == right; break;
-    case 0x91: result = left > right; break;
-    case 0x92: result = left < right; break;
-    case 0x93: result = left != right; break;
-    default:
-        break;
-    }
-
-    if (!result)
-        gameFile.seek(gameFile.position() + skip);
-}
-
-void DoWait(String* str) {
-    int time = GetValue(str->substring(2));
-    delay(time);
-}
-
-void DoSet(String* str) {
-    int index = GetValue(str->substring(inputBuffer[0], inputBuffer[1]));
-    int value = GetValue(str->substring(inputBuffer[1]));
-    registers[index] = value;
-}
-
-void DoAdd(String* str) {
-    int index = GetValue(str->substring(inputBuffer[0], inputBuffer[1]));
-    int value = GetValue(str->substring(inputBuffer[1]));
-    registers[index] += value;
-}
-
-void DoSub(String* str) {
-    int index = GetValue(str->substring(inputBuffer[0], inputBuffer[1]));
-    int value = GetValue(str->substring(inputBuffer[1]));
-    registers[index] -= value;
-}
-
-void DoMult(String* str) {
-    int index = GetValue(str->substring(inputBuffer[0], inputBuffer[1]));
-    int value = GetValue(str->substring(inputBuffer[1]));
-    registers[index] *= value;
-}
-
-void DoDiv(String* str) {
-    int index = GetValue(str->substring(inputBuffer[0], inputBuffer[1]));
-    int value = GetValue(str->substring(inputBuffer[1]));
-    registers[index] /= value;
-}
-
-int GetValue(String str) {
-    int value = -1;
-    if (str.startsWith(F("%_")))
-        value = GetReservedValue(str.substring(2).toInt());
-    else if (str.startsWith(F("%")))
-        value = registers[str.substring(1).toInt()];
-    else
-        value = str.toInt();
-    return value;
+String GetValueAsStr(String* str) {
+    str->trim();
+    if (str->startsWith(F("%_")))
+        return String(GetReservedValue(str->substring(2).toInt()));
+    else if (str->startsWith(F("%")))
+        return String(registers[str->substring(1).toInt()]);
+    return *str;
 }
 
 int GetReservedValue(int target) {
@@ -223,36 +169,100 @@ int GetReservedValue(int target) {
     return -1;
 }
 
-void SplitString(String* str, char delimiter) {
-    inputBuffer[0] = str->indexOf(delimiter);
-    int offset = inputBuffer[0];
-    int index = 1;
+void SplitString(String* str) {
+    inputBuffer[0] = str->indexOf(' ');
+    uint8_t offset = inputBuffer[0];
+    uint8_t index = 1;
     while (offset != -1) {
-        offset = str->indexOf(delimiter, offset);
+        offset = str->indexOf(' ', offset + 1);
         if (offset != -1)
             inputBuffer[index++] = offset;
     }
 }
 
+#pragma region Actions
+
+void DoCall(String* str) {
+    int pos = GetValueAsInt(&str->substring(2));
+    stackPointers[currentStackPointer++] = gameFile.position();
+    gameFile.seek(pos);
+}
+
+void DoIf(String* str) {
+    int skip = GetValueAsInt(&str->substring(inputBuffer[0], inputBuffer[1]));
+    int left = GetValueAsInt(&str->substring(inputBuffer[1], inputBuffer[2]));
+    char op = str->substring(inputBuffer[2], inputBuffer[3]).charAt(0);
+    int right = GetValueAsInt(&str->substring(inputBuffer[3]));
+
+    bool result = false;
+    switch (op)
+    {
+    case OP_IF_EQU: result = left == right; break;
+    case OP_IF_LAR: result = left > right; break;
+    case OP_IF_LES: result = left < right; break;
+    case OP_IF_NEQ: result = left != right; break;
+    default:
+        break;
+    }
+
+    if (!result)
+        gameFile.seek(gameFile.position() + skip);
+}
+
+void DoWait(String* str) {
+    int time = GetValueAsInt(&str->substring(2));
+    delay(time);
+}
+
+void DoSet(String* str) {
+    int index = GetValueAsInt(&str->substring(inputBuffer[0], inputBuffer[1]));
+    int value = GetValueAsInt(&str->substring(inputBuffer[1]));
+    registers[index] = value;
+}
+
+void DoAdd(String* str) {
+    int index = GetValueAsInt(&str->substring(inputBuffer[0], inputBuffer[1]));
+    int value = GetValueAsInt(&str->substring(inputBuffer[1]));
+    registers[index] += value;
+}
+
+void DoSub(String* str) {
+    int index = GetValueAsInt(&str->substring(inputBuffer[0], inputBuffer[1]));
+    int value = GetValueAsInt(&str->substring(inputBuffer[1]));
+    registers[index] -= value;
+}
+
+void DoMult(String* str) {
+    int index = GetValueAsInt(&str->substring(inputBuffer[0], inputBuffer[1]));
+    int value = GetValueAsInt(&str->substring(inputBuffer[1]));
+    registers[index] *= value;
+}
+
+void DoDiv(String* str) {
+    int index = GetValueAsInt(&str->substring(inputBuffer[0], inputBuffer[1]));
+    int value = GetValueAsInt(&str->substring(inputBuffer[1]));
+    registers[index] /= value;
+}
+
 void DoAudio(String* str) {
-    int value = GetValue(str->substring(2));
-    analogWrite(Audio_Pin, value);
+    int value = GetValueAsInt(&str->substring(2));
+    tone(Audio_Pin, value);
 }
 
 void DoDrawLine(String* str) {
-    int x1 = GetValue(str->substring(inputBuffer[0], inputBuffer[1]));
-    int y1 = GetValue(str->substring(inputBuffer[1], inputBuffer[2]));
-    int x2 = GetValue(str->substring(inputBuffer[2], inputBuffer[3]));
-    int y2 = GetValue(str->substring(inputBuffer[3], inputBuffer[4]));
-    int color = colors[GetValue(str->substring(inputBuffer[4]))];
+    int x1 = GetValueAsInt(&str->substring(inputBuffer[0], inputBuffer[1]));
+    int y1 = GetValueAsInt(&str->substring(inputBuffer[1], inputBuffer[2]));
+    int x2 = GetValueAsInt(&str->substring(inputBuffer[2], inputBuffer[3]));
+    int y2 = GetValueAsInt(&str->substring(inputBuffer[3], inputBuffer[4]));
+    int color = colors[GetValueAsInt(&str->substring(inputBuffer[4]))];
     display.drawLine(x1, y1, x2, y2, color);
 }
 
 void DoDrawCircle(String* str, bool fill) {
-    int x = GetValue(str->substring(inputBuffer[0], inputBuffer[1]));
-    int y = GetValue(str->substring(inputBuffer[1], inputBuffer[2]));
-    int radius = GetValue(str->substring(inputBuffer[2], inputBuffer[3]));
-    int color = colors[GetValue(str->substring(inputBuffer[3]))];
+    int x = GetValueAsInt(&str->substring(inputBuffer[0], inputBuffer[1]));
+    int y = GetValueAsInt(&str->substring(inputBuffer[1], inputBuffer[2]));
+    int radius = GetValueAsInt(&str->substring(inputBuffer[2], inputBuffer[3]));
+    int color = colors[GetValueAsInt(&str->substring(inputBuffer[3]))];
     if (fill)
         display.fillCircle(x, y, radius, color);
     else
@@ -260,25 +270,25 @@ void DoDrawCircle(String* str, bool fill) {
 }
 
 void DoDrawTriangle(String* str, bool fill) {
-    int x1 = GetValue(str->substring(inputBuffer[0], inputBuffer[1]));
-    int y1 = GetValue(str->substring(inputBuffer[1], inputBuffer[2]));
-    int x2 = GetValue(str->substring(inputBuffer[2], inputBuffer[3]));
-    int y2 = GetValue(str->substring(inputBuffer[3], inputBuffer[4]));
-    int x3 = GetValue(str->substring(inputBuffer[4], inputBuffer[5]));
-    int y3 = GetValue(str->substring(inputBuffer[5], inputBuffer[6]));
-    int color = colors[GetValue(str->substring(inputBuffer[3]))];
+    int x1 = GetValueAsInt(&str->substring(inputBuffer[0], inputBuffer[1]));
+    int y1 = GetValueAsInt(&str->substring(inputBuffer[1], inputBuffer[2]));
+    int x2 = GetValueAsInt(&str->substring(inputBuffer[2], inputBuffer[3]));
+    int y2 = GetValueAsInt(&str->substring(inputBuffer[3], inputBuffer[4]));
+    int x3 = GetValueAsInt(&str->substring(inputBuffer[4], inputBuffer[5]));
+    int y3 = GetValueAsInt(&str->substring(inputBuffer[5], inputBuffer[6]));
+    int color = colors[GetValueAsInt(&str->substring(inputBuffer[3]))];
     if (fill)
         display.fillTriangle(x1, y1, x2, y2, x3, y3, color);
     else
         display.drawTriangle(x1, y1, x2, y2, x3, y3, color);
 }
 
-void DoDrawRectangle(String* str, bool fill ) {
-    int x = GetValue(str->substring(inputBuffer[0], inputBuffer[1]));
-    int y = GetValue(str->substring(inputBuffer[1], inputBuffer[2]));
-    int width = GetValue(str->substring(inputBuffer[2], inputBuffer[3]));
-    int heigth = GetValue(str->substring(inputBuffer[3], inputBuffer[4]));
-    int color = colors[GetValue(str->substring(inputBuffer[4]))];
+void DoDrawRectangle(String* str, bool fill) {
+    int x = GetValueAsInt(&str->substring(inputBuffer[0], inputBuffer[1]));
+    int y = GetValueAsInt(&str->substring(inputBuffer[1], inputBuffer[2]));
+    int width = GetValueAsInt(&str->substring(inputBuffer[2], inputBuffer[3]));
+    int heigth = GetValueAsInt(&str->substring(inputBuffer[3], inputBuffer[4]));
+    int color = colors[GetValueAsInt(&str->substring(inputBuffer[4]))];
     if (fill)
         display.fillRect(x, y, width, heigth, color);
     else
@@ -286,11 +296,12 @@ void DoDrawRectangle(String* str, bool fill ) {
 }
 
 void DoDrawText(String* str) {
-    int x = GetValue(str->substring(inputBuffer[0], inputBuffer[1]));
-    int y = GetValue(str->substring(inputBuffer[1], inputBuffer[2]));
-    int size = GetValue(str->substring(inputBuffer[2], inputBuffer[3]));
-    int color = colors[GetValue(str->substring(inputBuffer[3], inputBuffer[4]))];
-    int text = GetValue(str->substring(inputBuffer[4]));
+    int x = GetValueAsInt(&str->substring(inputBuffer[0], inputBuffer[1]));
+    int y = GetValueAsInt(&str->substring(inputBuffer[1], inputBuffer[2]));
+    int size = GetValueAsInt(&str->substring(inputBuffer[2], inputBuffer[3]));
+    int color = colors[GetValueAsInt(&str->substring(inputBuffer[3], inputBuffer[4]))];
+    String text = GetValueAsStr(&str->substring(inputBuffer[4]));
+
     display.setTextColor(color);
     display.setTextSize(size);
     display.setCursor(x, y);
@@ -298,10 +309,12 @@ void DoDrawText(String* str) {
 }
 
 void DoDrawFill(String* str) {
-    display.fillScreen(colors[GetValue(str->substring(2))]);
+    display.fillScreen(colors[GetValueAsInt(&str->substring(2))]);
 }
 
 void DoGoto(String* str) {
-    int index = GetValue(str->substring(2));
-    gameFile.seek(index);
+    int index = GetValueAsInt(&str->substring(2));
+    gameFile.seek(index - 1);
 }
+
+#pragma endregion

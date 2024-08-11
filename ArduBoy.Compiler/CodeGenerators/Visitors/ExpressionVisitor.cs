@@ -19,10 +19,14 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
         public string Visit(IfNode node)
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"{OperatorCodes.GetByteCode(":if")} {node.Content.Count} {Visit(node.Expression)}");
+			var contentBuilder = new StringBuilder();
             foreach (var child in node.Content)
-                sb.AppendLine(Visit((dynamic)child));
-            return sb.ToString();
+				contentBuilder.AppendLine(Visit((dynamic)child));
+            var content = contentBuilder.ToString();
+			sb.AppendLine($"{OperatorCodes.GetByteCode(":if")} {content.Length} {Visit(node.Expression)}");
+            sb.Append(content);
+
+			return sb.ToString();
         }
 
         public string Visit(WaitExp node)
