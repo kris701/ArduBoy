@@ -136,7 +136,7 @@
 				(:wait 250)
 			))
 			(:for (:set var 0) (%var% < 128) (:add var 10) (
-				(:draw-fill-rect %var% %var% 0 0 128 %RED%)
+				(:draw-fill-rect %var% %var% 0 0 %RED%)
 				(:wait 250)
 			))
 			(:wait 1000)
