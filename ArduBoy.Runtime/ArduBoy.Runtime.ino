@@ -176,7 +176,7 @@ int GetReservedValue(int target) {
 }
 
 void SplitString(String* str) {
-    inputBuffer[0] = str->indexOf(' ');
+    inputBuffer[0] = str->indexOf(' ') + 1;
     uint8_t offset = inputBuffer[0];
     uint8_t index = 1;
     while (offset != 255) {
@@ -248,6 +248,7 @@ void DoDrawLine(String* str) {
     int x2 = GetValueAsInt(str->c_str(), inputBuffer[2]);
     int y2 = GetValueAsInt(str->c_str(), inputBuffer[3]);
     int color = colors[GetValueAsInt(str->c_str(), inputBuffer[4])];
+
     display.drawLine(x1, y1, x2, y2, color);
 }
 
