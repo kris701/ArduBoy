@@ -116,7 +116,7 @@
 			(:draw-fill %BLACK%)
 			(:draw-text 0 0 1 %GREEN% Draw lines test)
 			(:for (:set var 0) (%var% < 128) (:add var 10) (
-				(:draw-line 0 %var% 128 %var% %GREEN%)
+				(:draw-line 0 %var% 128 %var% %BLUE%)
 				(:wait 250)
 			))
 			(:for (:set var 0) (%var% < 128) (:add var 10) (
@@ -132,11 +132,11 @@
 			(:draw-fill %BLACK%)
 			(:draw-text 0 0 1 %GREEN% Draw rect test)
 			(:for (:set var 0) (%var% < 128) (:add var 10) (
-				(:draw-rect 0 0 %var% %var% %GREEN%)
+				(:draw-rect 0 0 %var% %var% %BLUE%)
 				(:wait 250)
 			))
 			(:for (:set var 0) (%var% < 128) (:add var 10) (
-				(:draw-rect-fill %var% %var% 0 0 128 %RED%)
+				(:draw-fill-rect %var% %var% 0 0 128 %RED%)
 				(:wait 250)
 			))
 			(:wait 1000)
