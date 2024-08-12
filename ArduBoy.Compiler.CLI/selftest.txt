@@ -26,6 +26,7 @@
 			(:call StaticsTest)
 			(:call IfTest)
 			(:call DrawLineTest)
+			(:call DrawRectTest)
 		)
 	)
 
@@ -113,8 +114,29 @@
 	(:func DrawLineTest
 		(
 			(:draw-fill %BLACK%)
+			(:draw-text 0 0 1 %GREEN% Draw lines test)
 			(:for (:set var 0) (%var% < 128) (:add var 10) (
 				(:draw-line 0 %var% 128 %var% %GREEN%)
+				(:wait 250)
+			))
+			(:for (:set var 0) (%var% < 128) (:add var 10) (
+				(:draw-line %var% 0 %var% 128 %RED%)
+				(:wait 250)
+			))
+			(:wait 1000)
+		)
+	)
+
+	(:func DrawRectTest
+		(
+			(:draw-fill %BLACK%)
+			(:draw-text 0 0 1 %GREEN% Draw rect test)
+			(:for (:set var 0) (%var% < 128) (:add var 10) (
+				(:draw-rect 0 0 %var% %var% %GREEN%)
+				(:wait 250)
+			))
+			(:for (:set var 0) (%var% < 128) (:add var 10) (
+				(:draw-rect-fill %var% %var% 0 0 128 %RED%)
 				(:wait 250)
 			))
 			(:wait 1000)
