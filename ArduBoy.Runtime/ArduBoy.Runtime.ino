@@ -52,7 +52,7 @@ Adafruit_SSD1351 display = Adafruit_SSD1351(SCREEN_WIDTH, SCREEN_HEIGHT, &SPI, S
 File gameFile;
 int registers[32];
 uint8_t stackPointers[32];
-uint8_t currentStackPointer = -1;
+uint8_t currentStackPointer = 0;
 enum mathExp {
     ADD, SUB,
     DIV, MUL,
@@ -135,7 +135,9 @@ void loop() {
         case OP_DRAW_TEXT: DoDrawText(&line); break;
         case OP_DRAW_FILL: DoDrawFill(&line); break;
         case OP_GOTO: DoGoto(&line); break;
-        case OP_FUNC_END: gameFile.seek(stackPointers[currentStackPointer--]); break;
+        case OP_FUNC_END: 
+            currentStackPointer--;
+            gameFile.seek(stackPointers[currentStackPointer]); break;
         default:
             break;
         }
@@ -189,7 +191,7 @@ void SplitString(String* str) {
 void DoCall(String* str) {
     int pos = GetValueAsInt(str->c_str(), 2);
     stackPointers[currentStackPointer++] = gameFile.position();
-    gameFile.seek(pos);
+    gameFile.seek(pos - 1);
 }
 
 void DoIf(String* str) {

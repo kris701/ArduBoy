@@ -4,7 +4,7 @@
 
 	(:func Setup
 		(
-			(:set test 0)
+			(:set test 1)
 			(:set direction 0)
 			(:draw-fill %BLACK%)
 			(:draw-text 40 60 1 %GREEN% value is)
@@ -14,7 +14,7 @@
 	(:func Loop
 		(
 			(:draw-fill-rect 90 60 28 30 %BLACK%)
-			(:draw-text 60 60 1 %RED% %direction%)
+			(:draw-text 90 60 1 %RED% %test%)
 
 			(:call SetDirection)
 			(:call SetValue)
@@ -26,7 +26,7 @@
 			(:if (%test% < 0) (
 				(:set direction 0)
 			))
-			(:if (%test% > 10) (
+			(:if (%test% > 99) (
 				(:set direction 1)
 			))
 		)
