@@ -1,0 +1,79 @@
+(
+	(:name Test)
+	(:includes (:include core))
+
+	(:statics 
+		(
+			(:static stat_1 15)
+			(:static stat_2 some text)
+		)
+	)
+
+	(:func Setup
+		(
+			(:set test 1)
+			(:set direction 0)
+			(:draw-fill %BLACK%)
+			(:draw-text 0 0 1 %GREEN% Self test start)
+			(:wait 500)
+		)
+	)
+
+	(:func Loop
+		(
+			(:draw-fill %BLACK%)
+			(:call WaitTest)
+			(:draw-fill %BLACK%)
+			(:call VariableTest)
+			(:draw-fill %BLACK%)
+			(:call StaticsTest)
+		)
+	)
+
+	(:func WaitTest
+		(
+			(:draw-text 0 0 1 %GREEN% Waiting one second)
+			(:wait 1000)
+		)
+	)
+
+	(:func VariableTest
+		(
+			(:draw-text 0 0 1 %GREEN% Variable test)
+			(:draw-text 0 20 1 %RED% Variable set)
+			(:set variable 0)
+			(:draw-text 100 20 1 %RED% %variable%)
+			(:wait 1000)
+
+			(:draw-text 0 20 1 %RED% Variable add 10)
+			(:add variable 10)
+			(:draw-text 100 20 1 %RED% %variable%)
+			(:wait 1000)
+
+			(:draw-text 0 20 1 %RED% Variable sub 5)
+			(:sub variable 5)
+			(:draw-text 100 20 1 %RED% %variable%)
+			(:wait 1000)
+
+			(:draw-text 0 20 1 %RED% Variable mult 3)
+			(:mult variable 3)
+			(:draw-text 100 20 1 %RED% %variable%)
+			(:wait 1000)
+
+			(:draw-text 0 20 1 %RED% Variable div 10)
+			(:div variable 10)
+			(:draw-text 100 20 1 %RED% %variable%)
+			(:wait 1000)
+		)
+	)
+
+	(:func StaticsTest
+		(
+			(:draw-text 0 0 1 %GREEN% Statics test)
+			(:wait 1000)
+			(:draw-text 0 20 1 %RED% %stat_1%)
+			(:wait 1000)
+			(:draw-text 0 20 1 %RED% %stat_2%)
+		)
+	)
+)
