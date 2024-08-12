@@ -25,7 +25,7 @@
 				(:add test 1)
 			))
 			(:if (%direction% == 1) (
-				(:sub test 0)
+				(:sub test 1)
 			))
 			(:wait 1000)
 		)
