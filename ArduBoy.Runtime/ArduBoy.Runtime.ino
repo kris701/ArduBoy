@@ -51,7 +51,7 @@
 Adafruit_SSD1351 display = Adafruit_SSD1351(SCREEN_WIDTH, SCREEN_HEIGHT, &SPI, SCREEN_CS, SCREEN_DC, SCREEN_RST);
 File gameFile;
 int registers[32];
-uint8_t stackPointers[32];
+int stackPointers[32];
 uint8_t currentStackPointer = 0;
 enum mathExp {
     ADD, SUB,
