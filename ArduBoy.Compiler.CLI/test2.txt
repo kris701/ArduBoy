@@ -6,28 +6,40 @@
 		(
 			(:set test 0)
 			(:set direction 0)
+			(:draw-fill %BLACK%)
+			(:draw-text 40 60 1 %GREEN% value is)
 		)
 	)
 
 	(:func Loop
 		(
-			(:draw-fill %BLACK%)
-			(:draw-text 40 60 2 %GREEN% value is)
-			(:draw-text 60 60 2 %RED% %direction%)
+			(:draw-fill-rectangle 90 60 28 30 %BLACK%)
+			(:draw-text 60 60 1 %RED% %direction%)
 
+			(:call SetDirection)
+			(:call SetValue)
+		)
+	)
+
+	(:func SetDirection
+		(
 			(:if (%test% < 0) (
 				(:set direction 0)
 			))
 			(:if (%test% > 10) (
 				(:set direction 1)
 			))
+		)
+	)
+
+	(:func SetValue
+		(
 			(:if (%direction% == 0) (
 				(:add test 1)
 			))
 			(:if (%direction% == 1) (
 				(:sub test 1)
 			))
-			(:wait 1000)
 		)
 	)
 )
