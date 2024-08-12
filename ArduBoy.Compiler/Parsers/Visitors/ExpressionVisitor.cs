@@ -120,8 +120,14 @@ namespace ArduBoy.Compiler.Parsers.Visitors
                 var y = VisitExp(new ASTNode(split[1]));
                 var size = VisitExp(new ASTNode(split[2]));
                 var color = VisitExp(new ASTNode(split[3]));
-                var text = VisitExp(new ASTNode(string.Join(' ', split[4..])));
-                return new DrawTextExp(x, y, size, text, color);
+                var textNode = new ASTNode(string.Join(' ', split[4..]));
+				IExp? returnNode;
+                returnNode = TryVisitVariableExp(textNode);
+                if (returnNode == null)
+                    returnNode = TryVisitValueExp(textNode);
+                if (returnNode == null)
+                    throw new Exception("Could not parse the text nodes text!");
+				return new DrawTextExp(x, y, size, returnNode, color);
             }
             return null;
         }
