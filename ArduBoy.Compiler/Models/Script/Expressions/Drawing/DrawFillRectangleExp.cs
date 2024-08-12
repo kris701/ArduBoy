@@ -2,7 +2,7 @@
 {
     public class DrawFillRectangleExp : DrawRectangleExp
     {
-        public DrawFillRectangleExp(IExp x, IExp y, IExp width, IExp height, IExp color) : base(x, y, width, height, color)
+        public DrawFillRectangleExp(INode parent, IExp x, IExp y, IExp width, IExp height, IExp color) : base(parent, x, y, width, height, color)
         {
         }
 

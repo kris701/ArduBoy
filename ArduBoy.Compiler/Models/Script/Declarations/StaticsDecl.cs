@@ -2,18 +2,18 @@
 
 namespace ArduBoy.Compiler.Models.Script.Declarations
 {
-    public class StaticsDecl : BaseNode, IDecl
-    {
-        public List<StaticsExp> Statics { get; set; }
+    public class StaticsDecl : BaseNode, IDecl, IContentNode
+	{
+        public List<INode> Content { get; set; }
 
-        public StaticsDecl(List<StaticsExp> statics)
+        public StaticsDecl(INode parent, List<INode> content) : base(parent)
         {
-            Statics = statics;
+            Content = content;
         }
 
         public override string ToString()
         {
-            return $"(:statics ({Statics.Count} more statics))";
+            return $"(:statics ({Content.Count} more statics))";
         }
     }
 }

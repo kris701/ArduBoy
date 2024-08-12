@@ -9,7 +9,7 @@
         public IExp X3 { get; set; }
         public IExp Y3 { get; set; }
 
-        public DrawTriangleExp(IExp x1, IExp y1, IExp x2, IExp y2, IExp x3, IExp y3, IExp color) : base(color)
+        public DrawTriangleExp(INode parent, IExp x1, IExp y1, IExp x2, IExp y2, IExp x3, IExp y3, IExp color) : base(parent, color)
         {
             X1 = x1;
             Y1 = y1;

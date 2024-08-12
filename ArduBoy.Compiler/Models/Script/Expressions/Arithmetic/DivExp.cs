@@ -4,7 +4,7 @@
     {
         public IExp Value { get; set; }
 
-        public DivExp(string name, IExp value) : base(name)
+        public DivExp(INode parent, string name, IExp value) : base(parent, name)
         {
             Value = value;
         }

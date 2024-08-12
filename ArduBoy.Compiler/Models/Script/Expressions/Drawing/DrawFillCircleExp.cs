@@ -2,7 +2,7 @@
 {
     public class DrawFillCircleExp : DrawCircleExp
     {
-        public DrawFillCircleExp(IExp x, IExp y, IExp radius, IExp color) : base(x, y, radius, color)
+        public DrawFillCircleExp(INode parent, IExp x, IExp y, IExp radius, IExp color) : base(parent, x, y, radius, color)
         {
         }
         public override string ToString()

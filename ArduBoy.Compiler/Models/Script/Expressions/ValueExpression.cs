@@ -4,7 +4,7 @@
     {
         public string Value { get; set; }
 
-        public ValueExpression(string value)
+        public ValueExpression(INode parent, string value) : base(parent)
         {
             Value = value;
         }

@@ -2,18 +2,18 @@
 
 namespace ArduBoy.Compiler.Models.Script.Declarations
 {
-    public class IncludesDecl : BaseNode, IDecl
-    {
-        public List<IncludeExp> Includes { get; set; }
+    public class IncludesDecl : BaseNode, IDecl, IContentNode
+	{
+        public List<INode> Content { get; set; }
 
-        public IncludesDecl(List<IncludeExp> statics)
+        public IncludesDecl(INode parent, List<INode> content) : base(parent)
         {
-            Includes = statics;
+            Content = content;
         }
 
         public override string ToString()
         {
-            return $"(:includes ({Includes.Count} more includes))";
+            return $"(:includes ({Content.Count} more includes))";
         }
     }
 }

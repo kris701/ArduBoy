@@ -5,7 +5,14 @@ namespace ArduBoy.Compiler.Models.Script
 {
     public abstract class BaseNode : INode
     {
-        internal List<PropertyInfo> _metaInfo = new List<PropertyInfo>();
+		public INode Parent { get; set; }
+
+		protected BaseNode(INode parent)
+		{
+			Parent = parent;
+		}
+
+		internal List<PropertyInfo> _metaInfo = new List<PropertyInfo>();
         private void CacheMetaInfo()
         {
             if (_metaInfo.Count > 0)

@@ -4,7 +4,7 @@
     {
         public IExp Value { get; set; }
 
-        public AudioExp(IExp value)
+        public AudioExp(INode parent, IExp value) : base(parent)
         {
             Value = value;
         }

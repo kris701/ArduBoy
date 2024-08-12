@@ -1,14 +1,14 @@
 ﻿namespace ArduBoy.Compiler.Models.Script.Expressions
 {
-    public class IfNode : BaseNode, IExp
-    {
+    public class IfNode : BaseNode, IExp, IContentNode
+	{
         public ComparisonExp Expression { get; set; }
-        public List<IExp> Content { get; set; }
+        public List<INode> Content { get; set; }
 
-        public IfNode(ComparisonExp expression, List<IExp> branch)
+        public IfNode(INode parent, ComparisonExp expression, List<INode> content) : base(parent)
         {
             Expression = expression;
-            Content = branch;
+            Content = content;
         }
 
         public override string ToString()

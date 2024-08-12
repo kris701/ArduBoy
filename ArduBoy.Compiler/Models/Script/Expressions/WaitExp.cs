@@ -4,7 +4,7 @@
     {
         public IExp WaitTime { get; set; }
 
-        public WaitExp(IExp waitTime)
+        public WaitExp(INode parent, IExp waitTime) : base(parent)
         {
             WaitTime = waitTime;
         }

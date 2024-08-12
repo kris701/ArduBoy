@@ -2,7 +2,7 @@
 {
     public class DrawFillExp : BaseDraw
     {
-        public DrawFillExp(IExp color) : base(color)
+        public DrawFillExp(INode parent, IExp color) : base(parent, color)
         {
         }
 

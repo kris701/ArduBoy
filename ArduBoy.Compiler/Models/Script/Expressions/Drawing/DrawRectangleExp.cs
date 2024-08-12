@@ -7,7 +7,7 @@
         public IExp Width { get; set; }
         public IExp Height { get; set; }
 
-        public DrawRectangleExp(IExp x, IExp y, IExp width, IExp height, IExp color) : base(color)
+        public DrawRectangleExp(INode parent, IExp x, IExp y, IExp width, IExp height, IExp color) : base(parent, color)
         {
             X = x;
             Y = y;

@@ -4,7 +4,7 @@
     {
         public IExp Value { get; set; }
 
-        public AddExp(string name, IExp value) : base(name)
+        public AddExp(INode parent, string name, IExp value) : base(parent, name)
         {
             Value = value;
         }

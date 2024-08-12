@@ -113,13 +113,10 @@
 	(:func DrawLineTest
 		(
 			(:draw-fill %BLACK%)
-			(:draw-line 0 0 128 128 %GREEN%)
-			(:wait 1000)
-			(:draw-line 0 0 128 128 %BLUE%)
-			(:wait 1000)
-			(:draw-line 0 64 128 64 %BLUE%)
-			(:wait 1000)
-			(:draw-line 64 0 64 128 %CYAN%)
+			(:for (:set var 0) (%var% < 128) (:add var 10) (
+				(:draw-line 0 %var% 128 %var% %GREEN%)
+				(:wait 250)
+			))
 			(:wait 1000)
 		)
 	)

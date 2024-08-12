@@ -6,7 +6,7 @@
         public IExp Y { get; set; }
         public IExp Radius { get; set; }
 
-        public DrawCircleExp(IExp x, IExp y, IExp radius, IExp color) : base(color)
+        public DrawCircleExp(INode parent, IExp x, IExp y, IExp radius, IExp color) : base(parent, color)
         {
             X = x;
             Y = y;

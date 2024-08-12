@@ -13,7 +13,7 @@ namespace ArduBoy.Compiler.Parsers
             var visitor = new ParserVisitor();
             foreach (var child in node.Children)
             {
-                var visited = visitor.VisitDecl(child);
+                var visited = visitor.VisitDecl(newDef, child);
                 switch (visited)
                 {
                     case NameDecl d: newDef.Name = d; break;

@@ -6,7 +6,7 @@
         public IExp Right { get; set; }
         public string Operator { get; set; }
 
-        public ComparisonExp(IExp left, IExp right, string @operator)
+        public ComparisonExp(INode parent, IExp left, IExp right, string @operator) : base(parent)
         {
             Left = left;
             Right = right;

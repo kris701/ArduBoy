@@ -8,215 +8,247 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 {
     public partial class ParserVisitor
     {
-        public IExp VisitExp(ASTNode node)
+        public IExp VisitExp(INode parent, ASTNode node)
         {
             IExp? returnNode;
-            if ((returnNode = TryVisitIfDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitStaticsExp(node)) != null) return returnNode;
-            if ((returnNode = TryVisitIncludeExp(node)) != null) return returnNode;
-            if ((returnNode = TryVisitCallExp(node)) != null) return returnNode;
-            if ((returnNode = TryVisitWaitDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitSetDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitAddDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitSubDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitMultDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitDivDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitAudioExpression(node)) != null) return returnNode;
-            if ((returnNode = TryVisitDrawLineDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitDrawFillDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitDrawTriangleDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitDrawFillTriangleDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitDrawTextDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitDrawCircleDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitDrawFillCircleDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitDrawRectangleDeclaration(node)) != null) return returnNode;
-            if ((returnNode = TryVisitDrawFillRectangleDeclaration(node)) != null) return returnNode;
+            if ((returnNode = TryVisitIfDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitForDeclaration(parent, node)) != null) return returnNode;
+			if ((returnNode = TryVisitStaticsExp(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitIncludeExp(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitCallExp(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitWaitDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitSetDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitAddDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitSubDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitMultDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitDivDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitAudioExpression(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawLineDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawFillDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawTriangleDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawFillTriangleDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawTextDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawCircleDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawFillCircleDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawRectangleDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitDrawFillRectangleDeclaration(parent, node)) != null) return returnNode;
 
-            if ((returnNode = TryVisitVariableExp(node)) != null) return returnNode;
-            if ((returnNode = TryVisitComparisonExp(node)) != null) return returnNode;
-            if ((returnNode = TryVisitValueExp(node)) != null) return returnNode;
+            if ((returnNode = TryVisitVariableExp(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitComparisonExp(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitValueExp(parent, node)) != null) return returnNode;
 
             throw new Exception($"Could not parse content of node: '{node}'");
         }
 
-        public IExp? TryVisitAudioExpression(ASTNode node)
+        public IExp? TryVisitAudioExpression(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":audio") &&
                 DoesContentContainNLooseChildren(node, ":audio", 1))
             {
-                var newLabel = new AudioExp(VisitExp(new ASTNode(RemoveNodeTypeAndEscapeChars(node.Content, ":audio"))));
-                return newLabel;
+                var newLabel = new AudioExp(parent, null);
+                newLabel.Value = VisitExp(newLabel, new ASTNode(RemoveNodeTypeAndEscapeChars(node.Content, ":audio")));
+				return newLabel;
             }
             return null;
         }
 
-        public IExp? TryVisitDrawLineDeclaration(ASTNode node)
+        public IExp? TryVisitDrawLineDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":draw-line") &&
                 DoesContentContainNLooseChildren(node, ":draw-line", 5))
             {
-                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-line").Split(' ');
-                var x1 = VisitExp(new ASTNode(split[0]));
-                var y1 = VisitExp(new ASTNode(split[1]));
-                var x2 = VisitExp(new ASTNode(split[2]));
-                var y2 = VisitExp(new ASTNode(split[3]));
-                var color = VisitExp(new ASTNode(split[4]));
-                return new DrawLineExp(x1, y1, x2, y2, color);
+                var newNode = new DrawLineExp(parent, null, null, null, null, null);
+				var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-line").Split(' ');
+				newNode.X1 = VisitExp(newNode, new ASTNode(split[0]));
+				newNode.Y1 = VisitExp(newNode, new ASTNode(split[1]));
+				newNode.X2 = VisitExp(newNode, new ASTNode(split[2]));
+				newNode.Y2 = VisitExp(newNode, new ASTNode(split[3]));
+				newNode.Color = VisitExp(newNode, new ASTNode(split[4]));
+                return newNode;
             }
             return null;
         }
 
 
-        public IExp? TryVisitDrawFillDeclaration(ASTNode node)
+        public IExp? TryVisitDrawFillDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":draw-fill") &&
                 DoesContentContainNLooseChildren(node, ":draw-fill", 1))
-                return new DrawFillExp(VisitExp(new ASTNode(RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill"))));
+            {
+                var newNode = new DrawFillExp(parent, null);
+                newNode.Color = VisitExp(newNode, new ASTNode(RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill")));
+				return newNode;
+            }
             return null;
         }
 
-        public IExp? TryVisitDrawTriangleDeclaration(ASTNode node)
+        public IExp? TryVisitDrawTriangleDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":draw-triangle") &&
                 DoesContentContainNLooseChildren(node, ":draw-triangle", 7))
             {
-                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-triangle").Split(' ');
-                var x1 = VisitExp(new ASTNode(split[0]));
-                var y1 = VisitExp(new ASTNode(split[1]));
-                var x2 = VisitExp(new ASTNode(split[2]));
-                var y2 = VisitExp(new ASTNode(split[3]));
-                var x3 = VisitExp(new ASTNode(split[4]));
-                var y3 = VisitExp(new ASTNode(split[5]));
-                var color = VisitExp(new ASTNode(split[6]));
-                return new DrawTriangleExp(x1, y1, x2, y2, x3, y3, color);
+                var newNode = new DrawTriangleExp(parent, null, null, null, null, null, null, null);
+				var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-triangle").Split(' ');
+				newNode.X1 = VisitExp(newNode, new ASTNode(split[0]));
+				newNode.Y1 = VisitExp(newNode, new ASTNode(split[1]));
+				newNode.X2 = VisitExp(newNode, new ASTNode(split[2]));
+				newNode.Y2 = VisitExp(newNode, new ASTNode(split[3]));
+				newNode.X3 = VisitExp(newNode, new ASTNode(split[4]));
+				newNode.Y3 = VisitExp(newNode, new ASTNode(split[5]));
+				newNode.Color = VisitExp(newNode, new ASTNode(split[6]));
+                return newNode;
             }
             return null;
         }
 
-        public IExp? TryVisitDrawFillTriangleDeclaration(ASTNode node)
+        public IExp? TryVisitDrawFillTriangleDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":draw-fill-triangle") &&
                 DoesContentContainNLooseChildren(node, ":draw-fill-triangle", 7))
             {
-                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill-triangle").Split(' ');
-                var x1 = VisitExp(new ASTNode(split[0]));
-                var y1 = VisitExp(new ASTNode(split[1]));
-                var x2 = VisitExp(new ASTNode(split[2]));
-                var y2 = VisitExp(new ASTNode(split[3]));
-                var x3 = VisitExp(new ASTNode(split[4]));
-                var y3 = VisitExp(new ASTNode(split[5]));
-                var color = VisitExp(new ASTNode(split[6]));
-                return new DrawFillTriangleExp(x1, y1, x2, y2, x3, y3, color);
+                var newNode = new DrawFillTriangleExp(parent, null, null, null, null, null, null, null);
+				var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill-triangle").Split(' ');
+				newNode.X1 = VisitExp(newNode, new ASTNode(split[0]));
+				newNode.Y1 = VisitExp(newNode, new ASTNode(split[1]));
+				newNode.X2 = VisitExp(newNode, new ASTNode(split[2]));
+				newNode.Y2 = VisitExp(newNode, new ASTNode(split[3]));
+				newNode.X3 = VisitExp(newNode, new ASTNode(split[4]));
+				newNode.Y3 = VisitExp(newNode, new ASTNode(split[5]));
+				newNode.Color = VisitExp(newNode, new ASTNode(split[6]));
+                return newNode;
             }
             return null;
         }
 
-        public IExp? TryVisitDrawTextDeclaration(ASTNode node)
+        public IExp? TryVisitDrawTextDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":draw-text"))
             {
-                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-text").Split(' ');
-                var x = VisitExp(new ASTNode(split[0]));
-                var y = VisitExp(new ASTNode(split[1]));
-                var size = VisitExp(new ASTNode(split[2]));
-                var color = VisitExp(new ASTNode(split[3]));
+                var newNode = new DrawTextExp(parent, null, null, null, null, null);
+				var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-text").Split(' ');
+				newNode.X = VisitExp(newNode, new ASTNode(split[0]));
+				newNode.Y = VisitExp(newNode, new ASTNode(split[1]));
+				newNode.Size = VisitExp(newNode, new ASTNode(split[2]));
+				newNode.Color = VisitExp(newNode, new ASTNode(split[3]));
                 var textNode = new ASTNode(string.Join(' ', split[4..]));
 				IExp? returnNode;
-                returnNode = TryVisitVariableExp(textNode);
+                returnNode = TryVisitVariableExp(newNode, textNode);
                 if (returnNode == null)
-                    returnNode = TryVisitValueExp(textNode);
+                    returnNode = TryVisitValueExp(newNode, textNode);
                 if (returnNode == null)
                     throw new Exception("Could not parse the text nodes text!");
-				return new DrawTextExp(x, y, size, returnNode, color);
+                newNode.Text = returnNode;
+				return newNode;
             }
             return null;
         }
 
-        public IExp? TryVisitDrawCircleDeclaration(ASTNode node)
+        public IExp? TryVisitDrawCircleDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":draw-circle") &&
                 DoesContentContainNLooseChildren(node, ":draw-circle", 4))
             {
-                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-circle").Split(' ');
-                var x = VisitExp(new ASTNode(split[0]));
-                var y = VisitExp(new ASTNode(split[1]));
-                var radius = VisitExp(new ASTNode(split[2]));
-                var color = VisitExp(new ASTNode(split[3]));
-                return new DrawCircleExp(x, y, radius, color);
+                var newNode = new DrawCircleExp(parent, null, null, null, null);
+				var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-circle").Split(' ');
+				newNode.X = VisitExp(newNode, new ASTNode(split[0]));
+				newNode.Y = VisitExp(newNode, new ASTNode(split[1]));
+				newNode.Radius = VisitExp(newNode, new ASTNode(split[2]));
+				newNode.Color = VisitExp(newNode, new ASTNode(split[3]));
+                return newNode;
             }
             return null;
         }
 
-        public IExp? TryVisitDrawFillCircleDeclaration(ASTNode node)
+        public IExp? TryVisitDrawFillCircleDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":draw-fill-circle") &&
                 DoesContentContainNLooseChildren(node, ":draw-fill-circle", 4))
             {
-                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill-circle").Split(' ');
-                var x = VisitExp(new ASTNode(split[0]));
-                var y = VisitExp(new ASTNode(split[1]));
-                var radius = VisitExp(new ASTNode(split[2]));
-                var color = VisitExp(new ASTNode(split[3]));
-                return new DrawFillCircleExp(x, y, radius, color);
+                var newNode = new DrawFillCircleExp(parent, null, null, null, null);
+				var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill-circle").Split(' ');
+				newNode.X = VisitExp(newNode, new ASTNode(split[0]));
+				newNode.Y = VisitExp(newNode, new ASTNode(split[1]));
+				newNode.Radius = VisitExp(newNode, new ASTNode(split[2]));
+				newNode.Color = VisitExp(newNode, new ASTNode(split[3]));
+                return newNode;
             }
             return null;
         }
 
-        public IExp? TryVisitDrawRectangleDeclaration(ASTNode node)
+        public IExp? TryVisitDrawRectangleDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":draw-rect") &&
                 DoesContentContainNLooseChildren(node, ":draw-rect", 5))
             {
-                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-rect").Split(' ');
-                var x = VisitExp(new ASTNode(split[0]));
-                var y = VisitExp(new ASTNode(split[1]));
-                var width = VisitExp(new ASTNode(split[2]));
-                var height = VisitExp(new ASTNode(split[3]));
-                var color = VisitExp(new ASTNode(split[4]));
-                return new DrawRectangleExp(x, y, width, height, color);
-            }
+                var newNode = new DrawRectangleExp(parent, null, null, null, null, null);
+				var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-rect").Split(' ');
+				newNode.X = VisitExp(newNode, new ASTNode(split[0]));
+				newNode.Y = VisitExp(newNode, new ASTNode(split[1]));
+				newNode.Width = VisitExp(newNode, new ASTNode(split[2]));
+				newNode.Height = VisitExp(newNode, new ASTNode(split[3]));
+				newNode.Color = VisitExp(newNode, new ASTNode(split[4]));
+                return newNode;
+			}
             return null;
         }
 
-        public IExp? TryVisitDrawFillRectangleDeclaration(ASTNode node)
+        public IExp? TryVisitDrawFillRectangleDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":draw-fill-rect") &&
                 DoesContentContainNLooseChildren(node, ":draw-fill-rect", 5))
             {
-                var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill-rect").Split(' ');
-                var x = VisitExp(new ASTNode(split[0]));
-                var y = VisitExp(new ASTNode(split[1]));
-                var width = VisitExp(new ASTNode(split[2]));
-                var height = VisitExp(new ASTNode(split[3]));
-                var color = VisitExp(new ASTNode(split[4]));
-                return new DrawFillRectangleExp(x, y, width, height, color);
+                var newNode = new DrawFillRectangleExp(parent, null, null, null, null, null);
+				var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill-rect").Split(' ');
+				newNode.X = VisitExp(newNode, new ASTNode(split[0]));
+				newNode.Y = VisitExp(newNode, new ASTNode(split[1]));
+				newNode.Width = VisitExp(newNode, new ASTNode(split[2]));
+				newNode.Height = VisitExp(newNode, new ASTNode(split[3]));
+				newNode.Color = VisitExp(newNode, new ASTNode(split[4]));
+                return newNode;
             }
             return null;
         }
 
-        public IExp? TryVisitIfDeclaration(ASTNode node)
+        public IExp? TryVisitIfDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":if") &&
                 DoesNodeHaveSpecificChildCount(node, ":if", 2))
             {
-                var exp = TryVisitComparisonExp(node.Children[0]) as ComparisonExp;
-                var branch = new List<IExp>();
+                var newNode = new IfNode(parent, null, new List<INode>());
+                newNode.Expression = TryVisitComparisonExp(newNode, node.Children[0]) as ComparisonExp;
                 foreach (var child in GetEmptyNode(node, 1))
-                    branch.Add(VisitExp(child));
-
-                return new IfNode(exp, branch);
+					newNode.Content.Add(VisitExp(newNode, child));
+                return newNode;
             }
             return null;
         }
 
-        public IExp? TryVisitComparisonExp(ASTNode node)
+		public IExp? TryVisitForDeclaration(INode parent, ASTNode node)
+		{
+			if (IsOfValidNodeType(node.Content, ":for") &&
+				DoesNodeHaveSpecificChildCount(node, ":for", 4))
+			{
+                var newNode = new ForExp(parent, null, null, null, new List<INode>());
+				newNode.Initialisation = TryVisitSetDeclaration(newNode, node.Children[0]) as SetExp;
+				newNode.Condition = TryVisitComparisonExp(newNode, node.Children[1]) as ComparisonExp;
+				newNode.Updation = VisitExp(newNode, node.Children[2]) as BaseArithmeticExp;
+				foreach (var child in GetEmptyNode(node, 3))
+					newNode.Content.Add(VisitExp(newNode, child));
+
+				return newNode;
+			}
+			return null;
+		}
+
+		public IExp? TryVisitComparisonExp(INode parent, ASTNode node)
         {
             if (DoesContentContainNLooseChildren(node, "", 3))
             {
-                var split = node.Content.Split(' ');
-                var left = VisitExp(new ASTNode(split[0]));
+                var newNode = new ComparisonExp(parent, null, null, null);
+				var split = node.Content.Split(' ');
+				newNode.Left = VisitExp(newNode, new ASTNode(split[0]));
                 var op = split[1];
-                var right = VisitExp(new ASTNode(split[2]));
+				newNode.Right = VisitExp(newNode, new ASTNode(split[2]));
 
                 switch (op)
                 {
@@ -228,126 +260,126 @@ namespace ArduBoy.Compiler.Parsers.Visitors
                     default: throw new Exception($"Invalid comparison method: '{op}'");
                 }
 
-                return new ComparisonExp(left, right, op);
+                newNode.Operator = op;
+
+				return newNode;
             }
             return null;
         }
 
-        public IExp? TryVisitValueExp(ASTNode node)
+        public IExp? TryVisitValueExp(INode parent, ASTNode node)
         {
             if (node.Content != "")
-                return new ValueExpression(node.Content);
+                return new ValueExpression(parent, node.Content);
             return null;
         }
 
-        public IExp? TryVisitVariableExp(ASTNode node)
+        public IExp? TryVisitVariableExp(INode parent, ASTNode node)
         {
             if (node.Content.StartsWith('%') && node.Content.EndsWith('%'))
-                return new VariableExp(node.Content.Substring(1, node.Content.Length - 2), false);
+                return new VariableExp(parent, node.Content.Substring(1, node.Content.Length - 2), false);
             return null;
         }
 
-        public IExp? TryVisitCallExp(ASTNode node)
+        public IExp? TryVisitCallExp(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":call"))
-                return new CallExp(RemoveNodeTypeAndEscapeChars(node.Content, ":call"));
+                return new CallExp(parent, RemoveNodeTypeAndEscapeChars(node.Content, ":call"));
             return null;
         }
 
-        public IExp? TryVisitStaticsExp(ASTNode node)
+        public IExp? TryVisitStaticsExp(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":static"))
             {
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":static").Split(' ');
-                return new StaticsExp(split[0], new ValueExpression(string.Join(' ', split[1..])));
+                var newNode = new StaticsExp(parent, split[0], null);
+                newNode.Value = new ValueExpression(newNode, string.Join(' ', split[1..]));
+				return newNode;
             }
             return null;
         }
 
-        public IExp? TryVisitIncludeExp(ASTNode node)
+        public IExp? TryVisitIncludeExp(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":include"))
-                return new IncludeExp(RemoveNodeTypeAndEscapeChars(node.Content, ":include"));
+                return new IncludeExp(parent, RemoveNodeTypeAndEscapeChars(node.Content, ":include"));
             return null;
         }
 
-        public IExp? TryVisitWaitDeclaration(ASTNode node)
+        public IExp? TryVisitWaitDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":wait") &&
                 DoesContentContainNLooseChildren(node, ":wait", 1))
             {
-                var newLabel = new WaitExp(VisitExp(new ASTNode(RemoveNodeTypeAndEscapeChars(node.Content, ":wait"))));
-                return newLabel;
+                var newNode = new WaitExp(parent, null);
+                newNode.WaitTime = VisitExp(newNode, new ASTNode(RemoveNodeTypeAndEscapeChars(node.Content, ":wait")));
+				return newNode;
             }
             return null;
         }
 
-        public IExp? TryVisitSetDeclaration(ASTNode node)
+        public IExp? TryVisitSetDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":set") &&
                 DoesContentContainNLooseChildren(node, ":set", 2))
             {
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":set").Split(' ');
-                var newLabel = new SetExp(
-                    split[0],
-                    VisitExp(new ASTNode(split[1])));
-                return newLabel;
+                var newNode = new SetExp(parent, split[0], null);
+                newNode.Value = VisitExp(newNode, new ASTNode(split[1]));
+				return newNode;
             }
             return null;
         }
 
-        public IExp? TryVisitAddDeclaration(ASTNode node)
+        public IExp? TryVisitAddDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":add") &&
                 DoesContentContainNLooseChildren(node, ":add", 2))
             {
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":add").Split(' ');
-                var newLabel = new AddExp(
-                    split[0],
-                    VisitExp(new ASTNode(split[1])));
-                return newLabel;
+                var newNode = new AddExp(parent, split[0], null);
+                newNode.Value = VisitExp(newNode, new ASTNode(split[1]));
+				return newNode;
             }
             return null;
         }
 
-        public IExp? TryVisitSubDeclaration(ASTNode node)
+        public IExp? TryVisitSubDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":sub") &&
                 DoesContentContainNLooseChildren(node, ":sub", 2))
             {
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":sub").Split(' ');
-                var newLabel = new SubExp(
-                    split[0],
-                    VisitExp(new ASTNode(split[1])));
-                return newLabel;
+                var newNode = new SubExp(parent, split[0], null);
+                newNode.Value = VisitExp(newNode, new ASTNode(split[1]));
+				return newNode;
             }
             return null;
         }
 
-        public IExp? TryVisitMultDeclaration(ASTNode node)
+        public IExp? TryVisitMultDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":mult") &&
                 DoesContentContainNLooseChildren(node, ":mult", 2))
             {
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":mult").Split(' ');
-                var newLabel = new MultExp(
-                    split[0],
-                    VisitExp(new ASTNode(split[1])));
-                return newLabel;
+                var newNode = new MultExp(parent, split[0], null);
+                newNode.Value = VisitExp(newNode, new ASTNode(split[1]));
+				return newNode;
             }
             return null;
         }
 
-        public IExp? TryVisitDivDeclaration(ASTNode node)
+        public IExp? TryVisitDivDeclaration(INode parent, ASTNode node)
         {
             if (IsOfValidNodeType(node.Content, ":div") &&
                 DoesContentContainNLooseChildren(node, ":div", 2))
             {
                 var split = RemoveNodeTypeAndEscapeChars(node.Content, ":div").Split(' ');
-                var newLabel = new DivExp(
-                    split[0],
-                    VisitExp(new ASTNode(split[1])));
-                return newLabel;
+                var newNode = new DivExp(parent, split[0], null);
+                newNode.Value = VisitExp(newNode, new ASTNode(split[1]));
+				return newNode;
             }
             return null;
         }

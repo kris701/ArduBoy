@@ -5,7 +5,7 @@
         public string Name { get; set; }
         public IExp Value { get; set; }
 
-        public StaticsExp(string name, IExp value)
+        public StaticsExp(INode parent, string name, IExp value) : base(parent)
         {
             Name = name;
             Value = value;

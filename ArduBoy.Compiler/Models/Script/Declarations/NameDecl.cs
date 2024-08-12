@@ -4,7 +4,7 @@
     {
         public string Name { get; set; }
 
-        public NameDecl(string name)
+        public NameDecl(INode parent, string name) : base(parent)
         {
             Name = name;
         }

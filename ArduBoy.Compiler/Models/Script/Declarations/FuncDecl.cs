@@ -1,11 +1,11 @@
 ﻿namespace ArduBoy.Compiler.Models.Script.Declarations
 {
-    public class FuncDecl : BaseNode, IDecl, INamedNode
-    {
+    public class FuncDecl : BaseNode, IDecl, INamedNode, IContentNode
+	{
         public string Name { get; set; }
         public List<INode> Content { get; set; }
 
-        public FuncDecl(string name, List<INode> content)
+        public FuncDecl(INode parent, string name, List<INode> content) : base(parent)
         {
             Name = name;
             Content = content;

@@ -31,7 +31,7 @@
             { "<", 21 },
             { ">", 22 },
             { "!=", 23 },
-        };
+		};
 
         public static string GetByteCode(string id)
         {

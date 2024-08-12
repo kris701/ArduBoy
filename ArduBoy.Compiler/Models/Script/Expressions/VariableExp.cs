@@ -5,7 +5,7 @@
         public string Name { get; set; }
         public bool IsStatic { get; set; }
 
-        public VariableExp(string name, bool isStatic)
+        public VariableExp(INode parent, string name, bool isStatic) : base(parent)
         {
             Name = name;
             IsStatic = isStatic;

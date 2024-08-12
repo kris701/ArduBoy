@@ -26,7 +26,7 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
 			return sb.ToString();
         }
 
-        public string Visit(WaitExp node)
+		public string Visit(WaitExp node)
         {
             return $"{OperatorCodes.GetByteCode(":wait")} {node.WaitTime}";
         }

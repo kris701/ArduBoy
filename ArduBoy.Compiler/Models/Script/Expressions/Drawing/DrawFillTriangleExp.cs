@@ -2,7 +2,7 @@
 {
     public class DrawFillTriangleExp : DrawTriangleExp
     {
-        public DrawFillTriangleExp(IExp w, IExp y1, IExp y2, IExp x1, IExp x2, IExp z, IExp color) : base(w, y1, y2, x1, x2, z, color)
+        public DrawFillTriangleExp(INode parent, IExp x1, IExp y1, IExp x2, IExp y2, IExp x3, IExp y3, IExp color) : base(parent, x1, y1, x2, y2, x3, y3, color)
         {
         }
 

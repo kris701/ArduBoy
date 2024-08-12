@@ -7,7 +7,7 @@
         public IExp X2 { get; set; }
         public IExp Y2 { get; set; }
 
-        public DrawLineExp(IExp x1, IExp y1, IExp x2, IExp y2, IExp color) : base(color)
+        public DrawLineExp(INode parent, IExp x1, IExp y1, IExp x2, IExp y2, IExp color) : base(parent, color)
         {
             X1 = x1;
             Y1 = y1;

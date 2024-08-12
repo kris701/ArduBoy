@@ -4,7 +4,7 @@
     {
         public string Name { get; set; }
 
-        public CallExp(string name)
+        public CallExp(INode parent, string name) : base(parent)
         {
             Name = name;
         }

@@ -4,7 +4,7 @@
     {
         public string Name { get; set; }
 
-        public BaseArithmeticExp(string name)
+        public BaseArithmeticExp(INode parent, string name) : base(parent)
         {
             Name = name;
         }

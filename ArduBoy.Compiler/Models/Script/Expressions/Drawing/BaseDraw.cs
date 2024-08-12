@@ -4,7 +4,7 @@
     {
         public IExp Color { get; set; }
 
-        protected BaseDraw(IExp color)
+        protected BaseDraw(INode parent, IExp color) : base(parent)
         {
             Color = color;
         }

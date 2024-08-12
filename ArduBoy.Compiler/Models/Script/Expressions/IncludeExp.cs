@@ -4,7 +4,7 @@
     {
         public string Name { get; set; }
 
-        public IncludeExp(string name)
+        public IncludeExp(INode parent, string name) : base(parent)
         {
             Name = name;
         }
