@@ -8,9 +8,13 @@
 
 			// Color defaults
 			(:static BLACK 0)
+			(:static BLUE 1)
 			(:static RED 2)
 			(:static GREEN 3)
-			(:static BLUE 1)
+			(:static CYAN 4)
+			(:static MAGENTA 5)
+			(:static YELLOW 6)
+			(:static WHITE 7)
 
 			// Inputs
 			(:static INPUT_UP _0)

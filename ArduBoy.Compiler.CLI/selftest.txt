@@ -24,6 +24,8 @@
 			(:call WaitTest)
 			(:call VariableTest)
 			(:call StaticsTest)
+			(:call IfTest)
+			(:call DrawLineTest)
 		)
 	)
 
@@ -67,8 +69,8 @@
 
 			(:draw-fill %BLACK%)
 			(:draw-text 0 0 1 %GREEN% Variable test)
-			(:draw-text 0 20 1 %RED% Variable div 10)
-			(:div variable 10)
+			(:draw-text 0 20 1 %RED% Variable div 5)
+			(:div variable 5)
 			(:draw-text 100 20 1 %RED% %variable%)
 			(:wait 1000)
 		)
@@ -79,9 +81,45 @@
 			(:draw-fill %BLACK%)
 			(:draw-text 0 0 1 %GREEN% Statics test)
 			(:wait 1000)
-			(:draw-text 0 60 1 %RED% %stat_1%)
+			(:draw-text 0 20 1 %RED% %stat_1%)
 			(:wait 1000)
-			(:draw-text 0 20 1 %RED% %stat_2%)
+			(:draw-text 0 40 1 %RED% %stat_2%)
+			(:wait 1000)
+		)
+	)
+
+	(:func IfTest
+		(
+			(:draw-fill %BLACK%)
+			(:draw-text 0 0 1 %GREEN% If test)
+			(:draw-text 0 20 1 %RED% if false)
+			(:set variable1 0)
+			(:if (%variable1% != 0) (
+				(:draw-text 0 60 1 %RED% This should not show!)
+			))
+			(:wait 1000)
+
+			(:draw-fill %BLACK%)
+			(:draw-text 0 0 1 %GREEN% If test)
+			(:draw-text 0 20 1 %RED% if true)
+			(:set variable1 1)
+			(:if (%variable1% != 0) (
+				(:draw-text 0 60 1 %RED% This should show!)
+			))
+			(:wait 1000)
+		)
+	)
+
+	(:func DrawLineTest
+		(
+			(:draw-fill %BLACK%)
+			(:draw-line 0 0 128 128 %GREEN%)
+			(:wait 1000)
+			(:draw-line 0 0 128 128 %BLUE%)
+			(:wait 1000)
+			(:draw-line 0 64 128 64 %BLUE%)
+			(:wait 1000)
+			(:draw-line 64 0 64 128 %CYAN%)
 			(:wait 1000)
 		)
 	)
