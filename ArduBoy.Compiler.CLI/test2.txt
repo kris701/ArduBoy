@@ -13,7 +13,7 @@
 
 	(:func Loop
 		(
-			(:draw-fill-rectangle 90 60 28 30 %BLACK%)
+			(:draw-fill-rect 90 60 28 30 %BLACK%)
 			(:draw-text 60 60 1 %RED% %direction%)
 
 			(:call SetDirection)
