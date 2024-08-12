@@ -254,8 +254,8 @@ void DoDrawLine(String* str) {
 void DoDrawCircle(String* str, bool fill) {
     int x = GetValueAsInt(str->c_str(), inputBuffer[0]);
     int y = GetValueAsInt(str->c_str(), inputBuffer[1]);
-    int radius = GetValueAsInt(str->c_str(), inputBuffer[3]);
-    int color = colors[GetValueAsInt(str->c_str(), inputBuffer[4])];
+    int radius = GetValueAsInt(str->c_str(), inputBuffer[2]);
+    int color = colors[GetValueAsInt(str->c_str(), inputBuffer[3])];
     if (fill)
         display.fillCircle(x, y, radius, color);
     else
