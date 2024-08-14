@@ -122,6 +122,7 @@
 			(:while (%whilevar1% < 10) (
 				(:add whilevar1 1)
 				(:draw-text %whilevar1% 40 1 %BLUE% I)
+				(:wait 250)
 			))
 			(:wait 1000)
 
@@ -130,6 +131,7 @@
 			(:draw-text 0 20 1 %RED% For)
 			(:for (:set forvar1 0) (%forvar1% < 10) (:add forvar1 1) (
 				(:draw-text %forvar1% 40 1 %BLUE% I)
+				(:wait 250)
 			))
 			(:wait 1000)
 		)
