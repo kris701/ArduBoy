@@ -19,6 +19,8 @@ namespace ArduBoy.Compiler.Compilers
 
 			DoLog?.Invoke("Deconstruct for loops...");
 			DeconstructForLoops(from);
+			DoLog?.Invoke("Deconstruct while loops...");
+			DeconstructWhileLoops(from);
 			DoLog?.Invoke("Inserting primary function gotos...");
             InsertBasicGotos(from);
             DoLog?.Invoke("Merging includes...");
@@ -126,11 +128,11 @@ namespace ArduBoy.Compiler.Compilers
             {
                 if (node.Parent is IContentNode parent)
                 {
-                    var newFunc = new FuncDecl(from, $"tmp_{tmpID}", new List<INode>());
+                    var newFunc = new FuncDecl(from, $"for_{tmpID}", new List<INode>());
 					newFunc.Content.AddRange(node.Content);
 					newFunc.Content.Add(node.Updation);
                     var endCondition = new IfNode(newFunc, node.Condition, new List<INode>());
-                    endCondition.Content.Add(new GotoExp(newFunc, $"tmp_{tmpID}"));
+                    endCondition.Content.Add(new GotoExp(newFunc, $"for_{tmpID}"));
 					newFunc.Content.Add(endCondition);
 					foreach (var subNode in newFunc.Content)
 						subNode.Parent = newFunc;
@@ -141,13 +143,44 @@ namespace ArduBoy.Compiler.Compilers
 					parent.Content.Remove(node);
 					var replacement = new List<INode>();
 					replacement.Add(new SetExp(node.Parent, node.Initialisation.Name, node.Initialisation.Value));
-                    replacement.Add(new CallExp(node.Parent, $"tmp_{tmpID}"));
+                    replacement.Add(new CallExp(node.Parent, $"for_{tmpID}"));
 
 					parent.Content.InsertRange(index, replacement);
 
                     tmpID++;
 				}
             }
+		}
+
+		private void DeconstructWhileLoops(ArduBoyScriptDefinition from)
+		{
+			var whileNodes = from.FindTypes<WhileExp>();
+
+			var tmpID = 0;
+			foreach (var node in whileNodes)
+			{
+				if (node.Parent is IContentNode parent)
+				{
+					var newFunc = new FuncDecl(from, $"while_{tmpID}", new List<INode>());
+					newFunc.Content.AddRange(node.Content);
+					var endCondition = new IfNode(newFunc, node.Condition, new List<INode>());
+					endCondition.Content.Add(new GotoExp(newFunc, $"while_{tmpID}"));
+					newFunc.Content.Add(endCondition);
+					foreach (var subNode in newFunc.Content)
+						subNode.Parent = newFunc;
+
+					from.Funcs.Add(newFunc);
+
+					var index = parent.Content.IndexOf(node);
+					parent.Content.Remove(node);
+					var replacement = new List<INode>();
+					replacement.Add(new CallExp(node.Parent, $"while_{tmpID}"));
+
+					parent.Content.InsertRange(index, replacement);
+
+					tmpID++;
+				}
+			}
 		}
 	}
 }

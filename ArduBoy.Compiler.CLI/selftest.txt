@@ -25,6 +25,7 @@
 			(:call VariableTest)
 			(:call StaticsTest)
 			(:call IfTest)
+			(:call LoopTest)
 			(:call DrawLineTest)
 			(:call DrawRectTest)
 		)
@@ -106,6 +107,29 @@
 			(:set variable1 1)
 			(:if (%variable1% != 0) (
 				(:draw-text 0 60 1 %RED% This should show!)
+			))
+			(:wait 1000)
+		)
+	)
+
+	(:func LoopTest
+		(
+			(:draw-fill %BLACK%)
+			(:draw-text 0 0 1 %GREEN% Loop test)
+
+			(:draw-text 0 20 1 %RED% While)
+			(:set whilevar1 0)
+			(:while (%whilevar1% < 10) (
+				(:add whilevar1 1)
+				(:draw-text %whilevar1% 40 1 %BLUE% I)
+			))
+			(:wait 1000)
+
+			(:draw-fill %BLACK%)
+			(:draw-text 0 0 1 %GREEN% Loop test)
+			(:draw-text 0 20 1 %RED% For)
+			(:for (:set forvar1 0) (%forvar1% < 10) (:add forvar1 1) (
+				(:draw-text %forvar1% 40 1 %BLUE% I)
 			))
 			(:wait 1000)
 		)
