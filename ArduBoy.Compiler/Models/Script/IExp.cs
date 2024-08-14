@@ -1,6 +1,6 @@
 ﻿namespace ArduBoy.Compiler.Models.Script
 {
-    public interface IExp : INode
-    {
-    }
+	public interface IExp : INode
+	{
+	}
 }

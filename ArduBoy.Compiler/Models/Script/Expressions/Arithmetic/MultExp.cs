@@ -1,17 +1,17 @@
 ﻿namespace ArduBoy.Compiler.Models.Script.Expressions.Arithmetic
 {
-    public class MultExp : BaseArithmeticExp
-    {
-        public IExp Value { get; set; }
+	public class MultExp : BaseArithmeticExp
+	{
+		public IExp Value { get; set; }
 
-        public MultExp(INode parent, string name, IExp value) : base(parent, name)
-        {
-            Value = value;
-        }
+		public MultExp(string name, IExp value) : base(name)
+		{
+			Value = value;
+		}
 
-        public override string ToString()
-        {
-            return $"(:mult {Name} {Value})";
-        }
-    }
+		public override string ToString()
+		{
+			return $"(:mult {Name} {Value})";
+		}
+	}
 }

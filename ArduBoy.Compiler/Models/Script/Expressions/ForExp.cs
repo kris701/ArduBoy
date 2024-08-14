@@ -1,11 +1,4 @@
 ﻿using ArduBoy.Compiler.Models.Script.Expressions.Arithmetic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArduBoy.Compiler.Models.Script.Expressions
 {
@@ -13,10 +6,10 @@ namespace ArduBoy.Compiler.Models.Script.Expressions
 	{
 		public SetExp Initialisation { get; set; }
 		public ComparisonExp Condition { get; set; }
-		public BaseArithmeticExp Updation { get; set; }
+		public IArithmeticExp Updation { get; set; }
 		public List<INode> Content { get; set; }
 
-		public ForExp(INode parent, SetExp initialisation, ComparisonExp condition, BaseArithmeticExp updation, List<INode> content) : base(parent)
+		public ForExp(SetExp initialisation, ComparisonExp condition, IArithmeticExp updation, List<INode> content)
 		{
 			Initialisation = initialisation;
 			Updation = updation;

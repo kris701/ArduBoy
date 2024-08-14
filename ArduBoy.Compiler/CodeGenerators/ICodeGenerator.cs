@@ -2,8 +2,8 @@
 
 namespace ArduBoy.Compiler.CodeGenerators
 {
-    public interface ICodeGenerator
-    {
-        public string Generate(ArduBoyScriptDefinition script);
-    }
+	public interface ICodeGenerator
+	{
+		public string Generate(ArduBoyScriptDefinition script);
+	}
 }

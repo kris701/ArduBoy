@@ -2,8 +2,8 @@
 
 namespace ArduBoy.Compiler.ASTGenerators
 {
-    public interface IASTGenerator
-    {
-        public ASTNode Generate(string text);
-    }
+	public interface IASTGenerator
+	{
+		public ASTNode Generate(string text);
+	}
 }

@@ -3,8 +3,8 @@ using ArduBoy.Compiler.Models.Script;
 
 namespace ArduBoy.Compiler.Parsers
 {
-    public interface IParser
-    {
-        public ArduBoyScriptDefinition Parse(ASTNode node);
-    }
+	public interface IParser
+	{
+		public ArduBoyScriptDefinition Parse(ASTNode node);
+	}
 }

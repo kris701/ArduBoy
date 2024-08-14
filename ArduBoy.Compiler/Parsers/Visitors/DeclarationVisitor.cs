@@ -1,70 +1,80 @@
 ﻿using ArduBoy.Compiler.Models.AST;
 using ArduBoy.Compiler.Models.Script;
 using ArduBoy.Compiler.Models.Script.Declarations;
-using ArduBoy.Compiler.Models.Script.Expressions;
 
 namespace ArduBoy.Compiler.Parsers.Visitors
 {
-    public partial class ParserVisitor
-    {
-        public IDecl VisitDecl(INode parent, ASTNode node)
-        {
-            IDecl? returnNode;
-            if ((returnNode = TryVisitStaticsDeclaration(parent, node)) != null) return returnNode;
-            if ((returnNode = TryVisitIncludesDeclaration(parent, node)) != null) return returnNode;
-            if ((returnNode = TryVisitNameDeclaration(parent, node)) != null) return returnNode;
-            if ((returnNode = TryVisitFuncDeclaration(parent, node)) != null) return returnNode;
+	public partial class ParserVisitor
+	{
+		public IDecl VisitDecl(ASTNode node)
+		{
+			IDecl? returnNode;
+			if ((returnNode = TryVisitStaticsDeclaration(node)) != null) return returnNode;
+			if ((returnNode = TryVisitIncludesDeclaration(node)) != null) return returnNode;
+			if ((returnNode = TryVisitNameDeclaration(node)) != null) return returnNode;
+			if ((returnNode = TryVisitFuncDeclaration(node)) != null) return returnNode;
 
-            throw new Exception($"Could not parse content of node: '{node}'");
-        }
+			throw new Exception($"Could not parse content of node: '{node}'");
+		}
 
-        public IDecl? TryVisitStaticsDeclaration(INode parent, ASTNode node)
-        {
-            if (IsOfValidNodeType(node.Content, ":statics") &&
-                DoesNodeHaveSpecificChildCount(node, ":statics", 1))
-            {
-                var split = node.Content.Split(' ');
-                var newNode = new StaticsDecl(parent, new List<INode>());
-                foreach (var child in GetEmptyNode(node))
-					newNode.Content.Add(TryVisitStaticsExp(newNode, child) as StaticsExp);
-                return newNode;
-            }
-            return null;
-        }
+		public StaticsDecl? TryVisitStaticsDeclaration(ASTNode node)
+		{
+			if (IsOfValidNodeType(node.Content, ":statics") &&
+				DoesNodeHaveSpecificChildCount(node, ":statics", 1))
+				return VisitStaticsDeclaration(node);
+			return null;
+		}
 
-        public IDecl? TryVisitIncludesDeclaration(INode parent, ASTNode node)
-        {
-            if (IsOfValidNodeType(node.Content, ":includes") &&
-                DoesNodeHaveSpecificChildCount(node, ":includes", 1))
-            {
-                var split = node.Content.Split(' ');
-                var newNode = new IncludesDecl(parent, new List<INode>());
-                foreach (var child in GetEmptyNode(node))
-					newNode.Content.Add(TryVisitIncludeExp(newNode, child) as IncludeExp);
-                return newNode;
-            }
-            return null;
-        }
+		public StaticsDecl VisitStaticsDeclaration(ASTNode node)
+		{
+			var split = node.Content.Split(' ');
+			var newNode = new StaticsDecl(new List<INode>());
+			foreach (var child in GetEmptyNode(node))
+				newNode.Content.Add(VisitStaticsExp(child));
+			return newNode;
+		}
 
-        public IDecl? TryVisitNameDeclaration(INode parent, ASTNode node)
-        {
-            if (IsOfValidNodeType(node.Content, ":name"))
-                return new NameDecl(parent, RemoveNodeTypeAndEscapeChars(node.Content, ":name"));
-            return null;
-        }
+		public IncludesDecl? TryVisitIncludesDeclaration(ASTNode node)
+		{
+			if (IsOfValidNodeType(node.Content, ":includes") &&
+				DoesNodeHaveSpecificChildCount(node, ":includes", 1))
+				return VisitIncludesDeclaration(node);
+			return null;
+		}
 
-        public IDecl? TryVisitFuncDeclaration(INode parent, ASTNode node)
-        {
-            if (IsOfValidNodeType(node.Content, ":func") &&
-                DoesContentContainNLooseChildren(node, ":func", 1))
-            {
-                var newNode = new FuncDecl(parent, RemoveNodeTypeAndEscapeChars(node.Content, ":func"), new List<INode>());
-                foreach (var child in GetEmptyNode(node))
-                    if (child.Content != "")
-						newNode.Content.Add(VisitExp(newNode, child));
-                return newNode;
-            }
-            return null;
-        }
-    }
+		public IncludesDecl VisitIncludesDeclaration(ASTNode node)
+		{
+			var split = node.Content.Split(' ');
+			var newNode = new IncludesDecl(new List<INode>());
+			foreach (var child in GetEmptyNode(node))
+				newNode.Content.Add(VisitIncludeExp(child));
+			return newNode;
+		}
+
+		public NameDecl? TryVisitNameDeclaration(ASTNode node)
+		{
+			if (IsOfValidNodeType(node.Content, ":name"))
+				return VisitNameDeclaration(node);
+			return null;
+		}
+
+		public NameDecl VisitNameDeclaration(ASTNode node) => new NameDecl(RemoveNodeTypeAndEscapeChars(node.Content, ":name"));
+
+		public FuncDecl? TryVisitFuncDeclaration(ASTNode node)
+		{
+			if (IsOfValidNodeType(node.Content, ":func") &&
+				DoesContentContainNLooseChildren(node, ":func", 1))
+				return VisitFuncDeclaration(node);
+			return null;
+		}
+
+		public FuncDecl VisitFuncDeclaration(ASTNode node)
+		{
+			var newNode = new FuncDecl(RemoveNodeTypeAndEscapeChars(node.Content, ":func"), new List<INode>());
+			foreach (var child in GetEmptyNode(node))
+				if (child.Content != "")
+					newNode.Content.Add(VisitExp(child));
+			return newNode;
+		}
+	}
 }

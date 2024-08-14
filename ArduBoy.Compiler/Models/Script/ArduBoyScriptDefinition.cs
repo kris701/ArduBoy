@@ -2,16 +2,16 @@
 
 namespace ArduBoy.Compiler.Models.Script
 {
-    public class ArduBoyScriptDefinition : BaseNode
-    {
-        public NameDecl? Name { get; set; }
-        public StaticsDecl? Statics { get; set; }
-        public IncludesDecl? Includes { get; set; }
-        public List<FuncDecl> Funcs { get; set; }
+	public class ArduBoyScriptDefinition : BaseNode
+	{
+		public NameDecl? Name { get; set; }
+		public StaticsDecl? Statics { get; set; }
+		public IncludesDecl? Includes { get; set; }
+		public List<FuncDecl> Funcs { get; set; }
 
-        public ArduBoyScriptDefinition() : base(null)
-        {
-            Funcs = new List<FuncDecl>();
-        }
-    }
+		public ArduBoyScriptDefinition() : base(null)
+		{
+			Funcs = new List<FuncDecl>();
+		}
+	}
 }

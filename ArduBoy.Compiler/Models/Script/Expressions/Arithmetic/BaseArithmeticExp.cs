@@ -1,12 +1,12 @@
 ﻿namespace ArduBoy.Compiler.Models.Script.Expressions.Arithmetic
 {
-    public class BaseArithmeticExp : BaseNode, IExp, INamedNode
-    {
-        public string Name { get; set; }
+	public class BaseArithmeticExp : BaseNode, IExp, INamedNode, IArithmeticExp
+	{
+		public string Name { get; set; }
 
-        public BaseArithmeticExp(INode parent, string name) : base(parent)
-        {
-            Name = name;
-        }
-    }
+		public BaseArithmeticExp(string name)
+		{
+			Name = name;
+		}
+	}
 }
