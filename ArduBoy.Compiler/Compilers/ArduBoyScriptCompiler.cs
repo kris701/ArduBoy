@@ -80,7 +80,10 @@ namespace ArduBoy.Compiler.Compilers
 		{
 			var assembly = Assembly.GetExecutingAssembly();
 			var resourceName = $"ArduBoy.Compiler.CoreIncludes.{target}.abs";
-			using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+			var fileStream = assembly.GetManifestResourceStream(resourceName);
+			if (fileStream == null)
+				throw new ArgumentNullException($"Cannot read resource: {target}");
+			using (Stream stream = fileStream)
 			using (StreamReader reader = new StreamReader(stream))
 			{
 				return reader.ReadToEnd();
@@ -108,16 +111,16 @@ namespace ArduBoy.Compiler.Compilers
 			{
 				if (child is VariableExp exp && !setMap[child.Name].StartsWith('_') && statics.Any(x => x.Name == exp.Name))
 					exp.IsStatic = true;
-				if (setMap.ContainsKey(child.Name))
-					child.Name = setMap[child.Name];
+				if (setMap.TryGetValue(child.Name, out string? value))
+					child.Name = value;
 			}
 		}
 
 		private void InsertBasicGotos(ArduBoyScriptDefinition from)
 		{
 			var loop = from.Funcs.Single(x => x.Name.ToLower() == "loop");
-			loop.Content.Add(new GotoExp(loop.Parent, loop.Name));
-			from.Funcs.Single(x => x.Name.ToLower() == "setup").Content.Add(new GotoExp(loop.Parent, loop.Name));
+			loop.Content.Add(new GotoExp(loop.Name));
+			from.Funcs.Single(x => x.Name.ToLower() == "setup").Content.Add(new GotoExp(loop.Name));
 		}
 
 		private void DeconstructForLoops(ArduBoyScriptDefinition from)
@@ -133,7 +136,7 @@ namespace ArduBoy.Compiler.Compilers
 					newFunc.Content.AddRange(node.Content);
 					newFunc.Content.Add(node.Updation);
 					var endCondition = new IfNode(node.Condition, new List<INode>());
-					endCondition.Content.Add(new GotoExp(newFunc, $"for_{tmpID}"));
+					endCondition.Content.Add(new GotoExp($"for_{tmpID}"));
 					newFunc.Content.Add(endCondition);
 					foreach (var subNode in newFunc.Content)
 						subNode.Parent = newFunc;
@@ -165,7 +168,7 @@ namespace ArduBoy.Compiler.Compilers
 					var newFunc = new FuncDecl($"while_{tmpID}", new List<INode>());
 					newFunc.Content.AddRange(node.Content);
 					var endCondition = new IfNode(node.Condition, new List<INode>());
-					endCondition.Content.Add(new GotoExp(newFunc, $"while_{tmpID}"));
+					endCondition.Content.Add(new GotoExp($"while_{tmpID}"));
 					newFunc.Content.Add(endCondition);
 					foreach (var subNode in newFunc.Content)
 						subNode.Parent = newFunc;

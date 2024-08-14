@@ -9,7 +9,7 @@ namespace ArduBoy.Compiler.Models.Script
 		public IncludesDecl? Includes { get; set; }
 		public List<FuncDecl> Funcs { get; set; }
 
-		public ArduBoyScriptDefinition() : base(null)
+		public ArduBoyScriptDefinition()
 		{
 			Funcs = new List<FuncDecl>();
 		}

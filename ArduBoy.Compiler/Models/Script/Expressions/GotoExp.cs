@@ -4,7 +4,7 @@
 	{
 		public string Name { get; set; }
 
-		public GotoExp(INode parent, string target) : base(parent)
+		public GotoExp(string target)
 		{
 			Name = target;
 		}

@@ -37,8 +37,9 @@
 		{
 #if DEBUG
 			return id;
-#endif
+#else
 			return $"{Convert.ToChar(_opCodes[id.ToLower()] + 33)}";
+#endif
 		}
 	}
 }
