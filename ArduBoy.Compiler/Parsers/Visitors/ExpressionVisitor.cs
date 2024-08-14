@@ -13,6 +13,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
             IExp? returnNode;
             if ((returnNode = TryVisitIfDeclaration(parent, node)) != null) return returnNode;
             if ((returnNode = TryVisitForDeclaration(parent, node)) != null) return returnNode;
+            if ((returnNode = TryVisitWhileDeclaration(parent, node)) != null) return returnNode;
 			if ((returnNode = TryVisitStaticsExp(parent, node)) != null) return returnNode;
             if ((returnNode = TryVisitIncludeExp(parent, node)) != null) return returnNode;
             if ((returnNode = TryVisitCallExp(parent, node)) != null) return returnNode;
@@ -233,6 +234,21 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 				newNode.Condition = TryVisitComparisonExp(newNode, node.Children[1]) as ComparisonExp;
 				newNode.Updation = VisitExp(newNode, node.Children[2]) as BaseArithmeticExp;
 				foreach (var child in GetEmptyNode(node, 3))
+					newNode.Content.Add(VisitExp(newNode, child));
+
+				return newNode;
+			}
+			return null;
+		}
+
+		public IExp? TryVisitWhileDeclaration(INode parent, ASTNode node)
+		{
+			if (IsOfValidNodeType(node.Content, ":while") &&
+				DoesNodeHaveSpecificChildCount(node, ":while", 2))
+			{
+				var newNode = new WhileExp(parent,  null, new List<INode>());
+				newNode.Condition = TryVisitComparisonExp(newNode, node.Children[0]) as ComparisonExp;
+				foreach (var child in GetEmptyNode(node, 1))
 					newNode.Content.Add(VisitExp(newNode, child));
 
 				return newNode;
