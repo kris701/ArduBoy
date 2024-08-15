@@ -19,6 +19,7 @@
 		)
 	)
 
+	// Test
 	(:func Loop
 		(
 			(:call WaitTest)

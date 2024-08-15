@@ -69,7 +69,7 @@ namespace ArduBoy.Compiler.CLI
 			WriteColor("Outputting binary...", ConsoleColor.Blue);
 			ICodeGenerator codeGenerator = new ArduBoyCodeGenerator();
 			var code = codeGenerator.Generate(optimised);
-			var targetFile = Path.Combine(opts.OutPath, "game.rbs");
+			var targetFile = Path.Combine(opts.OutPath, "game.bin");
 			if (File.Exists(targetFile))
 				File.Delete(targetFile);
 			File.WriteAllText(targetFile, code);

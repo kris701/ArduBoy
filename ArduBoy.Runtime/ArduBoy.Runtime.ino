@@ -99,11 +99,11 @@ void setup() {
     pinMode(INPUT_SELECT, INPUT);
     pinMode(INPUT_START, INPUT);
 
-    if (!SD.begin(SD_CS) || !SD.exists(F("game.rbs"))) {
+    if (!SD.begin(SD_CS) || !SD.exists(F("game.bin"))) {
         while (1) { delay(1000); };
     }
 
-    gameFile = SD.open(F("game.rbs"), FILE_READ);
+    gameFile = SD.open(F("game.bin"), FILE_READ);
     display.fillScreen(colors[0]);
 }
 
