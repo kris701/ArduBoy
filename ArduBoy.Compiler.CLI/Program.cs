@@ -1,4 +1,5 @@
-﻿using ArduBoy.Compiler.ASTGenerators;
+﻿using ArduBoy.Compiler.Analysers;
+using ArduBoy.Compiler.ASTGenerators;
 using ArduBoy.Compiler.CodeGenerators;
 using ArduBoy.Compiler.Compilers;
 using ArduBoy.Compiler.Optimisers;
@@ -41,16 +42,28 @@ namespace ArduBoy.Compiler.CLI
 			var parsed = parser.Parse(ast);
 			WriteLineColor("Done!", ConsoleColor.Green);
 
+			WriteLineColor("Pre-Analysing...", ConsoleColor.Blue);
+			IAnalyser preAnalyser = new ArduBoyScriptPreAnalyser();
+			preAnalyser.DoLog += (t) => WriteLineColor($"\t{t}", ConsoleColor.DarkGray);
+			var preAnalysed = preAnalyser.Analyse(parsed);
+			WriteLineColor("Pre analysis complete!", ConsoleColor.Green);
+
 			WriteLineColor("Compiling...", ConsoleColor.Blue);
 			ICompiler compiler = new ArduBoyScriptCompiler();
 			compiler.DoLog += (t) => WriteLineColor($"\t{t}", ConsoleColor.DarkGray);
-			var compiled = compiler.Compile(parsed);
+			var compiled = compiler.Compile(preAnalysed);
 			WriteLineColor("Compilation complete!", ConsoleColor.Green);
+
+			WriteLineColor("Post-Analysing...", ConsoleColor.Blue);
+			IAnalyser postAnalyser = new ArduBoyScriptPostAnalyser();
+			postAnalyser.DoLog += (t) => WriteLineColor($"\t{t}", ConsoleColor.DarkGray);
+			var postAnalysed = postAnalyser.Analyse(compiled);
+			WriteLineColor("Post analysis complete!", ConsoleColor.Green);
 
 			WriteLineColor("Optimising...", ConsoleColor.Blue);
 			IOptimiser optimiser = new ArduBoyScriptOptimiser();
 			optimiser.DoLog += (t) => WriteLineColor($"\t{t}", ConsoleColor.DarkGray);
-			var optimised = optimiser.Optimise(parsed);
+			var optimised = optimiser.Optimise(postAnalysed);
 			WriteLineColor("Optimisation complete!", ConsoleColor.Green);
 
 			WriteColor("Outputting binary...", ConsoleColor.Blue);

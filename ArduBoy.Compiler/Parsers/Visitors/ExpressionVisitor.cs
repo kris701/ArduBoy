@@ -147,7 +147,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			return null;
 		}
 
-		public VariableExp VisitVariableExp(ASTNode node) => new VariableExp(node.Content.Substring(1, node.Content.Length - 2), false);
+		public VariableExp VisitVariableExp(ASTNode node) => new VariableExp(node.Content.Substring(1, node.Content.Length - 2));
 
 		public CallExp? TryVisitCallExp(ASTNode node)
 		{
@@ -219,9 +219,15 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		public SetExp VisitSetDeclaration(ASTNode node)
 		{
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":set").Split(' ');
+			IExp? returnNode;
+			returnNode = TryVisitVariableExp(new ASTNode(split[1]));
+			if (returnNode == null)
+				returnNode = TryVisitValueExp(new ASTNode(split[1]));
+			if (returnNode == null)
+				throw new Exception("Could not parse the set nodes value!");
 			var newNode = new SetExp(
 				split[0],
-				VisitExp(new ASTNode(split[1])));
+				returnNode);
 			return newNode;
 		}
 	}

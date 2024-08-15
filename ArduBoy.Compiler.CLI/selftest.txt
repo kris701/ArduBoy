@@ -21,6 +21,8 @@
 
 	(:func Loop
 		(
+			(:set abbswdfg %test%)
+
 			(:call WaitTest)
 			(:call VariableTest)
 			(:call StaticsTest)

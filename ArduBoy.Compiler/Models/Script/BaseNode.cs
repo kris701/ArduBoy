@@ -99,5 +99,15 @@ namespace ArduBoy.Compiler.Models.Script
 				}
 			}
 		}
+
+		public void Replace(INode node, INode with)
+		{
+			foreach (var prop in _metaInfo)
+			{
+				var value = prop.GetValue(this);
+				if (value == node)
+					prop.SetValue(this, with);
+			}
+		}
 	}
 }

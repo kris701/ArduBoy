@@ -1,4 +1,6 @@
 ﻿using ArduBoy.Compiler.ASTGenerators;
+using ArduBoy.Compiler.Helpers;
+using ArduBoy.Compiler.Models.Exceptions;
 using ArduBoy.Compiler.Models.Script;
 using ArduBoy.Compiler.Models.Script.Declarations;
 using ArduBoy.Compiler.Models.Script.Expressions;
@@ -13,9 +15,12 @@ namespace ArduBoy.Compiler.Compilers
 
 		public ArduBoyScriptDefinition Compile(ArduBoyScriptDefinition from)
 		{
-			DoLog?.Invoke("Checking if script is valid...");
-			CheckIfScriptAreValid(from);
-
+			DoLog?.Invoke("Resetting parent structure...");
+			from.SetParents();
+			DoLog?.Invoke("Resolving statics...");
+			ResolveStatics(from);
+			DoLog?.Invoke("Inserting statics...");
+			InsertStatics(from);
 			DoLog?.Invoke("Deconstruct for loops...");
 			DeconstructForLoops(from);
 			DoLog?.Invoke("Deconstruct while loops...");
@@ -34,9 +39,9 @@ namespace ArduBoy.Compiler.Compilers
 		private void CheckIfScriptAreValid(ArduBoyScriptDefinition from)
 		{
 			if (!from.Funcs.Any(x => x.Name.ToLower() == "setup"))
-				throw new Exception("No setup function given!");
+				throw new CompilerException(from, "No setup function given!");
 			if (!from.Funcs.Any(x => x.Name.ToLower() == "loop"))
-				throw new Exception("No loop function given!");
+				throw new CompilerException(from, "No loop function given!");
 			if (from.Includes != null)
 			{
 				foreach (var node in from.Includes.Content)
@@ -46,7 +51,7 @@ namespace ArduBoy.Compiler.Compilers
 						var assembly = Assembly.GetExecutingAssembly();
 						var resourceName = $"ArduBoy.Compiler.CoreIncludes.{include.Name}.abs";
 						if (assembly.GetManifestResourceStream(resourceName) == null)
-							throw new Exception($"Unknown include: {include.Name}");
+							throw new CompilerException(include, $"Unknown include: {include.Name}");
 					}
 				}
 			}
@@ -65,7 +70,7 @@ namespace ArduBoy.Compiler.Compilers
 					{
 						var astGenerator = new ArduBoyScriptASTGenerator();
 						var parser = new ArduBoyScriptParser();
-						var ast = astGenerator.Generate(ReadEmbeddedFile(include.Name));
+						var ast = astGenerator.Generate(ResourceHelpers.ReadEmbeddedFile($"ArduBoy.Compiler.CoreIncludes.{include.Name}.abs"));
 						var parsed = parser.Parse(ast);
 
 						if (parsed.Statics != null)
@@ -76,17 +81,37 @@ namespace ArduBoy.Compiler.Compilers
 			}
 		}
 
-		private string ReadEmbeddedFile(string target)
+		private void ResolveStatics(ArduBoyScriptDefinition from)
 		{
-			var assembly = Assembly.GetExecutingAssembly();
-			var resourceName = $"ArduBoy.Compiler.CoreIncludes.{target}.abs";
-			var fileStream = assembly.GetManifestResourceStream(resourceName);
-			if (fileStream == null)
-				throw new ArgumentNullException($"Cannot read resource: {target}");
-			using (Stream stream = fileStream)
-			using (StreamReader reader = new StreamReader(stream))
+			var statics = from.FindTypes<StaticsExp>();
+			while (statics.Any(x => x.Value is VariableExp))
 			{
-				return reader.ReadToEnd();
+				foreach (var item in statics)
+				{
+					if (item.Value is VariableExp var)
+					{
+						if (!statics.Any(x => x.Name == var.Name))
+							throw new CompilerException(item, "Statics referenced another static that does not exist!");
+						var targetStatic = statics.First(x => x.Name == var.Name);
+						if (targetStatic.Value is ValueExpression val)
+							item.Replace(var, new ValueExpression(val.Value));
+					}
+				}
+			}
+		}
+
+		private void InsertStatics(ArduBoyScriptDefinition from)
+		{
+			var statics = from.FindTypes<StaticsExp>();
+			var variables = from.FindTypes<VariableExp>();
+			foreach (var item in statics)
+			{
+				var refed = variables.Where(x => x.Name == item.Name);
+				foreach(var refVar in refed)
+				{
+					if (refVar.Parent != null && item.Value is ValueExpression val)
+						refVar.Parent.Replace(refVar, new ValueExpression(val.Value));
+				}
 			}
 		}
 
@@ -96,21 +121,12 @@ namespace ArduBoy.Compiler.Compilers
 			var sets = from.FindTypes<SetExp>();
 			var counter = 0;
 			foreach (var set in sets)
-			{
 				if (!setMap.ContainsKey(set.Name))
 					setMap.Add(set.Name, $"{counter++}");
-				set.Name = setMap[set.Name];
-			}
-			var statics = from.FindTypes<StaticsExp>();
-			foreach (var item in statics)
-				if (!setMap.ContainsKey(item.Name) && item.Value is ValueExpression val)
-					setMap.Add(item.Name, val.Value);
 
 			var all = from.FindTypes<INamedNode>();
 			foreach (var child in all)
 			{
-				if (child is VariableExp exp && !setMap[child.Name].StartsWith('_') && statics.Any(x => x.Name == exp.Name))
-					exp.IsStatic = true;
 				if (setMap.TryGetValue(child.Name, out string? value))
 					child.Name = value;
 			}
