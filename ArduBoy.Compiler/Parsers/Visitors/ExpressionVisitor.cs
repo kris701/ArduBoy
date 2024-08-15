@@ -2,7 +2,6 @@
 using ArduBoy.Compiler.Models.Script;
 using ArduBoy.Compiler.Models.Script.Expressions;
 using ArduBoy.Compiler.Models.Script.Expressions.Arithmetic;
-using ArduBoy.Compiler.Models.Script.Expressions.Drawing;
 
 namespace ArduBoy.Compiler.Parsers.Visitors
 {

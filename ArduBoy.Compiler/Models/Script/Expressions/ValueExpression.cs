@@ -2,7 +2,18 @@
 {
 	public class ValueExpression : BaseNode, IExp
 	{
-		public string Value { get; set; }
+		public enum ValueTypes { Unknown, Integer, String }
+		private string _value = "";
+		public string Value
+		{
+			get => _value;
+			set
+			{
+				_value = value;
+				_type = ValueTypes.Unknown;
+			}
+		}
+		private ValueTypes _type = ValueTypes.Unknown;
 
 		public ValueExpression(string value)
 		{
@@ -12,6 +23,19 @@
 		public override string ToString()
 		{
 			return Value;
+		}
+
+		public ValueTypes EvaluatedType()
+		{
+			if (_type != ValueTypes.Unknown)
+				return _type;
+
+			if (int.TryParse(Value, out int tmp))
+				_type = ValueTypes.Integer;
+			else
+				_type = ValueTypes.String;
+
+			return _type;
 		}
 	}
 }

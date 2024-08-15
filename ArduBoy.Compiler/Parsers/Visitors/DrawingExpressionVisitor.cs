@@ -1,11 +1,6 @@
 ﻿using ArduBoy.Compiler.Models.AST;
 using ArduBoy.Compiler.Models.Script;
 using ArduBoy.Compiler.Models.Script.Expressions.Drawing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArduBoy.Compiler.Parsers.Visitors
 {

@@ -2,11 +2,6 @@
 using ArduBoy.Compiler.Models.Script;
 using ArduBoy.Compiler.Models.Script.Declarations;
 using ArduBoy.Compiler.Models.Script.Expressions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArduBoy.Compiler.Optimisers
 {

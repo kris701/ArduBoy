@@ -115,7 +115,7 @@ namespace ArduBoy.Compiler.Compilers
 			foreach (var item in statics)
 			{
 				var refed = variables.Where(x => x.Name == item.Name);
-				foreach(var refVar in refed)
+				foreach (var refVar in refed)
 					if (refVar.Parent != null && item.Value is ValueExpression val)
 						refVar.Parent.Replace(refVar, new ValueExpression(val.Value));
 			}

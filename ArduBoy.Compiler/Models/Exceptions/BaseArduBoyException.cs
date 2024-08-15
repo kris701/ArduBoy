@@ -1,9 +1,5 @@
 ﻿using ArduBoy.Compiler.Models.Script;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ArduBoy.Compiler.Models.Exceptions
 {
@@ -24,6 +20,8 @@ namespace ArduBoy.Compiler.Models.Exceptions
 			sb.AppendLine($"Stage:   {Stage}");
 			sb.AppendLine($"Message: {Message}");
 			sb.AppendLine($"Node:    [{Node.GetType().Name}] {Node}");
+			if (Node.Parent != null)
+				sb.AppendLine($"Parent:  [{Node.Parent.GetType().Name}] {Node.Parent}");
 			return sb.ToString();
 		}
 	}

@@ -3,12 +3,6 @@ using ArduBoy.Compiler.Helpers;
 using ArduBoy.Compiler.Models.Exceptions;
 using ArduBoy.Compiler.Models.Script;
 using ArduBoy.Compiler.Models.Script.Expressions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArduBoy.Compiler.Analysers
 {
@@ -41,7 +35,7 @@ namespace ArduBoy.Compiler.Analysers
 		private void CheckIfNamedNodesAreValid(ArduBoyScriptDefinition from)
 		{
 			var namedNodes = from.FindTypes<INamedNode>();
-			foreach(var node in namedNodes)
+			foreach (var node in namedNodes)
 			{
 				if (node is not ValueExpression)
 				{
