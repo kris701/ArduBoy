@@ -21,10 +21,6 @@
 
 	(:func Loop
 		(
-			(:draw-text 0 20 1 %GREEN% %MILLIS%)
-
-			(:wait 2000)
-
 			(:call WaitTest)
 			(:call VariableTest)
 			(:call StaticsTest)
