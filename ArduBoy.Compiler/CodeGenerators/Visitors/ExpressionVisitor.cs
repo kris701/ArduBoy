@@ -28,37 +28,37 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
 
 		public string Visit(WaitExp node)
 		{
-			return $"{OperatorCodes.GetByteCode(":wait")} {node.WaitTime}";
+			return $"{OperatorCodes.GetByteCode(":wait")} {Visit((dynamic)node.WaitTime)}";
 		}
 
 		public string Visit(SetExp node)
 		{
-			return $"{OperatorCodes.GetByteCode(":set")} {node.Name} {node.Value}";
+			return $"{OperatorCodes.GetByteCode(":set")} {node.Name} {Visit((dynamic)node.Value)}";
 		}
 
 		public string Visit(AddExp node)
 		{
-			return $"{OperatorCodes.GetByteCode(":add")} {node.Name} {node.Value}";
+			return $"{OperatorCodes.GetByteCode(":add")} {node.Name} {Visit((dynamic)node.Value)}";
 		}
 
 		public string Visit(SubExp node)
 		{
-			return $"{OperatorCodes.GetByteCode(":sub")} {node.Name} {node.Value}";
+			return $"{OperatorCodes.GetByteCode(":sub")} {node.Name} {Visit((dynamic)node.Value)}";
 		}
 
 		public string Visit(MultExp node)
 		{
-			return $"{OperatorCodes.GetByteCode(":mult")} {node.Name} {node.Value}";
+			return $"{OperatorCodes.GetByteCode(":mult")} {node.Name} {Visit((dynamic)node.Value)}";
 		}
 
 		public string Visit(DivExp node)
 		{
-			return $"{OperatorCodes.GetByteCode(":div")} {node.Name} {node.Value}";
+			return $"{OperatorCodes.GetByteCode(":div")} {node.Name} {Visit((dynamic)node.Value)}";
 		}
 
 		public string Visit(AudioExp node)
 		{
-			return $"{OperatorCodes.GetByteCode(":audio")} {node.Value}";
+			return $"{OperatorCodes.GetByteCode(":audio")} {Visit((dynamic)node.Value)}";
 		}
 
 		public string Visit(VariableExp node)

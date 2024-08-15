@@ -146,31 +146,32 @@ void loop() {
 
 int GetValueAsInt(const char* str, uint8_t from)
 {
-    if (str[from] == '%') {
-        if (str[from + 1] == '_')
-            return GetReservedValue(atoi(str + from + 2));
-        else
-            return registers[atoi(str + from + 1)];
-    }
+    if (str[from] == '%')
+        return registers[atoi(str + from + 1)];
+    if (str[from] == '|')
+        return GetReservedValue(atoi(str + from + 1));
     return atoi(str + from);
 }
 
 String GetValueAsStr(String* str) {
-    if (str->startsWith(F("%")))
+    if (str->startsWith(F("%")) || str->startsWith(F("|")))
         return String(GetValueAsInt(str->c_str(), 0));
     return *str;
 }
 
 int GetReservedValue(int target) {
     switch (target) {
-    case INPUT_UP: return digitalRead(INPUT_UP);
-    case INPUT_DOWN: return digitalRead(INPUT_DOWN);
-    case INPUT_LEFT: return digitalRead(INPUT_LEFT);
-    case INPUT_RIGHT: return digitalRead(INPUT_RIGHT);
-    case INPUT_A: return digitalRead(INPUT_A);
-    case INPUT_B: return digitalRead(INPUT_B);
-    case INPUT_SELECT: return digitalRead(INPUT_SELECT);
-    case INPUT_START: return digitalRead(INPUT_START);
+        // Input
+    case 0: return digitalRead(INPUT_UP);
+    case 1: return digitalRead(INPUT_DOWN);
+    case 2: return digitalRead(INPUT_LEFT);
+    case 3: return digitalRead(INPUT_RIGHT);
+    case 4: return digitalRead(INPUT_A);
+    case 5: return digitalRead(INPUT_B);
+    case 6: return digitalRead(INPUT_SELECT);
+    case 7: return digitalRead(INPUT_START);
+        // Misc
+    case 8: return millis();
     }
     return -1;
 }

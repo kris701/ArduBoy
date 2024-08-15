@@ -10,6 +10,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		{
 			IDecl? returnNode;
 			if ((returnNode = TryVisitStaticsDeclaration(node)) != null) return returnNode;
+			if ((returnNode = TryVisitReservedsDeclaration(node)) != null) return returnNode;
 			if ((returnNode = TryVisitIncludesDeclaration(node)) != null) return returnNode;
 			if ((returnNode = TryVisitNameDeclaration(node)) != null) return returnNode;
 			if ((returnNode = TryVisitFuncDeclaration(node)) != null) return returnNode;
@@ -31,6 +32,23 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			var newNode = new StaticsDecl(new List<INode>());
 			foreach (var child in GetEmptyNode(node))
 				newNode.Content.Add(VisitStaticsExp(child));
+			return newNode;
+		}
+
+		public ReservedsDecl? TryVisitReservedsDeclaration(ASTNode node)
+		{
+			if (IsOfValidNodeType(node.Content, ":reserveds") &&
+				DoesNodeHaveSpecificChildCount(node, ":reserveds", 1))
+				return VisitReservedsDeclaration(node);
+			return null;
+		}
+
+		public ReservedsDecl VisitReservedsDeclaration(ASTNode node)
+		{
+			var split = node.Content.Split(' ');
+			var newNode = new ReservedsDecl(new List<INode>());
+			foreach (var child in GetEmptyNode(node))
+				newNode.Content.Add(VisitReservedExp(child));
 			return newNode;
 		}
 

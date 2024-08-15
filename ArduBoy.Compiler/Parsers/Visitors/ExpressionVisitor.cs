@@ -15,6 +15,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			if ((returnNode = TryVisitForDeclaration(node)) != null) return returnNode;
 			if ((returnNode = TryVisitWhileDeclaration(node)) != null) return returnNode;
 			if ((returnNode = TryVisitStaticsExp(node)) != null) return returnNode;
+			if ((returnNode = TryVisitReservedExp(node)) != null) return returnNode;
 			if ((returnNode = TryVisitIncludeExp(node)) != null) return returnNode;
 			if ((returnNode = TryVisitCallExp(node)) != null) return returnNode;
 			if ((returnNode = TryVisitWaitDeclaration(node)) != null) return returnNode;
@@ -147,7 +148,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			return null;
 		}
 
-		public VariableExp VisitVariableExp(ASTNode node) => new VariableExp(node.Content.Substring(1, node.Content.Length - 2));
+		public VariableExp VisitVariableExp(ASTNode node) => new VariableExp(node.Content.Trim().Substring(1, node.Content.Trim().Length - 2));
 
 		public CallExp? TryVisitCallExp(ASTNode node)
 		{
@@ -170,7 +171,23 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":static").Split(' ');
 			var newNode = new StaticsExp(
 				split[0],
-				new ValueExpression(string.Join(' ', split[1..])));
+				VisitExp(new ASTNode(string.Join(' ', split[1..]))));
+			return newNode;
+		}
+
+		public ReservedExp? TryVisitReservedExp(ASTNode node)
+		{
+			if (IsOfValidNodeType(node.Content, ":reserved"))
+				return VisitReservedExp(node);
+			return null;
+		}
+
+		public ReservedExp VisitReservedExp(ASTNode node)
+		{
+			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":reserved").Split(' ');
+			var newNode = new ReservedExp(
+				split[0],
+				VisitExp(new ASTNode(string.Join(' ', split[1..]))));
 			return newNode;
 		}
 

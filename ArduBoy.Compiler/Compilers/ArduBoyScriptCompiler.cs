@@ -15,20 +15,24 @@ namespace ArduBoy.Compiler.Compilers
 
 		public ArduBoyScriptDefinition Compile(ArduBoyScriptDefinition from)
 		{
+			DoLog?.Invoke("Merging includes...");
+			InsertIncludes(from);
 			DoLog?.Invoke("Resetting parent structure...");
 			from.SetParents();
 			DoLog?.Invoke("Resolving statics...");
 			ResolveStatics(from);
 			DoLog?.Invoke("Inserting statics...");
 			InsertStatics(from);
+			DoLog?.Invoke("Resolving reserveds...");
+			ResolveRefereds(from);
+			DoLog?.Invoke("Inserting reserveds...");
+			InsertReserveds(from);
 			DoLog?.Invoke("Deconstruct for loops...");
 			DeconstructForLoops(from);
 			DoLog?.Invoke("Deconstruct while loops...");
 			DeconstructWhileLoops(from);
 			DoLog?.Invoke("Inserting primary function gotos...");
 			InsertBasicGotos(from);
-			DoLog?.Invoke("Merging includes...");
-			InsertIncludes(from);
 			DoLog?.Invoke("Converting variables names to indexes...");
 			ConvertVariablesToIndexes(from);
 			DoLog?.Invoke("Resetting parent structure...");
@@ -63,6 +67,8 @@ namespace ArduBoy.Compiler.Compilers
 			{
 				if (from.Statics == null)
 					from.Statics = new StaticsDecl(new List<INode>());
+				if (from.Reserveds == null)
+					from.Reserveds = new ReservedsDecl(new List<INode>());
 
 				foreach (var node in from.Includes.Content)
 				{
@@ -75,6 +81,8 @@ namespace ArduBoy.Compiler.Compilers
 
 						if (parsed.Statics != null)
 							from.Statics.Content.AddRange(parsed.Statics.Content);
+						if (parsed.Reserveds != null)
+							from.Reserveds.Content.AddRange(parsed.Reserveds.Content);
 						from.Funcs.AddRange(parsed.Funcs);
 					}
 				}
@@ -108,10 +116,40 @@ namespace ArduBoy.Compiler.Compilers
 			{
 				var refed = variables.Where(x => x.Name == item.Name);
 				foreach(var refVar in refed)
-				{
 					if (refVar.Parent != null && item.Value is ValueExpression val)
 						refVar.Parent.Replace(refVar, new ValueExpression(val.Value));
+			}
+		}
+
+		private void ResolveRefereds(ArduBoyScriptDefinition from)
+		{
+			var reserveds = from.FindTypes<ReservedExp>();
+			while (reserveds.Any(x => x.ID is VariableExp))
+			{
+				foreach (var item in reserveds)
+				{
+					if (item.ID is VariableExp var)
+					{
+						if (!reserveds.Any(x => x.Name == var.Name))
+							throw new CompilerException(item, "Reserved referenced another reserved that does not exist!");
+						var targetStatic = reserveds.First(x => x.Name == var.Name);
+						if (targetStatic.ID is ValueExpression val)
+							item.Replace(var, new ValueExpression(val.Value));
+					}
 				}
+			}
+		}
+
+		private void InsertReserveds(ArduBoyScriptDefinition from)
+		{
+			var reserveds = from.FindTypes<ReservedExp>();
+			var variables = from.FindTypes<VariableExp>();
+			foreach (var item in reserveds)
+			{
+				var refed = variables.Where(x => x.Name == item.Name);
+				foreach (var refVar in refed)
+					if (refVar.Parent != null && item.ID is ValueExpression val)
+						refVar.Parent.Replace(refVar, new ValueExpression($"|{val.Value}"));
 			}
 		}
 
@@ -126,10 +164,8 @@ namespace ArduBoy.Compiler.Compilers
 
 			var all = from.FindTypes<INamedNode>();
 			foreach (var child in all)
-			{
 				if (setMap.TryGetValue(child.Name, out string? value))
 					child.Name = value;
-			}
 		}
 
 		private void InsertBasicGotos(ArduBoyScriptDefinition from)

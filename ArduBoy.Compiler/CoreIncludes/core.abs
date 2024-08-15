@@ -15,16 +15,23 @@
 			(:static MAGENTA 5)
 			(:static YELLOW 6)
 			(:static WHITE 7)
+		)
+	)
 
+	(:reserveds
+		(
 			// Inputs
-			(:static INPUT_UP _0)
-			(:static INPUT_DOWN _1)
-			(:static INPUT_LEFT _2)
-			(:static INPUT_RIGHT _3)
-			(:static INPUT_A _4)
-			(:static INPUT_B _5)
-			(:static INPUT_SELECT _6)
-			(:static INPUT_START _7)
+			(:reserved INPUT_UP 0)
+			(:reserved INPUT_DOWN %INPUT_RIGHT%)
+			(:reserved INPUT_LEFT 2)
+			(:reserved INPUT_RIGHT 3)
+			(:reserved INPUT_A 4)
+			(:reserved INPUT_B 5)
+			(:reserved INPUT_SELECT 6)
+			(:reserved INPUT_START 7)
+
+			// Misc
+			(:reserved MILLIS 8)
 		)
 	)
 )
