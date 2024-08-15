@@ -168,4 +168,10 @@
 			(:wait 1000)
 		)
 	)
+
+	(:func Something
+		(
+			(:wait 1000)
+		)
+	)
 )

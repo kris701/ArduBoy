@@ -135,7 +135,7 @@ namespace ArduBoy.Compiler.Compilers
 					var newFunc = new FuncDecl($"for_{tmpID}", new List<INode>());
 					newFunc.Content.AddRange(node.Content);
 					newFunc.Content.Add(node.Updation);
-					var endCondition = new IfNode(node.Condition, new List<INode>());
+					var endCondition = new IfExp(node.Condition, new List<INode>());
 					endCondition.Content.Add(new GotoExp($"for_{tmpID}"));
 					newFunc.Content.Add(endCondition);
 					foreach (var subNode in newFunc.Content)
@@ -167,7 +167,7 @@ namespace ArduBoy.Compiler.Compilers
 				{
 					var newFunc = new FuncDecl($"while_{tmpID}", new List<INode>());
 					newFunc.Content.AddRange(node.Content);
-					var endCondition = new IfNode(node.Condition, new List<INode>());
+					var endCondition = new IfExp(node.Condition, new List<INode>());
 					endCondition.Content.Add(new GotoExp($"while_{tmpID}"));
 					newFunc.Content.Add(endCondition);
 					foreach (var subNode in newFunc.Content)

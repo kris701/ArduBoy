@@ -1,6 +1,7 @@
 ﻿using ArduBoy.Compiler.ASTGenerators;
 using ArduBoy.Compiler.CodeGenerators;
 using ArduBoy.Compiler.Compilers;
+using ArduBoy.Compiler.Optimisers;
 using ArduBoy.Compiler.Parsers;
 using CommandLine;
 using CommandLine.Text;
@@ -46,9 +47,15 @@ namespace ArduBoy.Compiler.CLI
 			var compiled = compiler.Compile(parsed);
 			WriteLineColor("Compilation complete!", ConsoleColor.Green);
 
+			WriteLineColor("Optimising...", ConsoleColor.Blue);
+			IOptimiser optimiser = new ArduBoyScriptOptimiser();
+			optimiser.DoLog += (t) => WriteLineColor($"\t{t}", ConsoleColor.DarkGray);
+			var optimised = optimiser.Optimise(parsed);
+			WriteLineColor("Optimisation complete!", ConsoleColor.Green);
+
 			WriteColor("Outputting binary...", ConsoleColor.Blue);
 			ICodeGenerator codeGenerator = new ArduBoyCodeGenerator();
-			var code = codeGenerator.Generate(compiled);
+			var code = codeGenerator.Generate(optimised);
 			var targetFile = Path.Combine(opts.OutPath, "game.rbs");
 			if (File.Exists(targetFile))
 				File.Delete(targetFile);

@@ -1,11 +1,11 @@
 ﻿namespace ArduBoy.Compiler.Models.Script.Expressions
 {
-	public class IfNode : BaseNode, IExp, IContentNode
+	public class IfExp : BaseNode, IExp, IContentNode
 	{
 		public ComparisonExp Expression { get; set; }
 		public List<INode> Content { get; set; }
 
-		public IfNode(ComparisonExp expression, List<INode> content)
+		public IfExp(ComparisonExp expression, List<INode> content)
 		{
 			Expression = expression;
 			Content = content;

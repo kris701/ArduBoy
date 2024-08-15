@@ -16,7 +16,7 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
 			return $"{OperatorCodes.GetByteCode(":call")} {node.Name}";
 		}
 
-		public string Visit(IfNode node)
+		public string Visit(IfExp node)
 		{
 			var sb = new StringBuilder();
 			sb.AppendLine($"{OperatorCodes.GetByteCode(":if")} {node.Content.Count} {Visit(node.Expression)}");
