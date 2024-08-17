@@ -1,4 +1,5 @@
 ﻿using ArduBoy.Compiler.Models.AST;
+using ArduBoy.Compiler.Models.Exceptions;
 using ArduBoy.Compiler.Models.Script;
 using ArduBoy.Compiler.Models.Script.Declarations;
 
@@ -31,7 +32,12 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			var split = node.Content.Split(' ');
 			var newNode = new StaticsDecl(new List<INode>());
 			foreach (var child in GetEmptyNode(node))
-				newNode.Content.Add(VisitStaticsExp(child));
+			{
+				var statics = TryVisitStaticsExp(child);
+				if (statics == null)
+					throw new ParserException(child, "Syntax error on parsing statics expression.");
+				newNode.Content.Add(statics);
+			}
 			return newNode;
 		}
 
@@ -48,7 +54,12 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			var split = node.Content.Split(' ');
 			var newNode = new ReservedsDecl(new List<INode>());
 			foreach (var child in GetEmptyNode(node))
-				newNode.Content.Add(VisitReservedExp(child));
+			{
+				var reserved = TryVisitReservedExp(child);
+				if (reserved == null)
+					throw new ParserException(child, "Syntax error on parsing reserved expression.");
+				newNode.Content.Add(reserved);
+			}
 			return newNode;
 		}
 
@@ -65,7 +76,12 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			var split = node.Content.Split(' ');
 			var newNode = new IncludesDecl(new List<INode>());
 			foreach (var child in GetEmptyNode(node))
-				newNode.Content.Add(VisitIncludeExp(child));
+			{
+				var include = TryVisitIncludeExp(child);
+				if (include == null)
+					throw new ParserException(child, "Syntax error on parsing include expression.");
+				newNode.Content.Add(include);
+			}
 			return newNode;
 		}
 

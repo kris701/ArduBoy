@@ -34,11 +34,11 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		{
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-line").Split(' ');
 			var newNode = new DrawLineExp(
-				VisitExp(new ASTNode(split[0])),
-				VisitExp(new ASTNode(split[1])),
-				VisitExp(new ASTNode(split[2])),
-				VisitExp(new ASTNode(split[3])),
-				VisitExp(new ASTNode(split[4])));
+				VisitAsValueOrVariableExp(new ASTNode(split[0])),
+				VisitAsValueOrVariableExp(new ASTNode(split[1])),
+				VisitAsValueOrVariableExp(new ASTNode(split[2])),
+				VisitAsValueOrVariableExp(new ASTNode(split[3])),
+				VisitAsValueOrVariableExp(new ASTNode(split[4])));
 			return newNode;
 		}
 
@@ -53,7 +53,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		public DrawFillExp VisitDrawFillDeclaration(ASTNode node)
 		{
 			var newNode = new DrawFillExp(
-				VisitExp(new ASTNode(RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill"))));
+				VisitAsValueOrVariableExp(new ASTNode(RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill"))));
 			return newNode;
 		}
 
@@ -69,13 +69,13 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		{
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-triangle").Split(' ');
 			var newNode = new DrawTriangleExp(
-				VisitExp(new ASTNode(split[0])),
-				VisitExp(new ASTNode(split[1])),
-				VisitExp(new ASTNode(split[2])),
-				VisitExp(new ASTNode(split[3])),
-				VisitExp(new ASTNode(split[4])),
-				VisitExp(new ASTNode(split[5])),
-				VisitExp(new ASTNode(split[6])));
+				VisitAsValueOrVariableExp(new ASTNode(split[0])),
+				VisitAsValueOrVariableExp(new ASTNode(split[1])),
+				VisitAsValueOrVariableExp(new ASTNode(split[2])),
+				VisitAsValueOrVariableExp(new ASTNode(split[3])),
+				VisitAsValueOrVariableExp(new ASTNode(split[4])),
+				VisitAsValueOrVariableExp(new ASTNode(split[5])),
+				VisitAsValueOrVariableExp(new ASTNode(split[6])));
 			return newNode;
 		}
 
@@ -91,13 +91,13 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		{
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill-triangle").Split(' ');
 			var newNode = new DrawFillTriangleExp(
-				VisitExp(new ASTNode(split[0])),
-				VisitExp(new ASTNode(split[1])),
-				VisitExp(new ASTNode(split[2])),
-				VisitExp(new ASTNode(split[3])),
-				VisitExp(new ASTNode(split[4])),
-				VisitExp(new ASTNode(split[5])),
-				VisitExp(new ASTNode(split[6])));
+				VisitAsValueOrVariableExp(new ASTNode(split[0])),
+				VisitAsValueOrVariableExp(new ASTNode(split[1])),
+				VisitAsValueOrVariableExp(new ASTNode(split[2])),
+				VisitAsValueOrVariableExp(new ASTNode(split[3])),
+				VisitAsValueOrVariableExp(new ASTNode(split[4])),
+				VisitAsValueOrVariableExp(new ASTNode(split[5])),
+				VisitAsValueOrVariableExp(new ASTNode(split[6])));
 			return newNode;
 		}
 
@@ -111,19 +111,12 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		public DrawTextExp VisitDrawTextDeclaration(ASTNode node)
 		{
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-text").Split(' ');
-			var textNode = new ASTNode(string.Join(' ', split[4..]));
-			IExp? returnNode;
-			returnNode = TryVisitVariableExp(textNode);
-			if (returnNode == null)
-				returnNode = TryVisitValueExp(textNode);
-			if (returnNode == null)
-				throw new Exception("Could not parse the text nodes text!");
 			var newNode = new DrawTextExp(
-				VisitExp(new ASTNode(split[0])),
-				VisitExp(new ASTNode(split[1])),
-				VisitExp(new ASTNode(split[2])),
-				returnNode,
-				VisitExp(new ASTNode(split[3])));
+				VisitAsValueOrVariableExp(new ASTNode(split[0])),
+				VisitAsValueOrVariableExp(new ASTNode(split[1])),
+				VisitAsValueOrVariableExp(new ASTNode(split[2])),
+				VisitAsValueOrVariableExp(new ASTNode(string.Join(' ', split[4..]))),
+				VisitAsValueOrVariableExp(new ASTNode(split[3])));
 			return newNode;
 		}
 
@@ -139,10 +132,10 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		{
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-circle").Split(' ');
 			var newNode = new DrawCircleExp(
-				VisitExp(new ASTNode(split[0])),
-				VisitExp(new ASTNode(split[1])),
-				VisitExp(new ASTNode(split[2])),
-				VisitExp(new ASTNode(split[3])));
+				VisitAsValueOrVariableExp(new ASTNode(split[0])),
+				VisitAsValueOrVariableExp(new ASTNode(split[1])),
+				VisitAsValueOrVariableExp(new ASTNode(split[2])),
+				VisitAsValueOrVariableExp(new ASTNode(split[3])));
 			return newNode;
 		}
 
@@ -158,10 +151,10 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		{
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill-circle").Split(' ');
 			var newNode = new DrawFillCircleExp(
-				VisitExp(new ASTNode(split[0])),
-				VisitExp(new ASTNode(split[1])),
-				VisitExp(new ASTNode(split[2])),
-				VisitExp(new ASTNode(split[3])));
+				VisitAsValueOrVariableExp(new ASTNode(split[0])),
+				VisitAsValueOrVariableExp(new ASTNode(split[1])),
+				VisitAsValueOrVariableExp(new ASTNode(split[2])),
+				VisitAsValueOrVariableExp(new ASTNode(split[3])));
 			return newNode;
 		}
 
@@ -177,11 +170,11 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		{
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-rect").Split(' ');
 			var newNode = new DrawRectangleExp(
-				VisitExp(new ASTNode(split[0])),
-				VisitExp(new ASTNode(split[1])),
-				VisitExp(new ASTNode(split[2])),
-				VisitExp(new ASTNode(split[3])),
-				VisitExp(new ASTNode(split[4])));
+				VisitAsValueOrVariableExp(new ASTNode(split[0])),
+				VisitAsValueOrVariableExp(new ASTNode(split[1])),
+				VisitAsValueOrVariableExp(new ASTNode(split[2])),
+				VisitAsValueOrVariableExp(new ASTNode(split[3])),
+				VisitAsValueOrVariableExp(new ASTNode(split[4])));
 			return newNode;
 		}
 
@@ -197,11 +190,11 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		{
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":draw-fill-rect").Split(' ');
 			var newNode = new DrawFillRectangleExp(
-				VisitExp(new ASTNode(split[0])),
-				VisitExp(new ASTNode(split[1])),
-				VisitExp(new ASTNode(split[2])),
-				VisitExp(new ASTNode(split[3])),
-				VisitExp(new ASTNode(split[4])));
+				VisitAsValueOrVariableExp(new ASTNode(split[0])),
+				VisitAsValueOrVariableExp(new ASTNode(split[1])),
+				VisitAsValueOrVariableExp(new ASTNode(split[2])),
+				VisitAsValueOrVariableExp(new ASTNode(split[3])),
+				VisitAsValueOrVariableExp(new ASTNode(split[4])));
 			return newNode;
 		}
 

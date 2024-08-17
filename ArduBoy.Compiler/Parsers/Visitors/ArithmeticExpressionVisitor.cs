@@ -30,7 +30,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":add").Split(' ');
 			var newNode = new AddExp(
 				split[0],
-				VisitExp(new ASTNode(split[1])));
+				VisitAsValueOrVariableExp(new ASTNode(split[1])));
 			return newNode;
 		}
 
@@ -47,7 +47,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":sub").Split(' ');
 			var newNode = new SubExp(
 				split[0],
-				VisitExp(new ASTNode(split[1])));
+				VisitAsValueOrVariableExp(new ASTNode(split[1])));
 			return newNode;
 		}
 
@@ -64,7 +64,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":mult").Split(' ');
 			var newNode = new MultExp(
 				split[0],
-				VisitExp(new ASTNode(split[1])));
+				VisitAsValueOrVariableExp(new ASTNode(split[1])));
 			return newNode;
 		}
 
@@ -81,7 +81,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":div").Split(' ');
 			var newNode = new DivExp(
 				split[0],
-				VisitExp(new ASTNode(split[1])));
+				VisitAsValueOrVariableExp(new ASTNode(split[1])));
 			return newNode;
 		}
 	}

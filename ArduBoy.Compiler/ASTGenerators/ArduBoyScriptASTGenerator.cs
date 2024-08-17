@@ -1,4 +1,5 @@
 ﻿using ArduBoy.Compiler.Models.AST;
+using ArduBoy.Compiler.Models.Exceptions;
 using System.Text;
 
 namespace ArduBoy.Compiler.ASTGenerators
@@ -21,7 +22,7 @@ namespace ArduBoy.Compiler.ASTGenerators
 				var firstP = text.IndexOf('(');
 				var lastP = text.LastIndexOf(')');
 				if (lastP == -1)
-					throw new Exception($"Node started with a '(' but didnt end with one!: {text}");
+					throw new ASTException(new ASTNode(text), $"Node started with a '(' but didnt end with one!: {text}");
 				var excludeSlices = new List<int>();
 
 				var children = new List<ASTNode>();
@@ -45,7 +46,6 @@ namespace ArduBoy.Compiler.ASTGenerators
 							currentLevel--;
 						}
 					}
-
 					offset = endP - 1;
 					excludeSlices.Add(startP);
 					excludeSlices.Add(endP);
@@ -56,6 +56,10 @@ namespace ArduBoy.Compiler.ASTGenerators
 				firstP = newInnerContent.IndexOf('(');
 				lastP = newInnerContent.LastIndexOf(')');
 				newInnerContent = newInnerContent.Substring(firstP + 1, lastP - firstP - 1);
+				if (newInnerContent.Contains('(') || newInnerContent.Contains(')'))
+					throw new ASTException(
+						new ASTNode(newInnerContent.Trim(), children),
+						"AST node contained loose delimiters '(' or ')'!");
 
 				return new ASTNode(newInnerContent.Trim(), children);
 			}

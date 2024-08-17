@@ -1,4 +1,5 @@
 ﻿using ArduBoy.Compiler.Models.AST;
+using ArduBoy.Compiler.Models.Exceptions;
 using ArduBoy.Compiler.Models.Script;
 using ArduBoy.Compiler.Models.Script.Expressions;
 using ArduBoy.Compiler.Models.Script.Expressions.Arithmetic;
@@ -120,15 +121,23 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 				case ">":
 				case "!=":
 					break;
-				default: throw new Exception($"Invalid comparison method: '{op}'");
+				default: throw new ParserException(node, $"Invalid comparison method: '{op}'");
 			}
 
 			var newNode = new ComparisonExp(
-				VisitExp(new ASTNode(split[0])),
-				VisitExp(new ASTNode(split[2])),
+				VisitAsValueOrVariableExp(new ASTNode(split[0])),
+				VisitAsValueOrVariableExp(new ASTNode(split[2])),
 				op);
 
 			return newNode;
+		}
+
+		public IExp VisitAsValueOrVariableExp(ASTNode node)
+		{
+			IExp? returnNode;
+			if ((returnNode = TryVisitVariableExp(node)) != null) return returnNode;
+			if ((returnNode = TryVisitValueExp(node)) != null) return returnNode;
+			throw new ParserException(node, "Syntax error when trying to parse AST node as a variable or value expression!");
 		}
 
 		public ValueExpression? TryVisitValueExp(ASTNode node)
@@ -170,7 +179,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":static").Split(' ');
 			var newNode = new StaticsExp(
 				split[0],
-				VisitExp(new ASTNode(string.Join(' ', split[1..]))));
+				VisitAsValueOrVariableExp(new ASTNode(string.Join(' ', split[1..]))));
 			return newNode;
 		}
 
@@ -186,7 +195,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":reserved").Split(' ');
 			var newNode = new ReservedExp(
 				split[0],
-				VisitExp(new ASTNode(string.Join(' ', split[1..]))));
+				VisitAsValueOrVariableExp(new ASTNode(string.Join(' ', split[1..]))));
 			return newNode;
 		}
 
@@ -210,7 +219,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		public WaitExp VisitWaitDeclaration(ASTNode node)
 		{
 			var newNode = new WaitExp(
-				VisitExp(new ASTNode(RemoveNodeTypeAndEscapeChars(node.Content, ":wait"))));
+				VisitAsValueOrVariableExp(new ASTNode(RemoveNodeTypeAndEscapeChars(node.Content, ":wait"))));
 			return newNode;
 		}
 
@@ -235,15 +244,9 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		public SetExp VisitSetDeclaration(ASTNode node)
 		{
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":set").Split(' ');
-			IExp? returnNode;
-			returnNode = TryVisitVariableExp(new ASTNode(split[1]));
-			if (returnNode == null)
-				returnNode = TryVisitValueExp(new ASTNode(split[1]));
-			if (returnNode == null)
-				throw new Exception("Could not parse the set nodes value!");
 			var newNode = new SetExp(
 				split[0],
-				returnNode);
+				VisitAsValueOrVariableExp(new ASTNode(split[1])));
 			return newNode;
 		}
 	}

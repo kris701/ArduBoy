@@ -1,4 +1,5 @@
 ﻿using ArduBoy.Compiler.Models.AST;
+using ArduBoy.Compiler.Models.Exceptions;
 
 namespace ArduBoy.Compiler.Parsers.Visitors
 {
@@ -24,7 +25,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		internal bool DoesNotContainStrayCharacters(ASTNode node, string targetName)
 		{
 			if (node.Content.Replace(targetName, "").Trim() != "")
-				throw new Exception($"The node '{targetName}' has unknown content inside! Contains stray characters: {node.Content.Replace(targetName, "").Trim()}");
+				throw new ParserException(node, $"The node '{targetName}' has unknown content inside! Contains stray characters: {node.Content.Replace(targetName, "").Trim()}");
 			return true;
 		}
 
