@@ -30,7 +30,9 @@
 			if (_type != ValueTypes.Unknown)
 				return _type;
 
-			if (int.TryParse(Value, out int tmp))
+			if (Value.StartsWith('|'))
+				_type = ValueTypes.Integer;
+			else if (int.TryParse(Value, out int tmp))
 				_type = ValueTypes.Integer;
 			else
 				_type = ValueTypes.String;

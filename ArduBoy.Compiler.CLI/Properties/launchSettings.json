@@ -2,7 +2,7 @@
   "profiles": {
     "ArduBoy.Compiler.CLI": {
       "commandName": "Project",
-      "commandLineArgs": "-s selftest.txt -c"
+      "commandLineArgs": "-s inputtest.txt -c"
     }
   }
 }
