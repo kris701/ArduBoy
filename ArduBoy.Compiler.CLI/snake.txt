@@ -4,7 +4,7 @@
 
 	(:func Setup
 		(
-			(:draw-text 20 20 2 %RED% SNAKE)
+			(:draw-text 30 30 2 %RED% SNAKE)
 			(:audio 500)
 			(:wait 250)
 			(:audio 800)
@@ -12,11 +12,12 @@
 			(:audio 1000)
 			(:wait 250)
 			(:audio 0)
+			(:wait 1000)
 			(:draw-fill %BLACK%)
 
 			(:set snakelength 1)
 			(:set direction 1)
-			(:set pelletePosition %MILLIS%)
+			(:call CreateNewPellete)
 			(:set position 10)
 			(:set score 0)
 		)
@@ -42,27 +43,15 @@
 		(
 			(:if (%INPUT_UP% == %true%) (
 				(:set direction -640)
-				(:if (%direction% != -640) (
-					(:audio 500)
-				))
 			))
 			(:if (%INPUT_DOWN% == %true%) (
 				(:set direction 640)
-				(:if (%direction% != 640) (
-					(:audio 500)
-				))
 			))
 			(:if (%INPUT_LEFT% == %true%) (
 				(:set direction -5)
-				(:if (%direction% != -5) (
-					(:audio 500)
-				))
 			))
 			(:if (%INPUT_RIGHT% == %true%) (
 				(:set direction 5)
-				(:if (%direction% != 5) (
-					(:audio 500)
-				))
 			))
 		)
 	)
@@ -90,8 +79,23 @@
 			(:if (%position% == %pelletePosition%) (
 				(:add score 1)
 				(:audio 1000)
-				(:set pelletePosition %MILLIS%)
+				(:call CreateNewPellete)
 			))
+		)
+	)
+
+	(:func CreateNewPellete
+		(
+			(:set tmp %MILLIS%)
+			(:set xpos %tmp%)
+			(:mod xpos 5)
+			(:sub tmp %xpos%)
+
+			(:set ypos %tmp%)
+			(:mod ypos 640)
+			(:sub tmp %ypos%)
+
+			(:set pelletePosition %tmp%)
 		)
 	)
 
