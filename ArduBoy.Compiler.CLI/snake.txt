@@ -4,7 +4,7 @@
 
 	(:func Setup
 		(
-			(:draw-text 30 30 2 %RED% SNAKE)
+			(:draw-text 40 40 2 %RED% SNAKE)
 			(:audio 500)
 			(:wait 250)
 			(:audio 800)
@@ -20,9 +20,9 @@
 			(:set position 8192)
 			(:set score 0)
 
+			(:draw-fill-rect 0 115 128 13 %MAGENTA%)
 			(:draw-text 0 115 1 %GREEN% Score:)
 			(:draw-text 40 115 1 %GREEN% %score%)
-			(:call DisplayPelleteLocation)
 		)
 	)
 
@@ -31,11 +31,12 @@
 			(:audio 0)
 
 			(:call ProcessMissingPelletes)
+			(:call DisplayPelleteLocation)
 			(:call ProcessInput)
 			(:call ClearDisplayLocation)
 			(:call ProcessPosition)
 			(:call DisplayLocation)
-			(:wait 25)
+			(:wait 10)
 		)
 	)
 
@@ -80,8 +81,7 @@
 				(:add score 1)
 				(:audio 1000)
 				(:call CreateNewPellete)
-				(:call DisplayPelleteLocation)
-				(:draw-fill-rect 0 115 128 13 %BLACK%)
+				(:draw-fill-rect 0 115 128 13 %MAGENTA%)
 				(:draw-text 0 115 1 %GREEN% Score:)
 				(:draw-text 40 115 1 %GREEN% %score%)
 			))
