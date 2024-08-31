@@ -37,8 +37,8 @@
 				(:set direction 1)
 			))
 
-			(:draw-text 0, 80 1 %RED% %direction%)
-			(:draw-text 0, 100 1 %RED% %position%)
+			(:draw-text 0 80 1 %RED% %direction%)
+			(:draw-text 0 100 1 %RED% %position%)
 
 			(:add position %direction%)
 
