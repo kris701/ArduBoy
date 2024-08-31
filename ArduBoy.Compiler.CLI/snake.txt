@@ -25,8 +25,11 @@
 	(:func Loop
 		(
 			(:audio 0)
-			(:draw-text 0 0 1 %GREEN% Score: )
-			(:draw-text 30 0 1 %GREEN% %score%)
+			(:draw-text 0 0 1 %GREEN% Score:)
+			(:draw-text 40 0 1 %GREEN% %score%)
+
+
+(:draw-text 0 100 1 %RED% %direction%)
 
 			(:call ProcessMissingPelletes)
 			(:call DisplayPelleteLocation)
@@ -41,19 +44,27 @@
 	(:func ProcessInput
 		(
 			(:if (%INPUT_UP% == %true%) (
-				(:if (%direction% != -640) ((:audio 500)))
+				(:if (%direction% != -640) (
+					(:audio 500)
+				))
 				(:set direction -640)
 			))
 			(:if (%INPUT_DOWN% == %true%) (
-				(:if (%direction% != 640) ((:audio 500)))
+				(:if (%direction% != 640) (
+					(:audio 500)
+				))
 				(:set direction 640)
 			))
 			(:if (%INPUT_LEFT% == %true%) (
-				(:if (%direction% != -5) ((:audio 500)))
+				(:if (%direction% != -5) (
+					(:audio 500)
+				))
 				(:set direction -5)
 			))
 			(:if (%INPUT_RIGHT% == %true%) (
-				(:if (%direction% != 5) ((:audio 500)))
+				(:if (%direction% != 5) (
+					(:audio 500)
+				))
 				(:set direction 5)
 			))
 		)
