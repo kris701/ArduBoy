@@ -14,6 +14,7 @@
 			(:audio 0)
 			(:draw-fill %BLACK%)
 
+			(:set snakelength 1)
 			(:set direction 1)
 			(:set position 10)
 		)
@@ -22,24 +23,26 @@
 	(:func Loop
 		(
 			// Clear screen
-			(:draw-fill %BLACK%)
+			(:audio 0)
 
 			(:if (%INPUT_UP% == %true%) (
 				(:set direction -640)
+				(:audio 500)
 			))
 			(:if (%INPUT_DOWN% == %true%) (
 				(:set direction 640)
+				(:audio 500)
 			))
 			(:if (%INPUT_LEFT% == %true%) (
 				(:set direction -5)
+				(:audio 500)
 			))
 			(:if (%INPUT_RIGHT% == %true%) (
 				(:set direction 5)
+				(:audio 500)
 			))
 
-			(:draw-text 0 80 1 %RED% %direction%)
-			(:draw-text 0 100 1 %RED% %position%)
-
+			(:call ClearDisplayLocation)
 			(:add position %direction%)
 
 			(:if (%position% > 16384) (
@@ -50,8 +53,8 @@
 			(:if (%position% < 0) (
 				(:set xpos %position%)
 				(:mod xpos 128)
-				(:set position 16384)
-				(:sub position %xpos%)
+				(:set position 16256)
+				(:add position %xpos%)
 			))
 
 			(:call DisplayLocation)
@@ -66,6 +69,16 @@
 			(:set xpos %position%)
 			(:mod xpos 128)
 			(:draw-fill-rect %xpos% %ypos% 5 5 %BLUE%)
+		)
+	)
+
+	(:func ClearDisplayLocation
+		(
+			(:set ypos %position%)
+			(:div ypos 128)
+			(:set xpos %position%)
+			(:mod xpos 128)
+			(:draw-fill-rect %xpos% %ypos% 5 5 %BLACK%)
 		)
 	)
 )
