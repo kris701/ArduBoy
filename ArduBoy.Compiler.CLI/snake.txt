@@ -20,8 +20,8 @@
 			(:set position 8192)
 			(:set score 0)
 
-			(:draw-text 0 100 1 %GREEN% Score:)
-			(:draw-text 40 100 1 %GREEN% %score%)
+			(:draw-text 0 115 1 %GREEN% Score:)
+			(:draw-text 40 115 1 %GREEN% %score%)
 			(:call DisplayPelleteLocation)
 		)
 	)
@@ -81,9 +81,9 @@
 				(:audio 1000)
 				(:call CreateNewPellete)
 				(:call DisplayPelleteLocation)
-				(:draw-fill-rect 0 0 128 20 %BLACK%)
-				(:draw-text 0 100 1 %GREEN% Score:)
-				(:draw-text 40 100 1 %GREEN% %score%)
+				(:draw-fill-rect 0 115 128 13 %BLACK%)
+				(:draw-text 0 115 1 %GREEN% Score:)
+				(:draw-text 40 115 1 %GREEN% %score%)
 			))
 		)
 	)
@@ -91,6 +91,9 @@
 	(:func CreateNewPellete
 		(
 			(:set tmp %MILLIS%)
+			(:if (%tmp% > 12800) (
+				(:sub tmp 4000)
+			))
 			(:set xpos %tmp%)
 			(:mod xpos 1)
 			(:sub tmp %xpos%)
