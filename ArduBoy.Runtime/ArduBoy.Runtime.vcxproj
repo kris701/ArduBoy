@@ -116,27 +116,27 @@
     <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\src\SPI.cpp" />
     <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src\utility\twi.c" />
     <ClCompile Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src\Wire.cpp" />
-    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\Adafruit_BusIO_Register.cpp" />
-    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\Adafruit_I2CDevice.cpp" />
-    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\Adafruit_SPIDevice.cpp" />
-    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\Adafruit_GFX.cpp" />
-    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\Adafruit_GrayOLED.cpp" />
-    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\Adafruit_SPITFT.cpp" />
-    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\glcdfont.c" />
-    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_ILI9341\Adafruit_ILI9341.cpp" />
+    <ClCompile Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_BusIO\Adafruit_BusIO_Register.cpp" />
+    <ClCompile Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_BusIO\Adafruit_I2CDevice.cpp" />
+    <ClCompile Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_BusIO\Adafruit_SPIDevice.cpp" />
+    <ClCompile Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library\Adafruit_GFX.cpp" />
+    <ClCompile Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library\Adafruit_GrayOLED.cpp" />
+    <ClCompile Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library\Adafruit_SPITFT.cpp" />
+    <ClCompile Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library\glcdfont.c" />
+    <ClCompile Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_ILI9341\Adafruit_ILI9341.cpp" />
+    <ClCompile Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_SSD1351_library\Adafruit_SSD1351.cpp" />
     <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1331_OLED_Driver_Library_for_Arduino\Adafruit_SSD1331.cpp" />
-    <ClCompile Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1351_library\Adafruit_SSD1351.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\library.properties" />
     <None Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring_pulse.S" />
     <None Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\library.properties" />
     <None Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\library.properties" />
-    <None Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\library.properties" />
-    <None Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\library.properties" />
-    <None Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_ILI9341\library.properties" />
+    <None Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_BusIO\library.properties" />
+    <None Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library\library.properties" />
+    <None Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_ILI9341\library.properties" />
+    <None Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_SSD1351_library\library.properties" />
     <None Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1331_OLED_Driver_Library_for_Arduino\library.properties" />
-    <None Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1351_library\library.properties" />
     <None Include="src\arduino folders read me.txt">
     </None>
   </ItemGroup>
@@ -175,18 +175,18 @@
     <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src\utility\twi.h" />
     <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src\Wire.h" />
     <ClInclude Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\variants\eightanaloginputs\pins_arduino.h" />
-    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\Adafruit_BusIO_Register.h" />
-    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\Adafruit_I2CDevice.h" />
-    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\Adafruit_I2CRegister.h" />
-    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\Adafruit_SPIDevice.h" />
-    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\Adafruit_GFX.h" />
-    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\Adafruit_GrayOLED.h" />
-    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\Adafruit_SPITFT.h" />
-    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\Adafruit_SPITFT_Macros.h" />
-    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\gfxfont.h" />
-    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_ILI9341\Adafruit_ILI9341.h" />
+    <ClInclude Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_BusIO\Adafruit_BusIO_Register.h" />
+    <ClInclude Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_BusIO\Adafruit_I2CDevice.h" />
+    <ClInclude Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_BusIO\Adafruit_I2CRegister.h" />
+    <ClInclude Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_BusIO\Adafruit_SPIDevice.h" />
+    <ClInclude Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library\Adafruit_GFX.h" />
+    <ClInclude Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library\Adafruit_GrayOLED.h" />
+    <ClInclude Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library\Adafruit_SPITFT.h" />
+    <ClInclude Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library\Adafruit_SPITFT_Macros.h" />
+    <ClInclude Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library\gfxfont.h" />
+    <ClInclude Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_ILI9341\Adafruit_ILI9341.h" />
+    <ClInclude Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_SSD1351_library\Adafruit_SSD1351.h" />
     <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1331_OLED_Driver_Library_for_Arduino\Adafruit_SSD1331.h" />
-    <ClInclude Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1351_library\Adafruit_SSD1351.h" />
     <ClInclude Include="__vm\.ArduBoy.Runtime.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
@@ -195,19 +195,19 @@
     <Text Include="C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\README.txt" />
     <Text Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\keywords.txt" />
     <Text Include="c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\keywords.txt" />
-    <Text Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\CMakeLists.txt" />
-    <Text Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\CMakeLists.txt" />
-    <Text Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\license.txt" />
+    <Text Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_BusIO\CMakeLists.txt" />
+    <Text Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library\CMakeLists.txt" />
+    <Text Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library\license.txt" />
+    <Text Include="C:\Users\kris7\Documents\Arduino\libraries\Adafruit_SSD1351_library\license.txt" />
     <Text Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1331_OLED_Driver_Library_for_Arduino\license.txt" />
-    <Text Include="c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1351_library\license.txt" />
   </ItemGroup>
   <PropertyGroup>
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1351_library;c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library;c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO;c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src;c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\src;C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src;c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1351_library\utility;c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\utility;c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\utility;c:\\Users\\kris7\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino;c:\\Users\\kris7\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs;c:\users\kris7\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\lib\gcc\avr\7.3.0\include;c:\users\kris7\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\lib\gcc\avr\7.3.0\include-fixed;c:\users\kris7\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\avr\include;c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1351_library;c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\src;C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src;C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\utility</IncludePath>
-    <RemoteCCompileToolExe>c:\\Users\\kris7\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\bin\avr-g++</RemoteCCompileToolExe>
-    <RemoteCppCompileToolExe>c:\\Users\\kris7\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\bin\avr-g++</RemoteCppCompileToolExe>
+    <IncludePath>$(ProjectDir)..\ArduBoy.Runtime;C:\Users\kris7\Documents\Arduino\libraries\Adafruit_SSD1351_library;C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library;C:\Users\kris7\Documents\Arduino\libraries\Adafruit_BusIO;C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src;C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\src;C:\Users\kris7\AppData\Local\arduino15\libraries\SD\src;C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino;C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\variants\eightanaloginputs;c:\users\kris7\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\lib\gcc\avr\7.3.0\include;c:\users\kris7\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\lib\gcc\avr\7.3.0\include-fixed;c:\users\kris7\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\avr\include;C:\Users\kris7\Documents\Arduino\libraries\Adafruit_SSD1351_library;C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library;C:\Users\kris7\Documents\Arduino\libraries\Adafruit_BusIO;C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src;C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src\utility;C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\src;C:\Users\kris7\AppData\Local\arduino15\libraries\SD\src;C:\Users\kris7\AppData\Local\arduino15\libraries\SD\src\utility</IncludePath>
+    <RemoteCCompileToolExe>C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\bin\avr-g++</RemoteCCompileToolExe>
+    <RemoteCppCompileToolExe>C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\bin\avr-g++</RemoteCppCompileToolExe>
     <ValidateArchitecture>false</ValidateArchitecture>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -218,13 +218,13 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1351_library;c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library;c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO;c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src;c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\src;C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src;c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1351_library\utility;c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_GFX_Library\utility;c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_BusIO\utility;c:\\Users\\kris7\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino;c:\\Users\\kris7\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs;c:\users\kris7\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\lib\gcc\avr\7.3.0\include;c:\users\kris7\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\lib\gcc\avr\7.3.0\include-fixed;c:\users\kris7\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\avr\include;c:\Users\kris7\OneDrive\Dokumenter\Arduino\libraries\Adafruit_SSD1351_library;c:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\src;C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src;C:\Users\kris7\AppData\Local\Arduino15\libraries\SD\src\utility;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <GccToolChain>c:\\Users\\kris7\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\bin\avr-g++</GccToolChain>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\ArduBoy.Runtime;C:\Users\kris7\Documents\Arduino\libraries\Adafruit_SSD1351_library;C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library;C:\Users\kris7\Documents\Arduino\libraries\Adafruit_BusIO;C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src;C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\src;C:\Users\kris7\AppData\Local\arduino15\libraries\SD\src;C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino;C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\variants\eightanaloginputs;c:\users\kris7\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\lib\gcc\avr\7.3.0\include;c:\users\kris7\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\lib\gcc\avr\7.3.0\include-fixed;c:\users\kris7\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\avr\include;C:\Users\kris7\Documents\Arduino\libraries\Adafruit_SSD1351_library;C:\Users\kris7\Documents\Arduino\libraries\Adafruit_GFX_Library;C:\Users\kris7\Documents\Arduino\libraries\Adafruit_BusIO;C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src;C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\Wire\src\utility;C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\libraries\SPI\src;C:\Users\kris7\AppData\Local\arduino15\libraries\SD\src;C:\Users\kris7\AppData\Local\arduino15\libraries\SD\src\utility;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <GccToolChain>C:\Users\kris7\AppData\Local\Arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\bin\avr-g++</GccToolChain>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <CLanguageStandard>gnu11</CLanguageStandard>
       <CAdditionalWarning />
       <CppAdditionalWarning />
-      <ForcedIncludeFiles>$(ProjectDir)..\..\..\..\..\..\..\program files\microsoft visual studio\2022\enterprise\common7\ide\extensions\50fqdxjx.0wj\Micro Platforms\default\vm-intelli-pre.h;C:\Users\kris7\AppData\Local\Temp\VMBuilds\ArduBoy.Runtime\nano_atmega328old\Debug\.vmintelli\9aec640524864628a7415ec0fea707cf\vm-intelli-gcc-defines.h;$(ProjectDir)..\..\..\..\..\..\..\program files\microsoft visual studio\2022\enterprise\common7\ide\extensions\50fqdxjx.0wj\Micro Platforms\default\vm-intelli-post.h;$(ProjectDir)__vm\.ArduBoy.Runtime.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles>c:\program files\microsoft visual studio\2022\enterprise\common7\ide\extensions\jbmj4m1q.esc\Micro Platforms\default\vm-intelli-pre.h;C:\Users\kris7\AppData\Local\Temp\VMBuilds\ArduBoy.Runtime\nano_atmega328old\Debug\.vmintelli\a9d442f7b380edde80fa46287bb98f68\vm-intelli-gcc-defines.h;c:\program files\microsoft visual studio\2022\enterprise\common7\ide\extensions\jbmj4m1q.esc\Micro Platforms\default\vm-intelli-post.h;$(ProjectDir)__vm\.ArduBoy.Runtime.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <UndefineAllPreprocessorDefinitions>true</UndefineAllPreprocessorDefinitions>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>_VMICRO_INTELLISENSE;__AVR_atmega328p__;__AVR_ATmega328P__;__AVR_ATmega328p__;_VMDEBUG=1;F_CPU=16000000L;ARDUINO=108010;ARDUINO_AVR_NANO;ARDUINO_ARCH_AVR;%(PreprocessorDefinitions)</PreprocessorDefinitions>

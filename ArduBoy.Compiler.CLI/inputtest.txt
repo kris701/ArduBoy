@@ -1,0 +1,40 @@
+(
+	(:name Input Test)
+	(:includes (:include core))
+
+	(:func Setup
+		(
+		)
+	)
+
+	(:func Loop
+		(
+			(:if (%INPUT_UP% == 1) (
+				(:draw-text 0 0 1 %GREEN% UP)
+			))
+			(:if (%INPUT_DOWN% == 1) (
+				(:draw-text 0 0 1 %GREEN% DOWN)
+			))
+			(:if (%INPUT_LEFT% == 1) (
+				(:draw-text 0 0 1 %GREEN% LEFT)
+			))
+			(:if (%INPUT_RIGHT% == 1) (
+				(:draw-text 0 0 1 %GREEN% RIGHT)
+			))
+			(:if (%INPUT_A% == 1) (
+				(:draw-text 0 0 1 %GREEN% A)
+			))
+			(:if (%INPUT_B% == 1) (
+				(:draw-text 0 0 1 %GREEN% B)
+			))
+			(:if (%INPUT_START% == 1) (
+				(:draw-text 0 0 1 %GREEN% START)
+			))
+			(:if (%INPUT_SELECT% == 1) (
+				(:draw-text 0 0 1 %GREEN% SELECT)
+			))
+			(:wait 100)
+			(:draw-fill %BLACK%)
+		)
+	)
+)

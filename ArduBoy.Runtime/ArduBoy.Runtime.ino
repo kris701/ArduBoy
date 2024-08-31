@@ -11,14 +11,14 @@
 #define SCREEN_RST              6
 #define SCREEN_WIDTH            128
 #define SCREEN_HEIGHT           128
-#define INPUT_UP                A0
+#define INPUT_UP                A2
 #define INPUT_DOWN              A1
-#define INPUT_LEFT              A2
-#define INPUT_RIGHT             A3
-#define INPUT_A                 A4
-#define INPUT_B                 A5
+#define INPUT_LEFT              A0
+#define INPUT_RIGHT             A7
+#define INPUT_A                 A3
+#define INPUT_B                 A4
 #define INPUT_SELECT            A6
-#define INPUT_START             A7
+#define INPUT_START             A5
 
 #define BYTE_OFFSET             33
 #define OP_FUNC_END             0 + BYTE_OFFSET
@@ -100,7 +100,12 @@ void setup() {
     pinMode(INPUT_START, INPUT);
 
     if (!SD.begin(SD_CS) || !SD.exists(F("game.bin"))) {
-        while (1) { delay(1000); };
+        while (1) { 
+#if defined(DEBUG)
+            Serial.println(F("Game file not found"));
+#endif
+            delay(1000); 
+        };
     }
 
     gameFile = SD.open(F("game.bin"), FILE_READ);
@@ -112,6 +117,9 @@ void loop() {
         String line = gameFile.readStringUntil('\n');
         if (line == "")
             continue;
+#if defined(DEBUG)
+        Serial.println(line);
+#endif
         SplitString(&line);
         int target = line.charAt(0);
         switch (target)
