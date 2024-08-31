@@ -25,10 +25,10 @@
 			(:draw-fill %BLACK%)
 
 			(:if (%INPUT_UP% == %true%) (
-				(:set direction 128)
+				(:set direction -128)
 			))
 			(:if (%INPUT_DOWN% == %true%) (
-				(:set direction -128)
+				(:set direction 128)
 			))
 			(:if (%INPUT_LEFT% == %true%) (
 				(:set direction -1)
@@ -42,6 +42,12 @@
 
 			(:add position %direction%)
 
+			(:if (%position% > 16384) (
+				(:set xpos %position%)
+				(:mod xpos 128)
+				(:set position %xpos%)
+			))
+
 			(:call DisplayLocation)
 			(:wait 250)
 		)
@@ -53,7 +59,7 @@
 			(:div ypos 128)
 			(:set xpos %position%)
 			(:mod xpos 128)
-			(:draw-line %xpos% %ypos% 1 1 %BLUE%)
+			(:draw-fill-rect %xpos% %ypos% 5 5 %BLUE%)
 		)
 	)
 )
