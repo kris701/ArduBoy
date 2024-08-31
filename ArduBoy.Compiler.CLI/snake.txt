@@ -1,0 +1,56 @@
+(
+	(:name Snake)
+	(:includes (:include core))
+
+	(:func Setup
+		(
+			(:draw-text 20 20 10 %RED% SNAKE)
+			(:audio 500)
+			(:wait 250)
+			(:audio 800)
+			(:wait 250)
+			(:audio 1000)
+			(:wait 250)
+			(:audio 0)
+			(:draw-fill %BLACK%)
+
+			(:set direction 1)
+			(:set position 10)
+		)
+	)
+
+	(:func Loop
+		(
+			// Clear screen
+			(:draw-fill %BLACK%)
+
+			(:if (%INPUT_UP% == %true%) (
+				(:set direction 128)
+			))
+			(:if (%INPUT_DOWN% == %true%) (
+				(:set direction -128)
+			))
+			(:if (%INPUT_LEFT% == %true%) (
+				(:set direction -1)
+			))
+			(:if (%INPUT_RIGHT% == %true%) (
+				(:set direction 1)
+			))
+
+			(:add position %direction%)
+
+			(:call DisplayLocation)
+			(:wait 250)
+		)
+	)
+
+	(:func DisplayLocation
+		(
+			(:set ypos %position%)
+			(:div ypos 128)
+			(:set xpos %position%)
+			(:mod xpos 128)
+			(:draw-line %xpos% %ypos% 1 1 %BLUE%)
+		)
+	)
+)

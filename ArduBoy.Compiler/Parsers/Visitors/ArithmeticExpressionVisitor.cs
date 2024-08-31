@@ -13,6 +13,7 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 			if ((returnNode = TryVisitSubDeclaration(node)) != null) return returnNode;
 			if ((returnNode = TryVisitMultDeclaration(node)) != null) return returnNode;
 			if ((returnNode = TryVisitDivDeclaration(node)) != null) return returnNode;
+			if ((returnNode = TryVisitModDeclaration(node)) != null) return returnNode;
 
 			return returnNode;
 		}
@@ -80,6 +81,23 @@ namespace ArduBoy.Compiler.Parsers.Visitors
 		{
 			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":div").Split(' ');
 			var newNode = new DivExp(
+				split[0],
+				VisitAsValueOrVariableExp(new ASTNode(split[1])));
+			return newNode;
+		}
+
+		public ModExp? TryVisitModDeclaration(ASTNode node)
+		{
+			if (IsOfValidNodeType(node.Content, ":mod") &&
+				DoesContentContainNLooseChildren(node, ":mod", 2))
+				return VisitModDeclaration(node);
+			return null;
+		}
+
+		public ModExp VisitModDeclaration(ASTNode node)
+		{
+			var split = RemoveNodeTypeAndEscapeChars(node.Content, ":mod").Split(' ');
+			var newNode = new ModExp(
 				split[0],
 				VisitAsValueOrVariableExp(new ASTNode(split[1])));
 			return newNode;

@@ -56,6 +56,11 @@ namespace ArduBoy.Compiler.CodeGenerators.Visitors
 			return $"{OperatorCodes.GetByteCode(":div")} {node.Name} {Visit((dynamic)node.Value)}";
 		}
 
+		public string Visit(ModExp node)
+		{
+			return $"{OperatorCodes.GetByteCode(":mod")} {node.Name} {Visit((dynamic)node.Value)}";
+		}
+
 		public string Visit(AudioExp node)
 		{
 			return $"{OperatorCodes.GetByteCode(":audio")} {Visit((dynamic)node.Value)}";

@@ -17,20 +17,21 @@
 			{ ":sub", 9 },
 			{ ":mult", 10 },
 			{ ":div", 11 },
+			{ ":mod", 12 },
 
-			{ ":draw-circle", 12 },
-			{ ":draw-fill-circle", 13 },
-			{ ":draw-triangle", 14 },
-			{ ":draw-fill-triangle", 15 },
-			{ ":draw-rect", 16 },
-			{ ":draw-fill-rect", 17 },
-			{ ":draw-text", 18 },
-			{ ":draw-fill", 19 },
+			{ ":draw-circle", 20 },
+			{ ":draw-fill-circle", 21 },
+			{ ":draw-triangle", 22 },
+			{ ":draw-fill-triangle", 23 },
+			{ ":draw-rect", 24 },
+			{ ":draw-fill-rect", 25 },
+			{ ":draw-text", 26 },
+			{ ":draw-fill", 27 },
 
-			{ "==", 20 },
-			{ "<", 21 },
-			{ ">", 22 },
-			{ "!=", 23 },
+			{ "==", 30 },
+			{ "<", 31 },
+			{ ">", 32 },
+			{ "!=", 33 },
 		};
 
 		public static string GetByteCode(string id)

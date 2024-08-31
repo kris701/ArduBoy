@@ -33,20 +33,21 @@
 #define OP_SUB                  9 + BYTE_OFFSET
 #define OP_MULT                 10 + BYTE_OFFSET
 #define OP_DIV                  11 + BYTE_OFFSET
+#define OP_MOD                  12 + BYTE_OFFSET
 
-#define OP_DRAW_CIRCLE          12 + BYTE_OFFSET
-#define OP_DRAW_FILL_CIRCLE     13 + BYTE_OFFSET
-#define OP_DRAW_TRIANGLE        14 + BYTE_OFFSET
-#define OP_DRAW_FILL_TRIANGLE   15 + BYTE_OFFSET
-#define OP_DRAW_RECTANGLE       16 + BYTE_OFFSET
-#define OP_DRAW_FILL_RECTANGLE  17 + BYTE_OFFSET
-#define OP_DRAW_TEXT            18 + BYTE_OFFSET
-#define OP_DRAW_FILL            19 + BYTE_OFFSET
+#define OP_DRAW_CIRCLE          20 + BYTE_OFFSET
+#define OP_DRAW_FILL_CIRCLE     21 + BYTE_OFFSET
+#define OP_DRAW_TRIANGLE        22 + BYTE_OFFSET
+#define OP_DRAW_FILL_TRIANGLE   23 + BYTE_OFFSET
+#define OP_DRAW_RECTANGLE       24 + BYTE_OFFSET
+#define OP_DRAW_FILL_RECTANGLE  25 + BYTE_OFFSET
+#define OP_DRAW_TEXT            26 + BYTE_OFFSET
+#define OP_DRAW_FILL            27 + BYTE_OFFSET
 
-#define OP_IF_EQU               20 + BYTE_OFFSET
-#define OP_IF_LES               21 + BYTE_OFFSET
-#define OP_IF_LAR               22 + BYTE_OFFSET
-#define OP_IF_NEQ               23 + BYTE_OFFSET
+#define OP_IF_EQU               30 + BYTE_OFFSET
+#define OP_IF_LES               31 + BYTE_OFFSET
+#define OP_IF_LAR               32 + BYTE_OFFSET
+#define OP_IF_NEQ               33 + BYTE_OFFSET
 
 Adafruit_SSD1351 display = Adafruit_SSD1351(SCREEN_WIDTH, SCREEN_HEIGHT, &SPI, SCREEN_CS, SCREEN_DC, SCREEN_RST);
 File gameFile;
@@ -56,7 +57,7 @@ uint8_t currentStackPointer = 0;
 enum mathExp {
     ADD, SUB,
     DIV, MUL,
-    SET
+    SET, MOD
 };
 const uint16_t  colors[8] = {
     0x0000, // BLACK
@@ -129,6 +130,7 @@ void loop() {
         case OP_SUB: DoMathExp(&line, mathExp::SUB); break;
         case OP_MULT: DoMathExp(&line, mathExp::MUL); break;
         case OP_DIV: DoMathExp(&line, mathExp::DIV); break;
+        case OP_MOD: DoMathExp(&line, mathExp::MOD); break;
         case OP_AUDIO: DoAudio(&line); break;
         case OP_DRAW_LINE: DoDrawLine(&line); break;
         case OP_DRAW_CIRCLE: DoDrawCircle(&line, false); break;
@@ -240,6 +242,7 @@ void DoMathExp(String* str, mathExp type) {
     case DIV: registers[index] /= value; break;
     case MUL: registers[index] *= value; break;
     case SET: registers[index] = value; break;
+    case MOD: registers[index] %= value; break;
     default:
         break;
     }
