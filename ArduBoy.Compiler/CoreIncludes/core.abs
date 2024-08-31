@@ -22,7 +22,7 @@
 		(
 			// Inputs
 			(:reserved INPUT_UP 0)
-			(:reserved INPUT_DOWN %INPUT_RIGHT%)
+			(:reserved INPUT_DOWN 1)
 			(:reserved INPUT_LEFT 2)
 			(:reserved INPUT_RIGHT 3)
 			(:reserved INPUT_A 4)
