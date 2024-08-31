@@ -15,18 +15,19 @@
 			(:wait 1000)
 			(:draw-fill %BLACK%)
 
-			(:set direction 5)
+			(:set direction 1)
 			(:call CreateNewPellete)
 			(:set position 8192)
 			(:set score 0)
+
+			(:draw-text 0 0 1 %GREEN% Score:)
+			(:draw-text 40 0 1 %GREEN% %score%)
 		)
 	)
 
 	(:func Loop
 		(
 			(:audio 0)
-			(:draw-text 0 0 1 %GREEN% Score:)
-			(:draw-text 40 0 1 %GREEN% %score%)
 
 			(:call ProcessMissingPelletes)
 			(:call DisplayPelleteLocation)
@@ -34,23 +35,23 @@
 			(:call ClearDisplayLocation)
 			(:call ProcessPosition)
 			(:call DisplayLocation)
-			(:wait 250)
+			(:wait 25)
 		)
 	)
 
 	(:func ProcessInput
 		(
 			(:if (%INPUT_UP% == %true%) (
-				(:set direction -640)
+				(:set direction -128)
 			))
 			(:if (%INPUT_DOWN% == %true%) (
-				(:set direction 640)
+				(:set direction 128)
 			))
 			(:if (%INPUT_LEFT% == %true%) (
-				(:set direction -5)
+				(:set direction -1)
 			))
 			(:if (%INPUT_RIGHT% == %true%) (
-				(:set direction 5)
+				(:set direction 1)
 			))
 		)
 	)
@@ -79,6 +80,9 @@
 				(:add score 1)
 				(:audio 1000)
 				(:call CreateNewPellete)
+				(:draw-fill-rect 0 0 128 20 %BLACK%)
+				(:draw-text 0 0 1 %GREEN% Score:)
+				(:draw-text 40 0 1 %GREEN% %score%)
 			))
 		)
 	)
@@ -87,11 +91,11 @@
 		(
 			(:set tmp %MILLIS%)
 			(:set xpos %tmp%)
-			(:mod xpos 5)
+			(:mod xpos 1)
 			(:sub tmp %xpos%)
 
 			(:set ypos %tmp%)
-			(:mod ypos 640)
+			(:mod ypos 128)
 			(:sub tmp %ypos%)
 
 			(:set pelletePosition %tmp%)
