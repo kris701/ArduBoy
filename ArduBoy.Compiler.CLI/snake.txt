@@ -4,7 +4,7 @@
 
 	(:func Setup
 		(
-			(:draw-text 40 40 2 %RED% SNAKE)
+			(:draw-text 35 50 2 %RED% SNAKE)
 			(:audio 500)
 			(:wait 250)
 			(:audio 800)
@@ -94,14 +94,6 @@
 			(:if (%tmp% > 12800) (
 				(:sub tmp 4000)
 			))
-			(:set xpos %tmp%)
-			(:mod xpos 1)
-			(:sub tmp %xpos%)
-
-			(:set ypos %tmp%)
-			(:mod ypos 128)
-			(:sub tmp %ypos%)
-
 			(:set pelletePosition %tmp%)
 		)
 	)
