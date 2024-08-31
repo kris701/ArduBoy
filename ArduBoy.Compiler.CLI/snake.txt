@@ -20,8 +20,9 @@
 			(:set position 8192)
 			(:set score 0)
 
-			(:draw-text 0 0 1 %GREEN% Score:)
-			(:draw-text 40 0 1 %GREEN% %score%)
+			(:draw-text 0 100 1 %GREEN% Score:)
+			(:draw-text 40 100 1 %GREEN% %score%)
+			(:call DisplayPelleteLocation)
 		)
 	)
 
@@ -30,7 +31,6 @@
 			(:audio 0)
 
 			(:call ProcessMissingPelletes)
-			(:call DisplayPelleteLocation)
 			(:call ProcessInput)
 			(:call ClearDisplayLocation)
 			(:call ProcessPosition)
@@ -60,7 +60,7 @@
 		(
 			(:add position %direction%)
 
-			(:if (%position% > 16384) (
+			(:if (%position% > 12800) (
 				(:set xpos %position%)
 				(:mod xpos 128)
 				(:set position %xpos%)
@@ -68,7 +68,7 @@
 			(:if (%position% < 0) (
 				(:set xpos %position%)
 				(:mod xpos 128)
-				(:set position 16256)
+				(:set position 12800)
 				(:add position %xpos%)
 			))
 		)
@@ -80,9 +80,10 @@
 				(:add score 1)
 				(:audio 1000)
 				(:call CreateNewPellete)
+				(:call DisplayPelleteLocation)
 				(:draw-fill-rect 0 0 128 20 %BLACK%)
-				(:draw-text 0 0 1 %GREEN% Score:)
-				(:draw-text 40 0 1 %GREEN% %score%)
+				(:draw-text 0 100 1 %GREEN% Score:)
+				(:draw-text 40 100 1 %GREEN% %score%)
 			))
 		)
 	)
