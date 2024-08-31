@@ -15,10 +15,9 @@
 			(:wait 1000)
 			(:draw-fill %BLACK%)
 
-			(:set snakelength 1)
-			(:set direction 1)
+			(:set direction 5)
 			(:call CreateNewPellete)
-			(:set position 10)
+			(:set position 8192)
 			(:set score 0)
 		)
 	)
