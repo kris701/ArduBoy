@@ -11,14 +11,14 @@
 #define SCREEN_RST              6
 #define SCREEN_WIDTH            128
 #define SCREEN_HEIGHT           128
-#define INPUT_UP                A2
-#define INPUT_DOWN              A1
+#define INPUT_UP                A7
+#define INPUT_DOWN              A4
 #define INPUT_LEFT              A0
-#define INPUT_RIGHT             A7
-#define INPUT_A                 A3
-#define INPUT_B                 A4
-#define INPUT_SELECT            A6
-#define INPUT_START             A5
+#define INPUT_RIGHT             A6
+#define INPUT_A                 A2
+#define INPUT_B                 A1
+#define INPUT_SELECT            A5
+#define INPUT_START             A3
 
 #define BYTE_OFFSET             33
 #define OP_FUNC_END             0 + BYTE_OFFSET
@@ -90,7 +90,7 @@ void setup() {
 
     delay(1000);
 
-    pinMode(INPUT_UP, INPUT);
+    //pinMode(INPUT_UP, INPUT);
     pinMode(INPUT_DOWN, INPUT);
     pinMode(INPUT_LEFT, INPUT);
     pinMode(INPUT_RIGHT, INPUT);
@@ -117,9 +117,6 @@ void loop() {
         String line = gameFile.readStringUntil('\n');
         if (line == "")
             continue;
-#if defined(DEBUG)
-        Serial.println(line);
-#endif
         SplitString(&line);
         int target = line.charAt(0);
         switch (target)
@@ -170,10 +167,12 @@ String GetValueAsStr(String* str) {
 int GetReservedValue(int target) {
     switch (target) {
         // Input
-    case 0: return digitalRead(INPUT_UP);
+                // Needed since A6 and A7 cannot work as digital pins
+    case 0: return analogRead(INPUT_UP) > 512;
     case 1: return digitalRead(INPUT_DOWN);
     case 2: return digitalRead(INPUT_LEFT);
-    case 3: return digitalRead(INPUT_RIGHT);
+                // Needed since A6 and A7 cannot work as digital pins
+    case 3: return analogRead(INPUT_RIGHT) > 512;
     case 4: return digitalRead(INPUT_A);
     case 5: return digitalRead(INPUT_B);
     case 6: return digitalRead(INPUT_SELECT);

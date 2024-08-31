@@ -1,0 +1,20 @@
+(
+	(:name Input Test)
+	(:includes (:include core))
+
+	(:func Setup
+		(
+		)
+	)
+
+	(:func Loop
+		(
+			(:wait 1000)
+			(:audio 500)
+			(:wait 1000)
+			(:audio 1000)
+			(:wait 1000)
+			(:audio 2000)
+		)
+	)
+)
