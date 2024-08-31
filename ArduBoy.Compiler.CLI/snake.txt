@@ -4,7 +4,7 @@
 
 	(:func Setup
 		(
-			(:draw-text 20 20 10 %RED% SNAKE)
+			(:draw-text 20 20 2 %RED% SNAKE)
 			(:audio 500)
 			(:wait 250)
 			(:audio 800)
@@ -36,6 +36,9 @@
 			(:if (%INPUT_RIGHT% == %true%) (
 				(:set direction 1)
 			))
+
+			(:draw-text 0, 80 1 %RED% %direction%)
+			(:draw-text 0, 100 1 %RED% %position%)
 
 			(:add position %direction%)
 
